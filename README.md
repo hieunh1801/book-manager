@@ -22,6 +22,7 @@
         - Số sách còn lại trong kho
 
 - 2. Quản lý mượn trả
+    - Màn hình tìm kiếm: tìm kiếm theo trạng thái( sắp tới hạn trả sách)
     - Mượn sách: 
         - 1 người mượn tối đa 2 quyển trong 1 lần mượn
         - Ngày mượn: ngày hiện tại

@@ -589,3 +589,80 @@ end
 
 -- test
 s15_nkslk 5,11,2018
+
+
+-----------------
+-- 20200302
+
+create function dbo.udf_weeks_of_month (@fromdate date) 
+returns table as return (
+with n as (select n from (values(0),(1),(2),(3),(4),(5),(6),(7),(8),(9)) t(n))
+, dates as (
+  select top (datediff(day, @fromdate, dateadd(month, datediff(month, 0, @fromdate )+1, 0))) 
+    [DateValue]=convert(date,dateadd(day,row_number() over(order by (select 1))-1,@fromdate))
+  from n as deka cross join n as hecto
+)
+select 
+    WeekOfMonth = row_number() over (order by datepart(week,DateValue))
+  , Week        = datepart(week,DateValue)
+  , WeekStart   = min(DateValue)
+  , WeekEnd     = max(DateValue)
+from dates
+group by datepart(week,DateValue)
+);
+
+
+set datefirst 1;
+
+select * from dbo.udf_weeks_of_month('20170101');
+
+
+ drop function dbo.weeks_of_month
+create function dbo.weeks_of_month (@year int, @month int) 
+returns @table TABLE( gday1 INT, gdate date, gorder int, gweek int) as begin
+	
+
+	DECLARE @c_day int, @c_date date,@c_gorder int, @c_week int, @idx int, @temp int
+	set @idx = 1
+
+	DECLARE @t_month TABLE ( gday INT, gdate date, gorder int, gweek int)
+	;WITH N(N)AS (	
+		SELECT 1 
+		FROM (VALUES(1),(1),(1),(1),(1),(1))M(N)
+	),
+	tally(N)AS(
+		SELECT ROW_NUMBER()OVER(ORDER BY N.N)FROM N,N a
+	)
+
+	insert into @t_month(gday,gdate) 
+	SELECT N day,datefromparts(@year,@month,N) date FROM tally
+	WHERE N <= day(EOMONTH(datefromparts(@year,@month,1)))
+
+
+	DECLARE cursor_name CURSOR
+		FOR select * from @t_month;
+	OPEN cursor_name;
+	
+	FETCH NEXT FROM cursor_name INTO @c_day, @c_date, @c_gorder, @c_week;
+	WHILE @@FETCH_STATUS = 0  
+		BEGIN
+			set @temp = DATEPART(dw,@c_date)
+			update @t_month set gweek=@idx, gorder=@temp where gday=@c_day
+			IF @temp = 1 BEGIN
+				SET @idx = @idx+1
+			END;
+			FETCH NEXT FROM cursor_name INTO @c_day, @c_date, @c_gorder, @c_week;
+		END;
+	CLOSE cursor_name;
+	DEALLOCATE cursor_name;
+
+
+	insert @table select * from @t_month
+
+	return
+end;
+
+
+
+
+ 
