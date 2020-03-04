@@ -49,6 +49,7 @@
         - mã người dùng (cập nhật theo id)
         - tên đăng nhập
         - mật khẩu
+
 - 5. Thống kê
     - Thống kê theo thời gian(tuần, tháng, quý, năm):
         - Hướng về người mượn: 
@@ -65,3 +66,7 @@
         - Hướng về số lượt mượn sách: 
             + trong tháng có bao nhiêu lượt mượn sách
             + trong tháng có bao nhiêu lượt trả
+- enity:
+    - DTO: input từ form nhập
+    - BO: là map với các bảng trong database
+    - BEAN: là map để lấy dữ liệu trả về để form hiển thị
