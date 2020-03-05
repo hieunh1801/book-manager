@@ -1,16 +1,16 @@
-USE master
-CREATE DATABASE book_management
-USE book_management
+
+CREATE DATABASE book_management;
+USE book_management;
 
 CREATE TABLE category(
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id INT PRIMARY KEY AUTO_INCREMENT ,
     code NVARCHAR(10),
     name NVARCHAR(200),
     note TEXT
-)
+);
 
 CREATE TABLE book(
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id INT PRIMARY KEY AUTO_INCREMENT ,
     code NVARCHAR(10),
     name NVARCHAR(200),
     description TEXT,
@@ -20,18 +20,18 @@ CREATE TABLE book(
     amount INT,
 
     category_id INT NOT NULL
-)
+);
 
 CREATE TABLE system_param (
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id INT PRIMARY KEY AUTO_INCREMENT ,
     code NVARCHAR(10),
     name NVARCHAR(200),
-    key NVARCHAR(200),
-    value NVARCHAR(200)
-)
+    skey NVARCHAR(200),
+    svalue NVARCHAR(200)
+);
 
 CREATE TABLE member (
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id INT PRIMARY KEY AUTO_INCREMENT ,
     code NVARCHAR(10),
     full_name NVARCHAR(200),
     date_of_birth DATE,
@@ -40,16 +40,16 @@ CREATE TABLE member (
     email VARCHAR(200),
     gender BIT,
     avatar_ulr TEXT
-)
+);
 
 CREATE TABLE role(
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id INT PRIMARY KEY AUTO_INCREMENT ,
     code NVARCHAR(10),
     name NVARCHAR(200)
-)
+);
 
 CREATE TABLE user(
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id INT PRIMARY KEY AUTO_INCREMENT ,
     code NVARCHAR(10),
     account NVARCHAR(200),
     password NVARCHAR(200),
@@ -62,10 +62,10 @@ CREATE TABLE user(
     avatar_url TEXT,
 
     role_id INT NOT NULL
-)
+);
 
 CREATE TABLE borrow(
-    id INT PRIMARY KEY IDENTITY(1,1),
+    id INT PRIMARY KEY AUTO_INCREMENT ,
     code NVARCHAR(10),
 
     from_date DATE,
@@ -73,5 +73,7 @@ CREATE TABLE borrow(
     status SMALLINT,
 
     book_id INT NOT NULL,
-    member_id INT NOT NULL,
+    member_id INT NOT NULL
 )
+
+
