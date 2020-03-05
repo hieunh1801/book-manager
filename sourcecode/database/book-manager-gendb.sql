@@ -38,7 +38,7 @@ CREATE TABLE member (
     address NVARCHAR(2000),
     phone_number VARCHAR(15),
     email VARCHAR(200),
-    gender BIT,
+    gender INT,
     avatar_ulr TEXT
 );
 
@@ -49,16 +49,16 @@ CREATE TABLE role(
 );
 
 CREATE TABLE user(
-    id INT PRIMARY KEY AUTO_INCREMENT ,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     code NVARCHAR(10),
     account NVARCHAR(200),
-    password NVARCHAR(200),
     full_name NVARCHAR(200),
     date_of_bird DATE,
     address NVARCHAR(200),
+    password NVARCHAR(200),
     phone_number VARCHAR(20),
     email NVARCHAR(2000),
-    gender BIT,
+    gender INT,
     avatar_url TEXT,
 
     role_id INT NOT NULL
