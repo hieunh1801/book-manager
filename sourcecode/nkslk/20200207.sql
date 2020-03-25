@@ -88,6 +88,7 @@ begin
 	)
 end
 
+exec s2_nkslk
 
 
 ---------------------
@@ -616,8 +617,10 @@ set datefirst 1;
 
 select * from dbo.udf_weeks_of_month('20170101');
 
+select * from dbo.weeks_of_month(2018,1)
 
  drop function dbo.weeks_of_month
+
 create function dbo.weeks_of_month (@year int, @month int) 
 returns @table TABLE( gday1 INT, gdate date, gorder int, gweek int) as begin
 	
