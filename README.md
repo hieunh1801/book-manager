@@ -70,3 +70,32 @@
     - DTO: input từ form nhập
     - BO: là map với các bảng trong database
     - BEAN: là map để lấy dữ liệu trả về để form hiển thị
+
+
+
+## Chức năng gom cụm lại
+- Quản lý sách: Hiếu
+    - Quản lý sách
+        + Thêm, sửa, xóa, tìm kiếm sách
+        + Import sách từ file Exel
+    - Quản lý các đầu mục sách
+        + Thêm, sửa, xóa, tìm kiếm các đầu mục sách
+        + Import các category từ file Exel
+
+- Quản lý user: Hiếu
+    - Quản lý user
+        + Thêm, sửa, xóa, tìm kiếm user
+        + Inport user từ file Exel
+    - Quản lý thông tin các member
+        + Thêm sửa xóa, tìm kiếm các member
+        + Import member từ file Exel
+
+- Quản lý mượn trả sách: Sơn
+    - Quản lý mượn trả sách
+        + Quản lý mượn sách
+        + Quản lý trả sách
+        + Thống kê trạng thái của các đầu sách
+    - Cấu hình các tham số (điều kiện mượn trả sách)
+
+- Cấu hình người dùng: Sơn
+    - Cho phép người dùng tự chỉnh sửa profile của mình
