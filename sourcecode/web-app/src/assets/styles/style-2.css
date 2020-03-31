@@ -3204,3 +3204,20 @@ label {
 .table-striped>thead>th:last-child {
   border-right: none;
 }
+
+.control-label{
+  padding-top: 7px;
+  min-height: 28px;
+  font-weight: bold !important;
+  /* line-height: 1.24em;  */
+  vertical-align: middle;
+}
+.vt-align-right{
+  text-align: right;
+}
+.vt-align-left{
+  text-align: left;
+}
+.vt-align-center{
+  text-align: center;
+}

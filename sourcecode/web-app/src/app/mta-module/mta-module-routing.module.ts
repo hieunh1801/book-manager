@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: "user",
     loadChildren: "./user/user.module#UserModule"
+  },
+  {
+    path: "borrow",
+    loadChildren: "./borrow/borrow.module#BorrowModule"
   }
 ];
 
