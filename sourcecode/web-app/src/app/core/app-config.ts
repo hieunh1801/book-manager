@@ -5,9 +5,11 @@ export const CONFIG: any = {
     restUtt: "/rest",
     /********************File SYSTEM****************/
     fileStorage: "/file",
-    /********************UTT ESS SYSTEM*****************/
+    /********************MTA ESS SYSTEM*****************/
     user: "/user",
-    borrow : "/borrow"
+    books: "/books",
+    categories: "/categories"
+
   }
 };
 

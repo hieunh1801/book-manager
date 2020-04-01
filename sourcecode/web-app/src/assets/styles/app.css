@@ -5553,8 +5553,8 @@ a.text-#000000:hover {
 .control-label{
   padding-top: 7px;
   min-height: 28px;
-  font-weight: bold !important;
-  line-height: 1.24em; 
+  font-weight: bold;
+  line-height: 1.24em;
   vertical-align: middle;
 }
 .vt-align-right{

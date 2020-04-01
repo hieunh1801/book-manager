@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BorrowManageIndexComponent } from './borrow-manage-index.component';
+import { CategorySearchComponent } from './category-search.component';
 
-describe('BorrowManageIndexComponent', () => {
-  let component: BorrowManageIndexComponent;
-  let fixture: ComponentFixture<BorrowManageIndexComponent>;
+describe('CategorySearchComponent', () => {
+  let component: CategorySearchComponent;
+  let fixture: ComponentFixture<CategorySearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BorrowManageIndexComponent ]
+      declarations: [ CategorySearchComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BorrowManageIndexComponent);
+    fixture = TestBed.createComponent(CategorySearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

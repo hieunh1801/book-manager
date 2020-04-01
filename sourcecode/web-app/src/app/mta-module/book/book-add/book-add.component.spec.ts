@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BorrowMemberIndexComponent } from './borrow-member-index.component';
+import { BookAddComponent } from './book-add.component';
 
-describe('BorrowMemberIndexComponent', () => {
-  let component: BorrowMemberIndexComponent;
-  let fixture: ComponentFixture<BorrowMemberIndexComponent>;
+describe('BookAddComponent', () => {
+  let component: BookAddComponent;
+  let fixture: ComponentFixture<BookAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BorrowMemberIndexComponent ]
+      declarations: [ BookAddComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BorrowMemberIndexComponent);
+    fixture = TestBed.createComponent(BookAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

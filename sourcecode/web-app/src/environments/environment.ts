@@ -10,9 +10,7 @@ export const environment = {
   production: false,
   version: env.npm_package_version + "-dev",
   serverUrl: {
-    bms: "http://localhost:8085",
-    // oauth: "http://localhost:8880/api-oauth"
-    // file      : 'http://14.162.144.202:8088',
+    bms: "http://localhost:8085"
   }
 };
 

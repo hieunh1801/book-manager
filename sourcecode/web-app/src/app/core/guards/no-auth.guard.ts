@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+// import { Injectable } from '@angular/core';
+// import { CanActivate } from '@angular/router';
 
-@Injectable()
-export class NoAuthGuard implements CanActivate {
-    constructor() {}
+// @Injectable()
+// export class NoAuthGuard implements CanActivate {
+//     constructor() {}
 
-    canActivate(): boolean {
-        return true;
-    }
+//     canActivate(): boolean {
+//         return true;
+//     }
 
-}
+// }
