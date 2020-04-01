@@ -3221,3 +3221,7 @@ label {
 .vt-align-center{
   text-align: center;
 }
+.btn i{
+  position: relative !important;
+  left: -7px !important;
+}

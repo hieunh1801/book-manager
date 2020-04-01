@@ -7,7 +7,7 @@ export const CONFIG: any = {
     fileStorage: "/file",
     /********************UTT ESS SYSTEM*****************/
     user: "/user",
-   
+    borrow : "/borrow"
   }
 };
 

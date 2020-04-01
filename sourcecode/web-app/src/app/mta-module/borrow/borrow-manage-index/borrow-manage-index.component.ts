@@ -6,11 +6,12 @@ import { UserService } from 'src/app/core/services/user.service';
 import { ACTION_FORM, RESOURCE } from 'src/app/core/app-config';
 import { AppComponent } from 'src/app/app.component';
 import { Validators } from '@angular/forms';
+import { BorrowService } from 'src/app/core/services/borrow.service';
 
 @Component({
   selector: 'app-borrow-manage-index',
   templateUrl: './borrow-manage-index.component.html',
-  styleUrls: ['./borrow-manage-index.component.sass']
+  styleUrls: ['./borrow-manage-index.component.css']
 })
 export class BorrowManageIndexComponent  extends BaseComponent implements OnInit {
   formConfig ={
@@ -32,11 +33,11 @@ export class BorrowManageIndexComponent  extends BaseComponent implements OnInit
     public actr: ActivatedRoute,
     public router: Router,
     private modalService: NgbModal,
-    private userService: UserService,
+    private borrowService: BorrowService,
     private app: AppComponent
   ) {
     super(actr, RESOURCE.USER, ACTION_FORM.SEARCH);
-    this.setMainService(userService);
+    this.setMainService(borrowService);
     this.formSearch = this.buildForm({}, this.formConfig);
    }
 
