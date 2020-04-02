@@ -42,12 +42,11 @@ export class BookSearchComponent extends BaseComponent implements OnInit {
   public get f() {
     return this.formSearch.controls;
   }
-  private prepareSaveOrUpdate(item?: any) {
+  public prepareSaveOrUpdate(item?: any) {
     if (item == null) {
       this.router.navigateByUrl("book-manager/books/add");
     } else {
       this.router.navigate(["book-manager/books/edit", item]);
     }
   }
-
 }

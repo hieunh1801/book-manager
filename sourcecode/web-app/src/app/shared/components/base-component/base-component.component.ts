@@ -111,8 +111,8 @@ export class BaseComponent {
     }
     const params = this.formSearch ? this.formSearch.value : null;
     this.mainService.search(params, event).subscribe(res => {
+      console.log("search data", res)
       this.resultList = res;
-      
     });
 
     if (!event) {
@@ -161,12 +161,12 @@ export class BaseComponent {
    */
   public havePermission(roleCode) {
     const lstRole = Storage.getUserToken().lstRoleCode;
-    if(lstRole == null) {
+    if (lstRole == null) {
       return false;
     }
-    if(lstRole.indexOf(roleCode)>=0 || lstRole.indexOf("ROLE_ADMIN")>=0) {
+    if (lstRole.indexOf(roleCode) >= 0 || lstRole.indexOf("ROLE_ADMIN") >= 0) {
       return true;
     }
-     return false;
+    return false;
   }
 }

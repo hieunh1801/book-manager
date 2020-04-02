@@ -70,8 +70,8 @@ public class BookController {
 
 	@GetMapping(path = "/{id}")
 	public @ResponseBody Response apiGetById(HttpServletRequest req, @PathVariable Long id) {
-		String book = "You get book_id + " + id.toString();
-		return Response.success().withData(book);
+		BookBO bookBO = bookService.getById(id);
+		return Response.success().withData(bookBO);
 	}
 
     @DeleteMapping(path = "/{id}")

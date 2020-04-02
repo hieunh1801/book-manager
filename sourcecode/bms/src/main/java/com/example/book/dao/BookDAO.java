@@ -35,10 +35,11 @@ public interface BookDAO extends CrudRepository<BookBO, Long> {
         sql += "  b.id as id ";
         sql += " ,b.code as code ";
         sql += " ,b.name as name";
+        sql += " ,b.publisher as publisher ";
         sql += " ,b.description as description ";
         sql += " ,b.author as author ";
         sql += " ,b.amount as amount ";
-        sql += " ,b.category_id as category_id ";
+        sql += " ,b.category_id as categoryId ";
         sql += " ,c.name as categoryName ";
         sql += " from book b inner join category c on b.category_id = c.id  ";
 
@@ -46,13 +47,14 @@ public interface BookDAO extends CrudRepository<BookBO, Long> {
         CommonUtil.filter(formData.getId(), strCondition, paramList, "b.id");
         CommonUtil.filter(formData.getCode(), strCondition, paramList, "b.code");
         CommonUtil.filter(formData.getName(), strCondition, paramList, "b.name");
+        CommonUtil.filter(formData.getPublisher(), strCondition, paramList, "b.publisher");
         CommonUtil.filter(formData.getDescription(), strCondition, paramList, "b.description");
         CommonUtil.filter(formData.getAuthor(), strCondition, paramList, "b.author");
         CommonUtil.filter(formData.getAmount(), strCondition, paramList, "b.amount");
         CommonUtil.filter(formData.getCategoryId(), strCondition, paramList, "b.category_id");
-
+        
         String selectFields = " order by id ";
-
+        
         return uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, BookBean.class);
     }
 
