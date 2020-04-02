@@ -21,6 +21,8 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     bookName :[''],
     status :[''],
   };
+  
+  results: any; 
   formSaveConfig = {
     id:      [''],
     bookId : [''],
@@ -74,4 +76,10 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     }
     controls.removeAt(index);
   }
+
+  private searchAutoComplete(event) {
+    // this.personService.findByCodeOrName(event.query).subscribe(res => {
+    //     this.results = res.data;
+    // });
+}
 }
