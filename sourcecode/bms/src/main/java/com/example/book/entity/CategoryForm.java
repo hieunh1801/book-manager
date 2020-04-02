@@ -1,11 +1,10 @@
 package com.example.book.entity;
 
-public class CategoryBean {
+public class CategoryForm {
 	private Long id;
 	private String code;
 	private String name;
 	private String note;
-	
 	public Long getId() {
 		return id;
 	}
@@ -30,5 +29,5 @@ public class CategoryBean {
 	public void setNote(String note) {
 		this.note = note;
 	}
-
+	
 }

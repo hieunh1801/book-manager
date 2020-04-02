@@ -3,12 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "user",
+    path: "users",
     loadChildren: "./user/user.module#UserModule"
   },
   {
-    path: "borrow",
-    loadChildren: "./borrow/borrow.module#BorrowModule"
+    path: "book-manager",
+    loadChildren: "./book/book.module#BookModule"
   }
 ];
 

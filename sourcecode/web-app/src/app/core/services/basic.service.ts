@@ -77,6 +77,7 @@ export class BasicService {
     if (event) {
       searchData._search = event;
     }
+    console.log("call api search data", searchData);
     const buildParams = CommonUtils.buildParams(searchData);
     const url = `${this.serviceUrl}/search?`;
     return this.getRequest(url, { params: buildParams });
@@ -143,8 +144,8 @@ export class BasicService {
     const errorMsg = error.message
       ? error.message
       : error.status
-      ? `${error.status} - ${error.statusText}`
-      : "Server error";
+        ? `${error.status} - ${error.statusText}`
+        : "Server error";
     return throwError(errorMsg);
   }
   /**
@@ -153,15 +154,15 @@ export class BasicService {
   public getRequest(url: string, options?: any): Observable<any> {
     this.helperService.isProcessing(true);
 
-    if (!options){
-      options = {
-        headers: {'Authorization':  Storage.getUserToken().access_token, 'Content-Type': 'application/json' },
-      }
-    }
-    else {
-      options.headers = {'Authorization': Storage.getUserToken().access_token, 'Content-Type': 'application/json'}
-    }
- 
+    // if (!options) {
+    //   options = {
+    //     headers: { 'Authorization': Storage.getUserToken().access_token, 'Content-Type': 'application/json' },
+    //   }
+    // }
+    // else {
+    //   options.headers = { 'Authorization': Storage.getUserToken().access_token, 'Content-Type': 'application/json' }
+    // }
+
     return this.httpClient.get(url, options).pipe(
       tap(
         // Log the result or error
@@ -178,17 +179,17 @@ export class BasicService {
     );
   }
 
-  
+
   /**
    * make post request
    */
   public postRequest(url: string, data?: any): Observable<any> {
     this.helperService.isProcessing(true);
-    const headers = new HttpHeaders ({
-      'Authorization': Storage.getUserToken().access_token,
-      'Content-Type': 'application/json'
-    });
-    return this.httpClient.post(url, data,{headers: headers}).pipe(
+    // const headers = new HttpHeaders({
+    //   'Authorization': Storage.getUserToken().access_token,
+    //   'Content-Type': 'application/json'
+    // });
+    return this.httpClient.post(url, data).pipe(
       tap(
         // Log the result or error
         res => {
@@ -207,12 +208,12 @@ export class BasicService {
    * make get request
    */
   public deleteRequest(url: string): Observable<any> {
-    const headers = new HttpHeaders ({
-      'Authorization': Storage.getUserToken().access_token,
-      'Content-Type': 'application/json'
-    });
-    this.helperService.isProcessing(true);
-    return this.httpClient.delete(url, {headers: headers}).pipe(
+    // const headers = new HttpHeaders({
+    //   'Authorization': Storage.getUserToken().access_token,
+    //   'Content-Type': 'application/json'
+    // });
+    // this.helperService.isProcessing(true);
+    return this.httpClient.delete(url).pipe(
       tap(
         // Log the result or error
         res => {

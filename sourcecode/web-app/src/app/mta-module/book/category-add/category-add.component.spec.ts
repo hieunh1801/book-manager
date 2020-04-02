@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BorrowMemberIndexComponent } from './borrow-member-index.component';
+import { CategoryAddComponent } from './category-add.component';
 
-describe('BorrowMemberIndexComponent', () => {
-  let component: BorrowMemberIndexComponent;
-  let fixture: ComponentFixture<BorrowMemberIndexComponent>;
+describe('CategoryAddComponent', () => {
+  let component: CategoryAddComponent;
+  let fixture: ComponentFixture<CategoryAddComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BorrowMemberIndexComponent ]
+      declarations: [ CategoryAddComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BorrowMemberIndexComponent);
+    fixture = TestBed.createComponent(CategoryAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
