@@ -49,7 +49,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
   }
   onBlur(event) {
     if (!this.dateValue && event.currentTarget.value !== '') {
-      this.helperService.APP_TOAST_MESSAGE.next({type: 'ERROR', code: 'dateInvalid', message: null});
+      this.helperService.APP_TOAST_MESSAGE.next({ type: 'ERROR', code: 'dateInvalid', message: null });
     }/* else if (this.dateValue && this.dateValue.getTime() < 0) {
       this.helperService.APP_TOAST_MESSAGE.next({type: 'ERROR', code: 'dateInvalid', message: null});
       this.dateValue = null;
@@ -119,11 +119,11 @@ export class DatePickerComponent implements OnInit, OnChanges {
     if (event) {
       let cursorPosition = event.target.selectionEnd;
       if (event.inputType === 'deleteContentBackward') {
-          event.target.value = event.target.value.substring(0, cursorPosition - 1) + event.target.value.substring(cursorPosition);
-          cursorPosition --;
+        event.target.value = event.target.value.substring(0, cursorPosition - 1) + event.target.value.substring(cursorPosition);
+        cursorPosition--;
       }
       if (event.inputType === 'insertText' && (event.target.value.length)) {
-          event.target.value = event.target.value.substring(0, event.target.value.length - 1);
+        event.target.value = event.target.value.substring(0, event.target.value.length - 1);
       }
 
       this.dateMask = event.target.value.toString();
@@ -131,11 +131,11 @@ export class DatePickerComponent implements OnInit, OnChanges {
 
       let mask = '';
       for (let i = 0; i < this.dateMask.length; i++) {
-          mask += this.dateMask[i];
-          // if (parseFormat.isForward(i)) {
-          //     mask += '/';
-          //     if (parseFormat.isBackward(cursorPosition)) { cursorPosition++; }
-          // }
+        mask += this.dateMask[i];
+        // if (parseFormat.isForward(i)) {
+        //     mask += '/';
+        //     if (parseFormat.isBackward(cursorPosition)) { cursorPosition++; }
+        // }
       }
       event.target.value = mask.toString();
       event.target.selectionStart = cursorPosition;

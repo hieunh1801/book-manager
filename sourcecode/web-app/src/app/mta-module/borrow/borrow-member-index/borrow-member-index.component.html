@@ -1,0 +1,199 @@
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+    <div class="panel-heading">
+      <strong class="text-u-c">
+        <i class="fa fa-th"></i>
+        <span> Thông tin bạn đọc</span>
+      </strong>
+    </div>
+    <div class="panel-body padding-xl ui-g">
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Bạn đọc <font size="2" color="red">*</font></label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <p-autoComplete [suggestions]="listMember" (onSelect)="selectMember( $event)"
+            inputStyleClass="form-control" (completeMethod)="searchMemberAutoComplete($event)" field="nameCode" [size]="30"
+            [minLength]="1">
+          </p-autoComplete>
+          <app-control-messages [control]="f['id']"></app-control-messages>
+        </div>
+        <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Giới tính </label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3 nowrap">
+          <div class="form-check-inline">
+            <label class="i-checks">
+              <input type="radio" formControlName="gender" class="form-check-input control-label" id="gender_1"
+                [value]="1" name="gender">
+              <i></i>
+              Nam
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="i-checks">
+              <input type="radio" formControlName="gender" class="form-check-input control-label" id="gender_2"
+                [value]="2" name="gender">
+              <i></i>
+              Nữ
+            </label>
+          </div>
+          <app-control-messages [control]="f['gender']"></app-control-messages>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Ngày sinh </label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <date-picker [property]="f['dateOfBirth']" dateFormat='dd/mm/yy'></date-picker>
+          <app-control-messages [control]="f['dateOfBirth']"></app-control-messages>
+        </div>
+
+        <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Địa chỉ </label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="address" maxlength="200">
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">SĐT </label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="phoneNumber" maxlength="200">
+        </div>
+
+        <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Email </label>
+        <div class="ui-g-12 ui-md-6 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="email" maxlength="200">
+        </div>
+      </div>
+     
+    </div>
+  </form>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Mượn/Trả sách</span>
+    </strong>
+  </div>
+  <div class="panel-body padding-xl ui-g">
+    <p-table [scrollable]="false" [value]="formSave.controls"
+      tableStyleClass="table controls-table table-wrapper b-t b-b">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col class="size-1">
+          <col>
+          <col>
+          <col>
+          <col>
+          <col>
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>STT</th>
+          <th>Thao tác</th>
+          <th>Tên sách</th>
+          <th>Ngày mượn</th>
+          <th>Ngày trả</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr [formGroup]="item">
+          <td class="vt-align-center">
+            {{index+1}}
+          </td>
+          <td class="vt-align-center">
+            <!-- <p-splitButton label="Thao tác" icon="pi pi-check" (onClick)="save()" [model]="items"></p-splitButton> -->
+          </td>
+          <td>
+            <p-autoComplete  [formControlName] = "'bookName'" [suggestions]="results" (onSelect)="selectBook(item, $event)"
+              (completeMethod)="searchAutoComplete($event)" field="nameCode" [size]="30" [minLength]="1">
+            </p-autoComplete>
+            <app-control-messages [control]="item.controls['bookId']"></app-control-messages>
+          </td>
+          <td class="vt-align-center">
+            <date-picker [property]="item.controls.fromDate" dateFormat='dd/mm/yy'></date-picker>
+            <app-control-messages [control]="item.controls['fromDate']"></app-control-messages>
+          </td>
+          <td class="vt-align-center">
+            <date-picker [property]="item.controls['toDate']" dateFormat='dd/mm/yy'></date-picker>
+            <app-control-messages [control]="item.controls['toDate']"></app-control-messages>
+          </td>
+          <td class="vt-align-center table-action">
+            <button class="btn btn-icon plus" type="button" title="thêm" (click)="addRow(index, item)">
+              <i class="pi pi-plus"></i>
+            </button>
+            <button class="btn btn-icon minus" type="button" title="xóa" (click)="removeRow(index, item)">
+              <i class='pi pi-minus'></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="panel-footer vt-area-button">
+    <button type="submit" (click)="saveOrUpdate();" class="btn btn-sm btn-info"><i class="fa fa-save"></i> Lưu
+      lại</button>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <!-- <form id="formSearch" [formGroup]="formSearch"> -->
+  <div class="panel-heading">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Lịch sử mượn/trả sách</span>
+    </strong>
+  </div>
+  <div class="panel-body padding-xl ui-g" *ngIf="listHistory && listHistory.data">
+    <p-table #ptable [value]="listHistory.data" [paginator]="listHistory.data && listHistory.data.length"
+      (onLazyLoad)="processSearchHistory($event)" [lazy]="true" [rows]="10" [totalRecords]="listHistory.recordsTotal"
+      [responsive]="true" [lazyLoadOnInit]="false"
+      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col class="size-1">
+          <col class="size-6">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>STT</th>
+          <th>Tên sách</th>
+          <th>Ngày mượn</th>
+          <th>Ngày trả </th>
+          <th>Trạng thái </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr>
+          <td class="vt-align-center">{{index+1}}</td>
+          <td class="vt-align-center">
+            {{item.bookName}}
+          </td>
+          <td class="vt-align-center">
+            {{item.fromDate | date: 'dd/MM/yyyy'}} 
+          </td>
+          <td class="vt-align-center">
+            {{item.toDate | date: 'dd/MM/yyyy'}} 
+          </td>
+          <td>
+
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr class="emptymessage">
+          <td [attr.colspan]="5">
+            Không tồn tại bản ghi
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <table-footer [resultList]="resultList"></table-footer>
+      </ng-template>
+    </p-table>
+  </div>
+  <!-- </form> -->
+</div>

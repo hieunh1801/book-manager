@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: UserIndexComponent,
-    pathMatch : 'prefix',
+    pathMatch: 'prefix',
   }
 ];
 

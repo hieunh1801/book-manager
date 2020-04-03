@@ -31,6 +31,7 @@
             - Có thông tin trong thông tin bạn đọc
             - Không có quyển sách nào trễ hạn trả
             - Còn sách trong kho
+        - Gia hạn: 7 ngày
     - Trả sách:
         - Không có gì
 

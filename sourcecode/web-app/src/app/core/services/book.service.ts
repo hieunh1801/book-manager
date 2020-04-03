@@ -23,4 +23,10 @@ export class BookService extends BasicService {
     return this.httpClient.get(url);
   }
 
+  public seacrhAutoComplete(data): Observable<any> {
+    const url = `${this.serviceUrl}/auto-complete/${data}`;
+    return this.httpClient.get(url);
+  }
+
+ 
 }

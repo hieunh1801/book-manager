@@ -8,7 +8,8 @@ export const CONFIG: any = {
     /********************MTA ESS SYSTEM*****************/
     user: "/user",
     books: "/books",
-    categories: "/categories"
+    categories: "/categories",
+    borrow : "/borrow"
 
   }
 };
