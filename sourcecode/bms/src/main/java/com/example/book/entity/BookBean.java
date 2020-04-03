@@ -12,6 +12,8 @@ public class BookBean {
 
 	private Long categoryId;
 	private String categoryName;
+	private String nameCode;
+	
 	public Long getId() {
 		return id;
 	}
@@ -72,5 +74,13 @@ public class BookBean {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+    
+    public String getNameCode() {
+        return nameCode;
+    }
+    
+    public void setNameCode(String nameCode) {
+        this.nameCode = nameCode;
+    }
 	
 }

@@ -90,4 +90,9 @@ public class BookController {
 		DataTableResults<BookBean> listBooks = bookService.search(form);
 		return listBooks;
 	}
+	
+	@GetMapping(path = "/auto-complete/{search}")
+	public @ResponseBody Response searchAutoComplete(HttpServletRequest req,   @PathVariable String search){
+        return Response.success().withData(bookService.searchAutoComplete(search));
+    }
 }

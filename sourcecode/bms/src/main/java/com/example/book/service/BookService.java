@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.book.dao.BookDAO;
 import com.example.book.entity.BookBO;
 import com.example.book.entity.BookBean;
@@ -38,4 +39,7 @@ public class BookService {
 		bookDAO.deleteById(id);
 	}
 	
+	public List<BookBean> searchAutoComplete(  String search) {
+	    return bookDAO.searchAutoComplete(uttData, search);
+	}
 }
