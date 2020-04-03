@@ -9,7 +9,8 @@ export const CONFIG: any = {
     user: "/user",
     books: "/books",
     categories: "/categories",
-    borrow : "/borrow"
+    members: "/members",
+    borrow: "/borrow"
 
   }
 };

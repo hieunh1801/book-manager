@@ -7,9 +7,17 @@ const routes: Routes = [
     loadChildren: "./user/user.module#UserModule"
   },
   {
+    path: "book-manager",
+    loadChildren: "./book/book.module#BookModule"
+  },
+  {
     path: "borrow",
     loadChildren: "./borrow/borrow.module#BorrowModule"
-  }
+  },
+  {
+    path: "members",
+    loadChildren: "./member/member.module#MemberModule"
+  },
 ];
 
 @NgModule({
