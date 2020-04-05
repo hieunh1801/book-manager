@@ -11,6 +11,11 @@ public class BorrowBean {
     private Long bookId;
     private Long memberId;
     private String bookName;
+    private String nameCode;
+    private Long adjourn;
+    private String memberCode;
+    private String memberName;
+    private String categoryName;
     
     public Long getId() {
         return id;
@@ -79,6 +84,56 @@ public class BorrowBean {
     
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    
+    public String getNameCode() {
+        return nameCode;
+    }
+
+    
+    public void setNameCode(String nameCode) {
+        this.nameCode = nameCode;
+    }
+
+    
+    public Long getAdjourn() {
+        return adjourn;
+    }
+
+    
+    public void setAdjourn(Long adjourn) {
+        this.adjourn = adjourn;
+    }
+
+    
+    public String getMemberCode() {
+        return memberCode;
+    }
+
+    
+    public void setMemberCode(String memberCode) {
+        this.memberCode = memberCode;
+    }
+
+    
+    public String getMemberName() {
+        return memberName;
+    }
+
+    
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
     
     

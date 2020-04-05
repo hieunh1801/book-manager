@@ -1,6 +1,7 @@
 package com.example.borrow.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.example.book.entity.BookForm;
 import com.example.borrow.bean.BorrowBean;
 import com.example.borrow.bo.BorrowBO;
 import com.example.borrow.form.BorrowForm;
@@ -26,6 +26,8 @@ import com.example.common.CommonUtil;
 import com.example.common.Constants;
 import com.example.common.DataTableResults;
 import com.example.common.Response;
+import com.example.user.entity.UserBean;
+import com.example.user.entity.UserForm;
 
 @Controller
 @RequestMapping("/borrow")
@@ -65,12 +67,18 @@ public class BorrowController {
                 bo.setBookId(borrowForm.getBookId());
                 bo.setFromDate(borrowForm.getFromDate());
                 bo.setToDate(borrowForm.getToDate());
-                bo.setStatus(borrowForm.getStatus());
-                
+                if(CommonUtil.NVL(borrowForm.getPay()) == 1L) {
+                    bo.setStatus(3L);
+                    bo.setToDate(new Date());
+                } else {
+                    bo.setStatus(borrowForm.getStatus());
+                }
+                bo.setAdjourn(borrowForm.getAdjourn());
                 borrowService.saveOrUpdate(bo);
                 lstId.add(bo.getId());
                 
                 //xóa bản ghi
+//                borrowService.deleteAfterSave(bo.getMemberId(), lstId);
             }   
         }
         
@@ -80,5 +88,10 @@ public class BorrowController {
     @GetMapping(path = "/auto-complete-member/{search}")
     public @ResponseBody Response searchAutoComplete(HttpServletRequest req,  @PathVariable String search){
         return Response.success().withData(borrowService.searchMemberAutoComplete(search));
+    }
+    
+    @GetMapping(path = "/search")
+    public @ResponseBody DataTableResults<BorrowBean> listStudents(HttpServletRequest req,BorrowForm formData){
+        return borrowService.search(formData);
     }
 }

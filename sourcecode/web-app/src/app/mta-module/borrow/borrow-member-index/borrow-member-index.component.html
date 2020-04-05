@@ -73,12 +73,13 @@
     </strong>
   </div>
   <div class="panel-body padding-xl ui-g">
-    <p-table [scrollable]="false" [value]="formSave.controls"
+    <p-table [scrollable]="false" [value]="formSave.controls" selectionMode="multiple" [(selection)]="selectedPay"
       tableStyleClass="table controls-table table-wrapper b-t b-b">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col class="size-1">
-          <col>
+          <col  class="size-1">
+          <col  class="size-1">
           <col>
           <col>
           <col>
@@ -88,10 +89,11 @@
       <ng-template pTemplate="header">
         <tr>
           <th>STT</th>
-          <th>Thao tác</th>
+          <th>Gia hạn</th>
+          <th>Trả sách</th>
           <th>Tên sách</th>
           <th>Ngày mượn</th>
-          <th>Ngày trả</th>
+          <th>Ngày trả dự kiến</th>
           <th></th>
         </tr>
       </ng-template>
@@ -101,10 +103,21 @@
             {{index+1}}
           </td>
           <td class="vt-align-center">
-            <!-- <p-splitButton label="Thao tác" icon="pi pi-check" (onClick)="save()" [model]="items"></p-splitButton> -->
+            <a class="btn-table delete" *ngIf="item.controls['id'].value" (click)="processAdjourn(item)" [title]="'Gia hạn'"><i
+              class="fa fa-clock-o"></i></a>
           </td>
-          <td>
-            <p-autoComplete  [formControlName] = "'bookName'" [suggestions]="results" (onSelect)="selectBook(item, $event)"
+          <td class="vt-align-center">
+            <!-- <a class="btn-table edit" *ngIf="item.controls['id'].value" (click)="processPay(item)" [title]="'Trả sách'"><i
+              class="fa fa-check"></i></a> -->
+<!--               
+              <p-tableCheckbox [value]="item"></p-tableCheckbox> -->
+              <p-checkbox  *ngIf="item.controls['id'].value" value="1"  (onChange)="handleData($event,item)"></p-checkbox>
+          </td>
+          <td *ngIf="item.controls['id'].value">
+            {{item.controls['nameCode'].value}} 
+          </td>
+          <td *ngIf="!item.controls['id'].value">
+            <p-autoComplete [formControlName]="'nameCode'" [suggestions]="results" (onSelect)="selectBook(item, $event)"
               (completeMethod)="searchAutoComplete($event)" field="nameCode" [size]="30" [minLength]="1">
             </p-autoComplete>
             <app-control-messages [control]="item.controls['bookId']"></app-control-messages>
@@ -114,14 +127,14 @@
             <app-control-messages [control]="item.controls['fromDate']"></app-control-messages>
           </td>
           <td class="vt-align-center">
-            <date-picker [property]="item.controls['toDate']" dateFormat='dd/mm/yy'></date-picker>
+            <date-picker [property]="item.controls['toDate']" dateFormat='dd/mm/yy' disabled="true"></date-picker>
             <app-control-messages [control]="item.controls['toDate']"></app-control-messages>
           </td>
           <td class="vt-align-center table-action">
             <button class="btn btn-icon plus" type="button" title="thêm" (click)="addRow(index, item)">
               <i class="pi pi-plus"></i>
             </button>
-            <button class="btn btn-icon minus" type="button" title="xóa" (click)="removeRow(index, item)">
+            <button *ngIf="!item.controls['id'].value" class="btn btn-icon minus" type="button" title="xóa" (click)="removeRow(index, item)">
               <i class='pi pi-minus'></i>
             </button>
           </td>
@@ -169,17 +182,20 @@
       <ng-template pTemplate="body" let-item let-index="rowIndex">
         <tr>
           <td class="vt-align-center">{{index+1}}</td>
-          <td class="vt-align-center">
+          <td>
             {{item.bookName}}
           </td>
           <td class="vt-align-center">
             {{item.fromDate | date: 'dd/MM/yyyy'}} 
           </td>
           <td class="vt-align-center">
-            {{item.toDate | date: 'dd/MM/yyyy'}} 
+            <div  *ngIf="item.status==3">{{item.toDate | date: 'dd/MM/yyyy'}}</div>
+             
           </td>
           <td>
-
+            <div class="label-status danger" *ngIf="item.status==1">Chưa trả</div>
+            <div class="label-status yellow" *ngIf="item.status==2">Gia hạn lần {{item.adjourn}}</div>
+            <div class="label-status info" *ngIf="item.status==3">Đã trả</div>
           </td>
         </tr>
       </ng-template>

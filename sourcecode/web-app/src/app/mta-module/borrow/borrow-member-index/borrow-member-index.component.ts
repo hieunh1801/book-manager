@@ -29,17 +29,22 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     email: [''],
     address: ['']
   };
+  selectedPay : [];
   items: MenuItem[];
   results: any;
   listMember: any;
+  adjournTime : any =3;
+  adjournDay : any =7;
   formSaveConfig = {
     id: [''],
     bookId: [''],
     memberId: [''],
     fromDate: [new Date().getTime()],
-    toDate: [''],
+    toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24*14)],
     status: [1],
-    bookName : ['']
+    pay :[''],
+    nameCode : [''],
+    adjourn : [0]
   }
   listHistory: {};
   private formSave: FormArray;
@@ -159,6 +164,12 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
   }
 
   saveOrUpdate() {
+    console.log('this.data', this.selectedPay)
+    if(this.selectedPay && this.selectedPay.length > 0){
+      this.selectedPay.forEach(x =>{
+
+      })
+    }
     let isSave = true;
     if (!CommonUtils.isValidForm(this.formSave) && !CommonUtils.isValidForm(this.formSearch)) {
       isSave = false;
@@ -168,11 +179,13 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
       const formInput = {};
       formInput['memberId'] = this.formSearch.controls.id.value;
       formInput['lstBorrow'] = this.formSave.value;
+
       this.app.confirmMessage(null, () => {// on accepted
         this.borrowService.saveOrUpdate(formInput)
           .subscribe(res => {
             if (this.borrowService.requestIsSuccess(res)) {
               this.processSearchHistory(null);
+              this.processSearchBorrow();
             }
           });
       }, () => {
@@ -191,5 +204,26 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     this.formSearch = this.buildForm(event, this.formConfig);
     this.processSearchHistory();
     this.processSearchBorrow();
+  }
+
+  handleData(event, item){
+    console.log(event)
+    if(event){
+      item.controls['pay'].setValue(1);
+    } else {
+      item.controls['pay'].setValue(0);
+    }
+  }
+
+  processAdjourn(item){
+    if(item.controls['adjourn'].value >= this.adjournTime){
+      this.app.warningMessage('Quá số lần gia hạn')
+    } else {
+      console.log('todate',new Date(item.controls['toDate'].value).getTime())
+      item.controls['adjourn'].setValue(item.controls['adjourn'].value +1);
+      item.controls['status'].setValue(2);
+      item.controls['toDate'].setValue(new Date(item.controls['toDate'].value).getTime() + 1000 * 60 * 60 * 24*this.adjournDay)
+      this.buildFormSave(this.formSave.value);
+    }
   }
 }

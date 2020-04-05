@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.example.book.entity.BookForm;
@@ -48,5 +49,13 @@ public class BorrowService {
     }
     public  DataTableResults<BorrowBean> searchBorrow( BorrowForm formData) {
         return borrowDAO.searchBorrow(uttData, formData);
+    }
+    
+    public void deleteAfterSave(Long memberId, List<Long> ids) {
+        borrowDAO.deleteAfterSave(memberId, ids);
+    }
+    
+    public  DataTableResults<BorrowBean> search( BorrowForm formData) {
+        return borrowDAO.search(uttData, formData);
     }
 }

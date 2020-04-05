@@ -36,6 +36,8 @@ public class BorrowBO {
     @Column(name = "member_id")
     private Long memberId;
 
+    @Column(name = "adjourn")
+    private Long adjourn;
     
     public Long getId() {
         return id;
@@ -108,6 +110,19 @@ public class BorrowBO {
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
     }
+
+
+    
+    public Long getAdjourn() {
+        return adjourn;
+    }
+
+
+    
+    public void setAdjourn(Long adjourn) {
+        this.adjourn = adjourn;
+    }
+    
     
     
     

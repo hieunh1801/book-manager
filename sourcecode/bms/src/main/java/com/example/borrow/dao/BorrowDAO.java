@@ -6,6 +6,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.borrow.bean.BorrowBean;
@@ -24,12 +26,44 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
         String sql = " SELECT b.id as id "
                 + "  ,b.from_date as fromDate   "
                 + "  ,b.to_date as toDate   "
-                + "  ,bk.name as bookName   "
+                + "  ,concat(bk.code,'-',bk.name)  as bookName   "
+                + "  ,b.status as status    "
+                + " ,b.adjourn as adjourn "
                 + " from borrow b   "
                 + "  inner join book bk on b.book_id = bk.id  ";
 
         StringBuilder strCondition = new StringBuilder(" WHERE 1 ");
         CommonUtil.filter(formData.getMemberId(), strCondition, paramList, "b.member_id");
+        
+        String selectFields = " order by id ";
+        
+        return uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, BorrowBean.class);
+    }
+    
+    
+    public default DataTableResults<BorrowBean> search(UttData uttData, BorrowForm formData) {
+        List<Object> paramList = new ArrayList<>();
+        String sql = " SELECT b.id as id "
+                + "  ,b.from_date as fromDate   "
+                + "  ,b.to_date as toDate   "
+                + "  ,concat(bk.code,'-',bk.name)  as bookName   "
+                + "  ,b.status as status    "
+                + " ,b.adjourn as adjourn "
+                + " ,m.code as memberCode   "
+                + " ,m.full_name as memberName  "
+                + " ,c.name as categoryName  "
+                + " from borrow b   "
+                + "  inner join book bk on b.book_id = bk.id   "
+                + "  inner join member m on m.id = b.member_id  "
+                + "  inner join category c on c.id = bk.category_id   ";
+
+        StringBuilder strCondition = new StringBuilder(" WHERE 1 ");
+        CommonUtil.filter(formData.getMemberId(), strCondition, paramList, "b.member_id");
+        CommonUtil.filter(formData.getStatus(), strCondition, paramList, "b.status");
+        CommonUtil.filter(formData.getMemberCode(), strCondition, paramList, "m.code");
+        CommonUtil.filter(formData.getMemberName(), strCondition, paramList, "m.full_name");
+        CommonUtil.filter(formData.getCategoryId(), strCondition, paramList, "bk.category_id");
+        
         
         String selectFields = " order by id ";
         
@@ -73,8 +107,9 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
                 + "  ,b.member_id as memberId   "
                 + "  ,b.from_date as fromDate   "
                 + "  ,b.to_date as toDate   "
-                + "  ,concat(bk.code,'-',bk.name) as bookName   "
+                + "  ,concat(bk.code,'-',bk.name) as nameCode   "
                 + "  ,b.status as status    "
+                + " ,b.adjourn as adjourn "
                 + " from borrow b   "
                 + "  inner join book bk on b.book_id = bk.id  ";
 
@@ -85,4 +120,7 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
         
         return uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, BorrowBean.class,1000);
     }
+    
+    @Query("DELETE BorrowBO b WHERE b.memberId = :memberId AND b.id NOT IN (:ids) ")
+    public void deleteAfterSave(@Param("memberId") Long memberId, @Param("ids") List<Long> ids);
 }

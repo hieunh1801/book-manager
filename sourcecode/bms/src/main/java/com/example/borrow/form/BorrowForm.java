@@ -11,7 +11,44 @@ public class BorrowForm {
     private Long bookId;
     private Long memberId;
     private String search;
+    private Long pay;
+    private Long adjourn;
+    private String memberCode;
+    private String memberName;
+    private Long categoryId;
     
+    
+    
+    
+    public String getMemberCode() {
+        return memberCode;
+    }
+
+    
+    public void setMemberCode(String memberCode) {
+        this.memberCode = memberCode;
+    }
+
+    
+    public String getMemberName() {
+        return memberName;
+    }
+
+    
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public Long getId() {
         return id;
     }
@@ -80,6 +117,26 @@ public class BorrowForm {
     
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    
+    public Long getPay() {
+        return pay;
+    }
+
+    
+    public void setPay(Long pay) {
+        this.pay = pay;
+    }
+
+    
+    public Long getAdjourn() {
+        return adjourn;
+    }
+
+    
+    public void setAdjourn(Long adjourn) {
+        this.adjourn = adjourn;
     }
     
     

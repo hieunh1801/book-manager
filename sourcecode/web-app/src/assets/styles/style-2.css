@@ -3234,3 +3234,37 @@ label {
   float: left;
   width: 75%;
 }
+
+.btn-table{
+  cursor: pointer;
+}
+/* .ui-chkbox{
+  pointer-events: none;
+} */
+
+
+.label-status::before {
+  display: inline-block;
+  margin-right: 10px;
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  content: "";
+  background-color: #999999;
+}
+
+.label-status.info::before {
+  background-color: #3fb01f;
+}
+
+.label-status.warning::before {
+  background-color: var(--background-color-header);
+}
+
+.label-status.yellow::before {
+  background-color: #f2dc33;
+}
+
+.label-status.danger::before {
+  background-color: #c03131;
+}
