@@ -6,44 +6,62 @@ import { BookService } from 'src/app/core/services/book.service';
 import { FormGroup, Validators } from "@angular/forms";
 import { AppComponent } from 'src/app/app.component';
 import { CategoryService } from 'src/app/core/services/category.service';
-
+import { MemberService } from 'src/app/core/services/member.service';
 @Component({
-  selector: 'app-category-add',
-  templateUrl: './category-add.component.html',
-  styleUrls: ['./category-add.component.sass']
+  selector: 'app-member-add',
+  templateUrl: './member-add.component.html',
+  styleUrls: ['./member-add.component.sass']
 })
-export class CategoryAddComponent extends BaseComponent implements OnInit {
-  private formConfig = {
+export class MemberAddComponent extends BaseComponent implements OnInit {
+  formConfig = {
     id: [""],
     code: [""],
-    name: ["", [Validators.required]],
-    note: ["", [Validators.required]],
+    fullName: [""],
+    gender: [""],
+    email: [""],
+    phoneNumber: [""],
+    address: [""],
+    avatarUrl: [""],
+    dateOfBirth: [""]
   };
-  public idCategory: any;
+  listGender = [
+    {
+      value: "", label: ""
+    },
+    {
+      value: 1, label: "Nam"
+    },
+    {
+      value: 0, label: "Nữ"
+    },
+  ]
+  public idMember: any;
   public formSave: FormGroup;
   constructor(
     public activateRoute: ActivatedRoute,
     public router: Router,
     private app: AppComponent,
-    private categoryService: CategoryService
+    private memberService: MemberService,
   ) {
     super(null);
-    this.setMainService(categoryService);
+    this.setMainService(memberService);
     this.formSave = this.buildForm({}, this.formConfig);
+
   }
 
   ngOnInit() {
     this.activateRoute.params.subscribe(params => {
       if (params && params.id != null) {
-        this.idCategory = params.id;
-        this.setFormValue(this.idCategory);
+        this.idMember = params.id;
+        this.setFormValue(this.idMember);
       }
     });
   }
-
   private setFormValue(id: number) {
-    this.categoryService.findOne(id).subscribe(response => {
+    this.memberService.findOne(id).subscribe(response => {
       this.formSave = this.buildForm(response.data, this.formConfig);
+      console.log("member ", response.data);
+      console.log("member ", this.formSave.controls);
     });
   }
   public processSaveOrUpdate() {
@@ -51,10 +69,10 @@ export class CategoryAddComponent extends BaseComponent implements OnInit {
       null,
       () => {
         const formInput = this.formSave.value;
-        this.categoryService.saveOrUpdate(formInput).subscribe(res => {
+        this.memberService.saveOrUpdate(formInput).subscribe(res => {
           console.log("Save success");
-          if (this.categoryService.requestIsSuccess(res)) {
-            this.router.navigate(["/book-manager/categories"]);
+          if (this.memberService.requestIsSuccess(res)) {
+            this.router.navigate(["/members"]);
           }
         });
       },
@@ -65,7 +83,7 @@ export class CategoryAddComponent extends BaseComponent implements OnInit {
   }
 
   public back() {
-    this.router.navigate(["book-manager/categories"]);
+    this.router.navigate(["members"]);
   }
   get f() {
     return this.formSave.controls;

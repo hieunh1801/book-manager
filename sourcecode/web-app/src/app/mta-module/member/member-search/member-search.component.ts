@@ -8,41 +8,60 @@ import { RESOURCE, ACTION_FORM } from 'src/app/core/app-config';
 import { Validators } from '@angular/forms';
 import { CommonUtils } from 'src/app/shared/service/common-utils.service';
 import { DataTableModule } from 'primeng/primeng';
-import { CategoryService } from 'src/app/core/services/category.service';
+import { MemberService } from 'src/app/core/services/member.service';
 
 @Component({
-  selector: 'app-category-search',
-  templateUrl: './category-search.component.html',
-  styleUrls: ['./category-search.component.sass']
+  selector: 'app-member-search',
+  templateUrl: './member-search.component.html',
+  styleUrls: ['./member-search.component.sass']
 })
-export class CategorySearchComponent extends BaseComponent implements OnInit {
+export class MemberSearchComponent extends BaseComponent implements OnInit {
+
   formConfig = {
-    code: ["", [Validators.maxLength(50)]],
-    name: ["", [Validators.maxLength(50)]],
-    note: ["", [Validators.maxLength(50)]],
+    code: [""],
+    fullName: [""],
+    gender: [""],
+    email: [""],
+    phoneNumber: [""],
+    address: [""]
   };
+  listGender = [
+    {
+      value: "", label: ""
+    },
+    {
+      value: 1, label: "Nam"
+    },
+    {
+      value: 0, label: "Nữ"
+    },
+  ]
   constructor(
     public actr: ActivatedRoute,
     public router: Router,
-    private categoryService: CategoryService,
+    private memberService: MemberService,
   ) {
     super(null);
-    this.setMainService(categoryService);
+    this.setMainService(memberService);
     this.formSearch = this.buildForm({}, this.formConfig);
+
   }
 
   ngOnInit() {
     console.log("This is CategorySearchComponent");
     this.processSearch();
   }
+
   public get f() {
     return this.formSearch.controls;
   }
   public prepareSaveOrUpdate(item?: any) {
     if (item == null) {
-      this.router.navigateByUrl("book-manager/categories/add");
+      this.router.navigateByUrl("members/add");
     } else {
-      this.router.navigate(["book-manager/categories/edit", item]);
+      this.router.navigate(["members/edit", item]);
     }
   }
+
+
 }
