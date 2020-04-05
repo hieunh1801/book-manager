@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RESOURCE, ACTION_FORM } from 'src/app/core/app-config';
+import { RESOURCE, ACTION_FORM, APP_CONSTANTS } from 'src/app/core/app-config';
 import { BorrowService } from 'src/app/core/services/borrow.service';
 import { FormArray, FormGroup } from '@angular/forms';
 import { BookService } from 'src/app/core/services/book.service';
 import { CommonUtils } from 'src/app/shared/service/common-utils.service';
 import { AppComponent } from 'src/app/app.component';
 import { MenuItem } from 'primeng/api';
+import { SystemParamService } from 'src/app/core/services/system-param.service';
+import { MemberService } from 'src/app/core/services/member.service';
 
 @Component({
   selector: 'app-borrow-member-index',
@@ -35,47 +37,86 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
   listMember: any;
   adjournTime : any =3;
   adjournDay : any =7;
+  member : any;
   formSaveConfig = {
     id: [''],
     bookId: [''],
     memberId: [''],
     fromDate: [new Date().getTime()],
-    toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24*14)],
+    toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24 * 14)],
     status: [1],
     pay :[''],
     nameCode : [''],
     adjourn : [0]
   }
   listHistory: {};
+  param : any;
   private formSave: FormArray;
   constructor(public actr: ActivatedRoute,
     public router: Router,
     private app: AppComponent,
+    private memberService : MemberService,
     private bookService: BookService,
-    private borrowService: BorrowService) {
+    private borrowService: BorrowService,
+    private systemParamService: SystemParamService) {
     super(actr, RESOURCE.USER, ACTION_FORM.SEARCH);
     this.setMainService(borrowService);
     this.formSearch = this.buildForm({}, this.formConfig);
+    
     this.processSearchBorrow();
     this.processSearchHistory(null);
+
+    const state = this.router.getCurrentNavigation().extras.state;
+    if(state && state.data){
+      const memberId = state.data;
+      this.memberService.findOne(memberId).subscribe(res => {
+        this.member = res.data;
+        this.member['nameCode']=res.data.code+'-'+res.data.fullName;
+        this.formSearch = this.buildForm(res.data, this.formConfig);
+        this.processSearchBorrow();
+        this.processSearchHistory(null);
+      });
+    } else {
+      this.initFormSaveConfig();
+    }
   }
-
+  public initFormSaveConfig(){
+    this.systemParamService.getParam().subscribe(res => {
+      this.param = res.data;
+      this.formSaveConfig = {
+        id: [''],
+        bookId: [''],
+        memberId: [''],
+        fromDate: [new Date().getTime()],
+        toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))],
+        status: [1],
+        pay :[''],
+        nameCode : [''],
+        adjourn : [0]
+      }
+      this.buildFormSave();
+    });
+    
+  }
+  public initFormSaveConfigWithoutBuild(){
+    this.systemParamService.getParam().subscribe(res => {
+      this.param = res.data;
+      this.formSaveConfig = {
+        id: [''],
+        bookId: [''],
+        memberId: [''],
+        fromDate: [new Date().getTime()],
+        toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))],
+        status: [1],
+        pay :[''],
+        nameCode : [''],
+        adjourn : [0]
+      }
+    });
+    
+  }
   ngOnInit() {
-    this.items = [
-      {
-        label: 'Update', icon: 'pi pi-refresh', command: () => {
-
-        }
-      },
-      {
-        label: 'Delete', icon: 'pi pi-times', command: () => {
-
-        }
-      },
-      { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
-      { separator: true },
-      { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
-    ];
+    this.initFormSaveConfigWithoutBuild();
   }
 
   private buildFormSave(listEmp?: any) {
@@ -92,7 +133,6 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
       controls.push(group);
     }
     this.formSave = controls;
-    console.log('save', this.formSave.value)
   }
 
   private makeDefaultForm(): FormGroup {
@@ -101,6 +141,11 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
   }
 
   public addRow(index: number, item: FormGroup) {
+    const max = parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_SACH_MUON]);
+    if(this.formSave.value  && (this.formSave.value.length  >= max)){
+      this.app.warningMessage('Số sách được mượn tối đa: '+ max);
+      return;
+    }
     const controls = this.formSave as FormArray;
     controls.insert(index + 1, this.makeDefaultForm());
   }
@@ -164,12 +209,12 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
   }
 
   saveOrUpdate() {
-    console.log('this.data', this.selectedPay)
-    if(this.selectedPay && this.selectedPay.length > 0){
-      this.selectedPay.forEach(x =>{
+    // console.log('this.data', this.selectedPay)
+    // if(this.selectedPay && this.selectedPay.length > 0){
+    //   this.selectedPay.forEach(x =>{
 
-      })
-    }
+    //   })
+    // }
     let isSave = true;
     if (!CommonUtils.isValidForm(this.formSave) && !CommonUtils.isValidForm(this.formSearch)) {
       isSave = false;
@@ -216,14 +261,18 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
   }
 
   processAdjourn(item){
-    if(item.controls['adjourn'].value >= this.adjournTime){
+    if(item.controls['adjourn'].value >= parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_LAN_GIA_HAN])){
       this.app.warningMessage('Quá số lần gia hạn')
     } else {
       console.log('todate',new Date(item.controls['toDate'].value).getTime())
       item.controls['adjourn'].setValue(item.controls['adjourn'].value +1);
       item.controls['status'].setValue(2);
-      item.controls['toDate'].setValue(new Date(item.controls['toDate'].value).getTime() + 1000 * 60 * 60 * 24*this.adjournDay)
+      item.controls['toDate'].setValue(new Date(item.controls['toDate'].value).getTime() + 1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_GIA_HAN]))
       this.buildFormSave(this.formSave.value);
     }
+  }
+  changeFromDate(event,item){
+    item.controls['toDate'].setValue(new Date(item.controls['fromDate'].value).getTime() + 1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))
+    this.buildFormSave(this.formSave.value);
   }
 }

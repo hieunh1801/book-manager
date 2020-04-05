@@ -46,9 +46,11 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
         String sql = " SELECT b.id as id "
                 + "  ,b.from_date as fromDate   "
                 + "  ,b.to_date as toDate   "
-                + "  ,concat(bk.code,'-',bk.name)  as bookName   "
+//                + "  ,concat(bk.code,'-',bk.name)  as bookName   "
+                + "  ,bk.name  as bookName   "
                 + "  ,b.status as status    "
                 + " ,b.adjourn as adjourn "
+                + " ,m.id as memberId "
                 + " ,m.code as memberCode   "
                 + " ,m.full_name as memberName  "
                 + " ,c.name as categoryName  "
@@ -63,6 +65,7 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
         CommonUtil.filter(formData.getMemberCode(), strCondition, paramList, "m.code");
         CommonUtil.filter(formData.getMemberName(), strCondition, paramList, "m.full_name");
         CommonUtil.filter(formData.getCategoryId(), strCondition, paramList, "bk.category_id");
+        CommonUtil.filter(formData.getBookName(), strCondition, paramList, "bk.name");
         
         
         String selectFields = " order by id ";

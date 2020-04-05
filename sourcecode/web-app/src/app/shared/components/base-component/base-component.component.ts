@@ -111,7 +111,6 @@ export class BaseComponent {
     }
     const params = this.formSearch ? this.formSearch.value : null;
     this.mainService.search(params, event).subscribe(res => {
-      console.log("search data", res)
       this.resultList = res;
     });
 

@@ -7,9 +7,10 @@ import { BorrowManageFormComponent } from './borrow-manage-form/borrow-manage-fo
 import { SharedModule } from 'src/app/shared/shared.module';
 import { BorrowMemberIndexComponent } from './borrow-member-index/borrow-member-index.component';
 import { AutoCompleteModule, SplitButtonModule, CheckboxModule } from 'primeng/primeng';
+import { BorrowSettingComponent } from './borrow-setting/borrow-setting.component';
 
 @NgModule({
-  declarations: [BorrowManageIndexComponent, BorrowManageFormComponent, BorrowMemberIndexComponent],
+  declarations: [BorrowManageIndexComponent, BorrowManageFormComponent, BorrowMemberIndexComponent, BorrowSettingComponent],
   imports: [
     SharedModule,
     CommonModule,

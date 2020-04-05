@@ -1,0 +1,68 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Cấu hình tham số</span>
+    </strong>
+  </div>
+  <div class="panel-body padding-xl ui-g">
+    <p-table [scrollable]="false" [value]="formSave.controls" 
+      tableStyleClass="table controls-table table-wrapper b-t b-b">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col class="size-1">
+          <col>
+          <col>
+          <col>
+          <col>
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>STT</th>
+          <th class="required">Mã tham số</th>
+          <th class="required">Tên tham số</th>
+          <th class="required">Giá trị</th>
+          <th>Thao tác</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr [formGroup]="item">
+          <td class="vt-align-center">
+            {{index+1}}
+          </td>
+          
+          <td >
+           <!-- code -->
+            <input *ngIf="item.controls['id'].value" class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100" disabled="disabled">
+            <input *ngIf="!item.controls['id'].value" class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100" >
+            <app-control-messages [control]="item.controls.code"></app-control-messages>
+          </td>
+          <td >
+           <!-- name -->
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="200">
+            <app-control-messages [control]="item.controls.name"></app-control-messages>
+          </td>
+          <td class="vt-align-center">
+           <!-- value -->
+           <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="svalue" maxlength="200">
+           <app-control-messages [control]="item.controls.svalue"></app-control-messages>
+          </td>
+          
+          <td class="vt-align-center table-action">
+            <button class="btn btn-icon plus" type="button" title="thêm" (click)="addRow(index, item)">
+              <i class="pi pi-plus"></i>
+            </button>
+            <button class="btn btn-icon minus" type="button" title="xóa" (click)="removeRow(index, item)">
+              <i class='pi pi-minus'></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="panel-footer vt-area-button">
+    <button type="submit" (click)="saveOrUpdate();" class="btn btn-sm btn-info">
+      <i class="fa fa-save"></i> Lưu lại</button>
+  </div>
+</div>

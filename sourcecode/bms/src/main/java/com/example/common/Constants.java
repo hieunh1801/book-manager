@@ -6,6 +6,13 @@ public class Constants {
 
         public static final String SYSTEM = "vhcm_system";
     }
+    
+    public static class SYSTEM_PARAM {
+        public static final String SO_SACH_MUON = "SO_SACH_MUON";
+        public static final String SO_LAN_GIA_HAN = "SO_LAN_GIA_HAN";
+        public static final String SO_NGAY_MUON = "SO_NGAY_MUON";
+        public static final String SO_NGAY_GIA_HAN = "SO_NGAY_GIA_HAN";
+    }
 
     public static class RESPONSE_TYPE {
 

@@ -3268,3 +3268,54 @@ label {
 .label-status.danger::before {
   background-color: #c03131;
 }
+.required::after{
+  content: "*";
+  padding-left: 3px;
+  color: red;
+}
+
+.label-link{
+  cursor: pointer;
+  color: #0286c1;
+} 
+.label-link:hover{
+  text-decoration: underline;
+}
+
+.ui-autocomplete {
+  width: 100%;
+}
+
+.size-1 { width: 45px !important;}
+.size-2 { width: 60px !important;}
+.size-3 { width: 75px !important;}
+.size-4 { width: 90px !important;}
+.size-5 { width: 105px !important;}
+.size-6 { width: 120px !important;}
+.size-7 { width: 135px !important;}
+.size-8 { width: 150px !important;}
+.size-9 { width: 165px !important;}
+.size-10 { width: 180px !important;}
+.size-11 { width: 195px !important;}
+.size-12 { width: 210px !important;}
+.size-00 { width: 100%;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 15%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 85%;
+  padding-left: 20px;
+}

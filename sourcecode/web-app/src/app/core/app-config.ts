@@ -10,8 +10,8 @@ export const CONFIG: any = {
     books: "/books",
     categories: "/categories",
     members: "/members",
-    borrow: "/borrow"
-
+    borrow: "/borrow",
+    sysParam : "/system-param"
   }
 };
 
@@ -53,6 +53,12 @@ export const APP_CONSTANTS = {
     SEMESTER: "HK",
     COURSE: "K",
     CRITERION_LEVEL: "CRITERION_LEVEL"
+  },
+  SYSTEM_PARAM: {
+    SO_SACH_MUON: "SO_SACH_MUON",
+    SO_LAN_GIA_HAN: "SO_LAN_GIA_HAN",
+    SO_NGAY_MUON: "SO_NGAY_MUON",
+    SO_NGAY_GIA_HAN: "SO_NGAY_GIA_HAN"
   }
 } as any;
 export enum ACTION_FORM {

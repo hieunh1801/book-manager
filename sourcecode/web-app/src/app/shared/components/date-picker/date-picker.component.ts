@@ -1,7 +1,7 @@
 import { BaseControl } from '../../../core/models/base.control';
 import { CommonUtils } from '../../service/common-utils.service';
 import { FormControl } from '@angular/forms';
-import { Component, OnInit, Input, OnChanges, ElementRef, ViewChild, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { HelperService } from '../../service/helper.service';
 
 @Component({
@@ -28,6 +28,9 @@ export class DatePickerComponent implements OnInit, OnChanges {
   @Input()
   public view = 'date';
 
+  @Output()
+  public onChanged : EventEmitter<any> =new EventEmitter<any>();
+
   public placeholder: string;
 
   public dateValue: Date;
@@ -50,11 +53,20 @@ export class DatePickerComponent implements OnInit, OnChanges {
   onBlur(event) {
     if (!this.dateValue && event.currentTarget.value !== '') {
       this.helperService.APP_TOAST_MESSAGE.next({ type: 'ERROR', code: 'dateInvalid', message: null });
-    }/* else if (this.dateValue && this.dateValue.getTime() < 0) {
-      this.helperService.APP_TOAST_MESSAGE.next({type: 'ERROR', code: 'dateInvalid', message: null});
-      this.dateValue = null;
-      this.onInput(null);
-    }*/
+    }
+    // else if (this.dateValue && this.dateValue.getTime() < 0) {
+    //   this.helperService.APP_TOAST_MESSAGE.next({type: 'ERROR', code: 'dateInvalid', message: null});
+    //   this.dateValue = null;
+    //   this.onInput(null);
+    // }
+    if(event.currentTarget.value === '' && this.dateValue!==null){
+        this.dateValue = null;
+        this.onInput(null);
+    }
+
+    if (event.currentTarget.value === '' && this.dateValue == null) {
+      this.onChanged.emit(event);
+    }
   }
 
   /**
@@ -93,6 +105,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
     if (this.onChange) {
       this.onChange();
     }
+    this.onChanged.emit(event);
   }
   initDateFormatPosition(dateFormat: string) {
     const maxLength = dateFormat.length;
