@@ -29,7 +29,7 @@ public class FileStorageService {
                     + file.getOriginalFilename();
             Files.copy(file.getInputStream(),
                     this.rootLocation.resolve(newFileName));
-            return newFileName;
+            return "/link/" + newFileName;
         } catch (Exception e) {
             throw new RuntimeException("FAIL!");
         }

@@ -2,6 +2,8 @@ package com.example.member.form;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberForm {
 	private Long id;
 	private String code;
@@ -13,6 +15,9 @@ public class MemberForm {
 	private String avatarUrl;
 	private String nameCode;
 	private String address;
+	private MultipartFile file;
+	private String dateOfBirthStr;
+	
 	public Long getId() {
 		return id;
 	}
@@ -73,4 +78,21 @@ public class MemberForm {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+    
+    public MultipartFile getFile() {
+        return file;
+    }
+    
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
+    public String getDateOfBirthStr() {
+        return dateOfBirthStr;
+    }
+    
+    public void setDateOfBirthStr(String dateOfBirthStr) {
+        this.dateOfBirthStr = dateOfBirthStr;
+    }
+	
 }

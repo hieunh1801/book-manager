@@ -85,7 +85,7 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
                 + " ,m.gender as gender   "
                 + " ,m.email as email   "
                 + " ,m.phone_number as phoneNumber    "
-                + " ,m.avatar_ulr as avatarUrl   "
+                + " ,m.avatar_url as avatarUrl   "
                 + " ,m.address as address "
                 + " ,m.date_of_birth as dateOfBirth "
          + " from member m   "

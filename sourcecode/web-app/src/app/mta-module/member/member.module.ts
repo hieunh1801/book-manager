@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { MemberRoutingModule } from './member-routing.module';
 import { MemberAddComponent } from './member-add/member-add.component';
@@ -14,6 +14,7 @@ import { SharedModule } from "../../shared/shared.module";
     MemberRoutingModule,
     DialogModule,
     SharedModule,
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class MemberModule { }

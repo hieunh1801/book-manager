@@ -10,6 +10,7 @@ import { AppComponent } from 'src/app/app.component';
 import { MenuItem } from 'primeng/api';
 import { SystemParamService } from 'src/app/core/services/system-param.service';
 import { MemberService } from 'src/app/core/services/member.service';
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-borrow-member-index',
@@ -29,7 +30,8 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     gender: [''],
     phoneNumber: [''],
     email: [''],
-    address: ['']
+    address: [''],
+    avatarUrl : [''],
   };
   selectedPay : [];
   items: MenuItem[];
@@ -51,6 +53,7 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
   }
   listHistory: {};
   param : any;
+  fileServer =  environment.serverUrl['file'];
   private formSave: FormArray;
   constructor(public actr: ActivatedRoute,
     public router: Router,
@@ -71,6 +74,12 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
       const memberId = state.data;
       this.memberService.findOne(memberId).subscribe(res => {
         this.member = res.data;
+        if(res.data.avatarUrl ){
+          res.data.avatarUrl = res.data.avatarUrl;
+        } else {
+          res.data.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
+        }
+       
         this.member['nameCode']=res.data.code+'-'+res.data.fullName;
         this.formSearch = this.buildForm(res.data, this.formConfig);
         this.processSearchBorrow();
@@ -79,6 +88,7 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     } else {
       this.initFormSaveConfig();
     }
+    console.log(new Date().getTime())
   }
   public initFormSaveConfig(){
     this.systemParamService.getParam().subscribe(res => {
@@ -246,6 +256,12 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
   }
 
   selectMember(event) {
+    if(event.avatarUrl){
+      event.avatarUrl = this.fileServer + event.avatarUrl;
+    } else {
+      event.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
+    }
+    
     this.formSearch = this.buildForm(event, this.formConfig);
     this.processSearchHistory();
     this.processSearchBorrow();

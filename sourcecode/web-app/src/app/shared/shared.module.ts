@@ -9,7 +9,7 @@ import { PaginatorModule, ConfirmDialogModule, CalendarModule,
          ScrollPanelModule, BreadcrumbModule, TabMenuModule,
          DropdownModule, TabViewModule, FieldsetModule,
          ContextMenuModule, ColorPickerModule, MultiSelectModule, ConfirmationService,
-         SelectButtonModule, OrganizationChartModule, OverlayPanelModule, PickListModule, EditorModule } from 'primeng/primeng';
+         SelectButtonModule, OrganizationChartModule, OverlayPanelModule, PickListModule, EditorModule, FileUploadModule } from 'primeng/primeng';
 import { TreeModule } from 'primeng/tree';
 import {TreeTableModule} from 'primeng/treetable';
 import { StepsModule } from 'primeng/steps';
@@ -84,7 +84,8 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
     MultiSelectModule,
     FullCalendarModule,
     DragDropModule,
-    EditorModule
+    EditorModule,
+    FileUploadModule
   ],
   providers: [
     ConfirmationService,
@@ -136,7 +137,8 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
     FontAwesomeModule,
     DragDropModule,
     EditorModule,
-    ChartModule
+    ChartModule,
+    FileUploadModule
    ]
 })
 export class SharedModule { }

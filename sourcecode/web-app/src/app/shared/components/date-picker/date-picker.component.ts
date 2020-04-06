@@ -14,7 +14,7 @@ export class DatePickerComponent implements OnInit, OnChanges {
   @Input()
   public property: FormControl;
   @Input()
-  public dateFormat: string;
+  public dateFormat: string ='dd/mm/yy';
   @Input()
   public onChange: Function;
   @Input()

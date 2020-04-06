@@ -10,7 +10,8 @@ export const environment = {
   production: false,
   version: env.npm_package_version + "-dev",
   serverUrl: {
-    bms: "http://localhost:8085"
+    bms: "http://localhost:8085",
+    file: "http://localhost:8085"
   }
 };
 
