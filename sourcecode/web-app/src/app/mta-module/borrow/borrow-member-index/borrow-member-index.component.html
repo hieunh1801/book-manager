@@ -19,6 +19,13 @@
               <p-autoComplete [suggestions]="listMember" (onSelect)="selectMember( $event)"  [ngModelOptions]="{standalone: true}" [(ngModel)]="member"
                 inputStyleClass="form-control" (completeMethod)="searchMemberAutoComplete($event)" field="nameCode" [size]="30"
                 [minLength]="1">
+                <ng-template let-member pTemplate="item">
+                  <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                    <img [src]="member.avatarUrl"
+                      style="width:32px;display:inline-block;margin:5px 0 2px 5px" />
+                    <div style="font-size:13px;float:right;margin:5px 5px 0 0">{{member.nameCode}}</div>
+                  </div>
+                </ng-template>
               </p-autoComplete>
               <app-control-messages [control]="f['id']"></app-control-messages>
             </div>

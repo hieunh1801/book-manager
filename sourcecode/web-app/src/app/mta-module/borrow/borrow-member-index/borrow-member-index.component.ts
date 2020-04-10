@@ -251,16 +251,27 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
 
   private searchMemberAutoComplete(event) {
     this.borrowService.searchMemberAutoComplete(event.query).subscribe(res => {
-      this.listMember = res.data;
+      if(res && res.data && res.data.length >0){
+        this.listMember = [];
+        res.data.forEach(element => {
+          if(element.avatarUrl){
+            element.avatarUrl = this.fileServer + element.avatarUrl;
+          } else {
+            element.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
+          }
+          this.listMember.push(element);
+        });
+      }
+      // this.listMember = res.data;
     });
   }
 
   selectMember(event) {
-    if(event.avatarUrl){
-      event.avatarUrl = this.fileServer + event.avatarUrl;
-    } else {
-      event.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
-    }
+    // if(event.avatarUrl){
+    //   event.avatarUrl = this.fileServer + event.avatarUrl;
+    // } else {
+    //   event.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
+    // }
     
     this.formSearch = this.buildForm(event, this.formConfig);
     this.processSearchHistory();
