@@ -1,8 +1,9 @@
 package com.example.book.controller;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.book.dao.BookDAO;
 import com.example.book.entity.BookBO;
 import com.example.book.entity.BookBean;
 import com.example.book.entity.BookForm;
@@ -25,10 +25,8 @@ import com.example.common.CommonUtil;
 import com.example.common.Constants;
 import com.example.common.DataTableResults;
 import com.example.common.Response;
-import com.example.exception.SysException;
+import com.example.fileStorage.FileStorageService;
 import com.example.user.entity.UserForm;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/books")
@@ -37,15 +35,19 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 
+	@Autowired
+    FileStorageService storageService;
+
+	
 	@GetMapping(path = "")
 	public @ResponseBody List<BookBO> apiGetAllBook(HttpServletRequest req, UserForm user) {
 		List<BookBO> listBooks = bookService.getAll();
 		return listBooks;
 	}
 
-	@PostMapping(path = "")
+	@PostMapping(path = "", produces=MediaType.APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.CREATED)
-	public @ResponseBody Response saveOrUpdate(HttpServletRequest req, @RequestBody BookForm form) throws Exception {
+	public @ResponseBody Response saveOrUpdate(HttpServletRequest req, BookForm form) throws Exception {
 		Long id = CommonUtil.NVL(form.getId());
 		BookBO bookBO;
 		if (id > 0L) {
@@ -61,9 +63,14 @@ public class BookController {
 		bookBO.setCategoryId(form.getCategoryId());
 		bookBO.setCode(form.getCode());
 		bookBO.setDescription(form.getDescription());
-		bookBO.setImageUrl(form.getImageUrl());
+//		bookBO.setImageUrl(form.getImageUrl());
 		bookBO.setName(form.getName());
 		bookBO.setPublisher(form.getPublisher());
+		// lưu file avatar
+        if( form.getFile() !=null && form.getFile().getOriginalFilename() != null) {
+            String url = storageService.store(form.getFile());
+            bookBO.setImageUrl(url);
+        }
 		bookService.saveOrUpdate(bookBO);
 		return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(bookBO);
 	}

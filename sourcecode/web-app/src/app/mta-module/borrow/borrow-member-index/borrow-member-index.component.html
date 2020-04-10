@@ -133,6 +133,13 @@
           <td *ngIf="!item.controls['id'].value">
             <p-autoComplete [formControlName]="'nameCode'" [suggestions]="results" (onSelect)="selectBook(item, $event)"
               (completeMethod)="searchAutoComplete($event)" field="nameCode" [size]="30" [minLength]="1">
+              <ng-template let-book pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <img [src]="book.imageUrl"
+                    style="width:32px;display:inline-block;margin:5px 0 2px 5px" />
+                  <div style="font-size:13px;float:right;margin:5px 5px 0 0">{{book.nameCode}}</div>
+                </div>
+              </ng-template>
             </p-autoComplete>
             <app-control-messages [control]="item.controls['bookId']"></app-control-messages>
           </td>

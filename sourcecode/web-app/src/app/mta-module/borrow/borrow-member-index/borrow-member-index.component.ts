@@ -172,7 +172,16 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     var data = {};
     data['name'] = event.query;
     this.bookService.seacrhAutoComplete(event.query).subscribe(res => {
-      this.results = res.data;
+      this.results = [];
+        res.data.forEach(element => {
+          if(element.imageUrl){
+            element.imageUrl = this.fileServer + element.imageUrl;
+          } else {
+            element.imageUrl = 'https://xemnha247.com/images/noimage.png'
+          }
+          this.results.push(element);
+        });
+      // this.results = res.data;
     });
   }
   selectBook(item, event) {

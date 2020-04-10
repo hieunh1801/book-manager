@@ -6,6 +6,8 @@ import { BookService } from 'src/app/core/services/book.service';
 import { FormGroup, Validators } from "@angular/forms";
 import { AppComponent } from 'src/app/app.component';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { FileControl } from 'src/app/core/models/file.control';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-book-add',
@@ -21,7 +23,9 @@ export class BookAddComponent extends BaseComponent implements OnInit {
     publisher: ["", [Validators.required]],
     amount: ["", [Validators.required]],
     categoryId: ["", [Validators.required]],
+    imageUrl : ['https://xemnha247.com/images/noimage.png']
   };
+  fileServer =  environment.serverUrl['file'];
   public listCategory: any = [];
   public idBook: any;
   public formSave: FormGroup;
@@ -35,7 +39,7 @@ export class BookAddComponent extends BaseComponent implements OnInit {
     super(null);
     this.setMainService(bookService);
     this.formSave = this.buildForm({}, this.formConfig);
-
+    this.formSave.addControl("file", new FileControl(null));
   }
 
   ngOnInit() {
@@ -55,9 +59,15 @@ export class BookAddComponent extends BaseComponent implements OnInit {
 
   private setFormValue(id: number) {
     this.bookService.findOne(id).subscribe(response => {
+      if(response.data.imageUrl ){
+        response.data.imageUrl = this.fileServer + response.data.imageUrl;
+      } else {
+        response.data.imageUrl = 'https://xemnha247.com/images/noimage.png'
+      }
       console.log("setFormValue", response)
       this.formSave = this.buildForm(response.data, this.formConfig);
       console.log(this.formSave.value);
+      this.formSave.addControl("file", new FileControl(null));
     });
   }
   public processSaveOrUpdate() {
@@ -66,7 +76,7 @@ export class BookAddComponent extends BaseComponent implements OnInit {
       null,
       () => {
         const formInput = this.formSave.value;
-        this.bookService.saveOrUpdate(formInput).subscribe(res => {
+        this.bookService.saveOrUpdateFormFile(formInput).subscribe(res => {
           console.log("Save success");
           if (this.bookService.requestIsSuccess(res)) {
             this.router.navigate(["/book-manager/books"]);
@@ -85,6 +95,17 @@ export class BookAddComponent extends BaseComponent implements OnInit {
   get f() {
     return this.formSave.controls;
   }
+  selectFile(event) {
+    // this.selectedFiles = event.target.files;
+    if (event.target.files.length === 0)
+      return;
 
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]); 
+    reader.onload = (_event) => { 
+      this.formSave.controls['imageUrl'].setValue(reader.result); 
+    }
+    this.formSave.controls['file'].setValue(event.target.files[0]);
+    }
 }
 

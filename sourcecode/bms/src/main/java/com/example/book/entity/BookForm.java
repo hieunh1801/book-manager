@@ -1,5 +1,6 @@
 package com.example.book.entity;
 
+import org.springframework.web.multipart.MultipartFile;
 
 public class BookForm {
 	private Long id;
@@ -10,10 +11,20 @@ public class BookForm {
 	private String author;
 	private String publisher;
 	private Long amount;
-
+	private MultipartFile file;
 	private Long categoryId;
 
-	public Long getId() {
+	
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    public Long getId() {
 		return id;
 	}
 

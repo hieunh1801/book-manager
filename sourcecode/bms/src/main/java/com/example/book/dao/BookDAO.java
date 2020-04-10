@@ -70,6 +70,7 @@ public interface BookDAO extends CrudRepository<BookBO, Long> {
         sql += " ,b.amount as amount ";
         sql += " ,b.category_id as categoryId ";
         sql += " ,c.name as categoryName ";
+        sql += " ,b.image_url as imageUrl ";
         sql += " from book b inner join category c on b.category_id = c.id  "
         + "  where 1=1 and (1=0 OR LOWER(b.code) LIKE " +"'%" +search.toLowerCase() + "%'"
         + "     OR LOWER(b.name) LIKE " +"'%" +search.toLowerCase() + "%')";

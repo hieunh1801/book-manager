@@ -237,6 +237,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
     ConfigActions,
     MessageService,
+    AppComponent
   ],
   bootstrap: [AppComponent]
 })
