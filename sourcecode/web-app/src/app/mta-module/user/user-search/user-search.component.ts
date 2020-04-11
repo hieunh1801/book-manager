@@ -26,7 +26,7 @@ export class UserSearchComponent extends BaseComponent implements OnInit {
     super(actr, RESOURCE.USER, ACTION_FORM.SEARCH);
     this.setMainService(userService);
     this.formSearch = this.buildForm({}, {
-      userCode: ['', [Validators.maxLength(50)]],
+      code: ['', [Validators.maxLength(50)]],
       fullName: ['', [Validators.maxLength(200)]],
     });
    }

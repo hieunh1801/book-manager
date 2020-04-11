@@ -4,12 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import com.example.common.DataTableResults;
 import com.example.user.entity.RoleBO;
 import com.example.user.entity.UserBO;
 import com.example.user.entity.UserBean;
+import com.example.user.entity.UserBean2;
 import com.example.user.entity.UserForm;
 
 
@@ -30,7 +29,7 @@ public interface UserService {
     UserBean getUserByUsername(String username);
     UserBean getUserInfoById(Long userId);
     DataTableResults<UserBean> getStudentList(UserForm userForm, HttpServletRequest req);
-    DataTableResults<UserBean> getDatatable(UserForm userForm, HttpServletRequest req);
+    DataTableResults<UserBean2> getDatatable(UserForm userForm, HttpServletRequest req);
     List<UserBO> getListStudentByPositionId(Long positionId);
     UserBO getUserByCode(String userCode);
     boolean checkLogin(UserForm user);

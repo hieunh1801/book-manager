@@ -17,6 +17,7 @@ import com.example.user.dao.UserDAO;
 import com.example.user.entity.RoleBO;
 import com.example.user.entity.UserBO;
 import com.example.user.entity.UserBean;
+import com.example.user.entity.UserBean2;
 import com.example.user.entity.UserForm;
 
 
@@ -40,19 +41,19 @@ class UserDetailsServiceImpl implements  UserService {
         return userDAO.getStudentList(uttData, userForm, req);
     }
     
-    public DataTableResults<UserBean> getDatatable(UserForm userForm, HttpServletRequest req) {
+    public DataTableResults<UserBean2> getDatatable(UserForm userForm, HttpServletRequest req) {
         return userDAO.getDatatable(uttData, userForm, req);
     }
     
     // Lấy danh sách sinh viên theo lớp
-    public List<UserBO> getListStudentByPositionId(Long positionId) {
-        return userDAO.findByPositionId(positionId);
-    }
-    
+//    public List<UserBO> getListStudentByPositionId(Long positionId) {
+//        return userDAO.findByPositionId(positionId);
+//    }
+//    
     
     // 
     public UserBO getUserByCode(String userCode) {
-        return userDAO.findByUserCode(userCode);
+        return userDAO.findByCode(userCode);
     }
     
     public List<RoleBO> findAllRole() {
@@ -63,7 +64,7 @@ class UserDetailsServiceImpl implements  UserService {
     public boolean checkLogin(UserForm user) {
         List<UserBO> listUser = (List<UserBO>) userDAO.findAll();
         for (UserBO userExist : listUser) {
-            if (StringUtils.equals(user.getUserName(), userExist.getUserName())
+            if (StringUtils.equals(user.getUserName(), userExist.getAccount())
                     && StringUtils.equals(user.getPassword(), userExist.getPassword())) {
                 return true;
             }
@@ -121,6 +122,12 @@ class UserDetailsServiceImpl implements  UserService {
     @Override
     public UserBO save(UserBO user) {
         return userDAO.save(user);
+    }
+
+    @Override
+    public List<UserBO> getListStudentByPositionId(Long positionId) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 //    @Override

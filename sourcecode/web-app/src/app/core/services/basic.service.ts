@@ -101,6 +101,7 @@ export class BasicService {
    * saveOrUpdate
    */
   public saveOrUpdate(item: any): Observable<any> {
+    console.log('service save')
     const url = `${this.serviceUrl}`;
     return this.postRequest(url, CommonUtils.convertData(item));
   }

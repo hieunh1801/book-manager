@@ -17,6 +17,7 @@ import com.example.common.DataTableResults;
 import com.example.common.UttData;
 import com.example.user.entity.UserBO;
 import com.example.user.entity.UserBean;
+import com.example.user.entity.UserBean2;
 import com.example.user.entity.UserForm;
 
 
@@ -28,14 +29,14 @@ import com.example.user.entity.UserForm;
 @Transactional
 @Repository
 public interface UserDAO extends CrudRepository<UserBO, Long> {
-    UserBO findByUserName(String username);
+    UserBO findByAccount(String account);
     
-    @Query("SELECT u FROM UserBO u WHERE positionId = :positionId AND role_id = 2")
-    public List<UserBO> findByPositionId(@Param("positionId")Long positionId);
+//    @Query("SELECT u FROM UserBO u WHERE positionId = :positionId AND role_id = 2")
+//    public List<UserBO> findByPositionId(@Param("positionId")Long positionId);
     
     //Lấy ra UserBO bởi userCode
-    @Query("SELECT u FROM UserBO u WHERE LOWER(u.userCode) = LOWER(:userCode)")
-    public UserBO findByUserCode(@Param("userCode")String userCode);
+    @Query("SELECT u FROM UserBO u WHERE LOWER(u.code) = LOWER(:code)")
+    public UserBO findByCode(@Param("code")String userCode);
 
 //    @Autowired
 //    private CommonData commonData;
@@ -104,35 +105,23 @@ public interface UserDAO extends CrudRepository<UserBO, Long> {
     public default DataTableResults<UserBean> getStudentList(UttData uttData, UserForm userForm, HttpServletRequest req) {
         List<Object> paramList = new ArrayList<>();
         String nativeSQL = "SELECT "
-                + "     usr.user_id AS userId " 
-                + "     , usr.user_name as userName " 
+                + "     usr.id AS id " 
+                + "     , usr.account as account " 
                 + "     , usr.password as password "
                 + "     ,usr.full_name as fullName "
                 + "     ,usr.gender as gender "
                 + "     ,usr.date_of_birth AS dateOfBirth "
                 + "     ,usr.email AS email "
-                + "     ,usr.mobile_number AS mobileNumber "
-                + "     ,usr.user_code AS userCode "
-                + "     ,pst.position_name as className "
-                + "     ,pst.position_id as positionId "
-                + "     ,mj.major_name as majorName "
-                + "     ,dpm.department_name as departmentName "
-                + "     , rls.role as role"
-                + "     , rls.role_name as roleName"
-                + " FROM users usr "
-                + " INNER JOIN roles rls ON usr.role_id = rls.role_id "
-                + " INNER JOIN position pst ON usr.position_id = pst.position_id "
-                + " INNER JOIN majors mj ON pst.major_id = mj.major_id "
-                + " INNER JOIN departments dpm ON mj.department_id = dpm.department_id  ";
+                + "     ,usr.phone_number AS phoneNumber "
+                + "     ,usr.code AS code "
+                + " FROM user usr ";
 
-        StringBuilder strCondition = new StringBuilder(" WHERE 1 = 1 AND usr.role_id = 2");
+        StringBuilder strCondition = new StringBuilder(" WHERE 1 = 1 ");
         
-        CommonUtil.filter(userForm.getUserCode(), strCondition, paramList, "usr.user_code");
+        CommonUtil.filter(userForm.getUserCode(), strCondition, paramList, "usr.code");
         CommonUtil.filter(userForm.getFullName(), strCondition, paramList, "usr.full_name");
-        CommonUtil.filter(userForm.getCourse(), strCondition, paramList, "pst.course");
-        CommonUtil.filter(userForm.getPositionId(), strCondition, paramList, "pst.position_id");
 
-        String orderBy = " ORDER BY userId DESC ";
+        String orderBy = " ORDER BY id DESC ";
         return uttData.findPaginationQuery(nativeSQL + strCondition.toString(), orderBy, paramList, UserBean.class);
     }
     
@@ -144,32 +133,29 @@ public interface UserDAO extends CrudRepository<UserBO, Long> {
      * @return
      */
     
-    public default DataTableResults<UserBean> getDatatable(UttData uttData, UserForm userForm, HttpServletRequest req) {
+    public default DataTableResults<UserBean2> getDatatable(UttData uttData, UserForm userForm, HttpServletRequest req) {
         List<Object> paramList = new ArrayList<>();
         String nativeSQL = "SELECT "
-                + "     usr.user_id AS userId " 
-                + "     , usr.user_name as userName " 
-                + "     , usr.password as password "
+                + "     usr.id AS id " 
+                + "     , usr.account as userName " 
+//                + "     , usr.password as password "
                 + "     ,usr.full_name as fullName "
                 + "     ,usr.gender as gender "
                 + "     ,usr.date_of_birth AS dateOfBirth "
                 + "     ,usr.email AS email "
-                + "     ,usr.mobile_number AS mobileNumber "
-                + "     ,usr.user_code AS userCode "
-                + "     , rls.role as role"
-                + "     , rls.role_name as roleName"
-                + " FROM users usr "
-                + " INNER JOIN roles rls ON usr.role_id = rls.role_id ";
+                + "     ,usr.phone_number AS phoneNumber "
+                + "     ,usr.code AS code "
+                + " FROM user usr ";
 
         StringBuilder strCondition = new StringBuilder(" WHERE 1 = 1");
         
-        CommonUtil.filter(userForm.getUserCode(), strCondition, paramList, "usr.user_code");
+        CommonUtil.filter(userForm.getUserCode(), strCondition, paramList, "usr.code");
         CommonUtil.filter(userForm.getFullName(), strCondition, paramList, "usr.full_name");
 //        CommonUtil.filter(userForm.getCourse(), strCondition, paramList, "pst.course");
 //        CommonUtil.filter(userForm.getPositionId(), strCondition, paramList, "pst.position_id");
 
-        String orderBy = " ORDER BY userId DESC ";
-        return uttData.findPaginationQuery(nativeSQL + strCondition.toString(), orderBy, paramList, UserBean.class);
+        String orderBy = " ORDER BY id DESC ";
+        return uttData.findPaginationQuery(nativeSQL + strCondition.toString(), orderBy, paramList, UserBean2.class);
     }
 
 

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,23 +19,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.common.CommonUtil;
 import com.example.common.Constants;
 import com.example.common.DataTableResults;
 import com.example.common.Response;
 import com.example.exception.SysException;
+import com.example.fileStorage.FileStorageService;
 import com.example.user.entity.RoleBO;
 import com.example.user.entity.UserBO;
 import com.example.user.entity.UserBean;
+import com.example.user.entity.UserBean2;
 import com.example.user.entity.UserForm;
 import com.example.user.service.JwtService;
 import com.example.user.service.UserService;
 
 
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserMainController {
     
@@ -44,6 +46,8 @@ public class UserMainController {
     @Autowired
     private UserService userService;
     
+    @Autowired
+    FileStorageService storageService;
 
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public List<UserBO> listUser(){
@@ -55,7 +59,7 @@ public class UserMainController {
     }
     
     @GetMapping(path = "/search-user")
-    public @ResponseBody DataTableResults<UserBean> getDatatables(HttpServletRequest req,UserForm user){
+    public @ResponseBody DataTableResults<UserBean2> getDatatables(HttpServletRequest req, UserForm user){
         return userService.getDatatable(user, req);
     }
     
@@ -86,9 +90,9 @@ public class UserMainController {
     
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Response create(HttpServletRequest req, @RequestBody UserForm form) 
+    public @ResponseBody Response create(HttpServletRequest req, UserForm form) 
             throws Exception, SysException {
-        Long userId = CommonUtil.NVL(form.getUserId());
+        Long userId = CommonUtil.NVL(form.getId());
         UserBO bo;
         if(userId > 0L) {
             bo = userService.findById(userId);
@@ -103,19 +107,25 @@ public class UserMainController {
 //            if (!permissionChecker.hasPermission("action.insert", adResouceKey, req)) {
 //                return Response.invalidPermission();
 //            }
-            bo.setCreatedDate(new Date());
-            bo.setCreatedBy(CommonUtil.getUserLoginName(req));
+//            bo.setCreatedDate(new Date());
+//            bo.setCreatedBy(CommonUtil.getUserLoginName(req));
         }
-        bo.setUserName(form.getUserName());
+        bo.setAccount(form.getAccount());
         bo.setPassword(form.getPassword());
         bo.setFullName(form.getFullName());
-        bo.setDateOfBirth(form.getDateOfBirth());
+        bo.setDateOfBirth(new Date(Long.valueOf(form.getDateOfBirthStr())));
         bo.setGender(form.getGender());
         bo.setEmail(form.getEmail());
-        bo.setMobileNumber(form.getMobileNumber());
-        bo.setPositionId(form.getPositionId());
-        bo.setUserCode(form.getUserCode());
-        bo.setRoleId(form.getRoleId());
+        bo.setPhoneNumber(form.getPhoneNumber());
+        bo.setCode(form.getCode());
+        bo.setRoleId(0L);
+        
+        // lưu file avatar
+        if( form.getFile() !=null && form.getFile().getOriginalFilename() != null) {
+            String url = storageService.store(form.getFile());
+            bo.setAvatarUrl(url);
+        }
+        
         userService.saveOrUpdate(bo);
         return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(bo);
     }

@@ -34,7 +34,41 @@ public class UserBean implements UserDetails{
     private String     userCode;
     private String     role;
     private String     roleName;
+    private String code;
+    private String account;
+    private String phoneNumber;
     
+    
+    
+    public String getCode() {
+        return code;
+    }
+
+    
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    
+    public String getAccount() {
+        return account;
+    }
+
+    
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

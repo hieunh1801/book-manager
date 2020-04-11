@@ -30,6 +30,15 @@ public class UserForm {
     private String     year;
     private String     semester;
     private Long       roleId;
+    private String account;
+    private String phoneNumber;
+    private String code;
+    private Long id;
+    private String avatarUrl;
+    private MultipartFile file;
+    private String dateOfBirthStr;
+    
+    
     
 //    /**
 //     * @return the userId
@@ -38,6 +47,92 @@ public class UserForm {
 //        return userId;
 //    }
     
+    
+    
+    
+    
+    
+    public String getDateOfBirthStr() {
+        return dateOfBirthStr;
+    }
+
+
+
+
+
+    
+    public void setDateOfBirthStr(String dateOfBirthStr) {
+        this.dateOfBirthStr = dateOfBirthStr;
+    }
+
+
+
+
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+
+
+
+    
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+
+
+
+    
+    public MultipartFile getFile() {
+        return file;
+    }
+
+
+
+
+    
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+
+
+
+    public String getCode() {
+        return code;
+    }
+
+
+
+    
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
+    public String getAccount() {
+        return account;
+    }
+
+    
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
     /**
      * @return the userName
      */
@@ -438,6 +533,22 @@ public class UserForm {
     }
 
     
+    
+    public Long getId() {
+        return id;
+    }
+
+
+
+
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+
+
     /**
      * @return the roleId
      */
