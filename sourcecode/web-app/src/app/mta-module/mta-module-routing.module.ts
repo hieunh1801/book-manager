@@ -18,6 +18,10 @@ const routes: Routes = [
     path: "members",
     loadChildren: "./member/member.module#MemberModule"
   },
+  {
+    path: "report",
+    loadChildren: "./report/report.module#ReportModule"
+  },
 ];
 
 @NgModule({

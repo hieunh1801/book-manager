@@ -42,7 +42,10 @@ public class BookBO implements Serializable {
 	
 	@Column(name = "category_id")
 	private Long categoryId;
-
+	
+	@Column(name = "amount_borrow")
+    private Long amountBorrow;
+	
 	public Long getId() {
 		return id;
 	}
@@ -114,4 +117,16 @@ public class BookBO implements Serializable {
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
+
+    
+    public Long getAmountBorrow() {
+        return amountBorrow;
+    }
+
+    
+    public void setAmountBorrow(Long amountBorrow) {
+        this.amountBorrow = amountBorrow;
+    }
+	
+	
 }

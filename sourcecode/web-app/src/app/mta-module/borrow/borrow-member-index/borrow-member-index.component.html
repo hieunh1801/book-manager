@@ -105,8 +105,8 @@
           <th>STT</th>
           <th>Gia hạn</th>
           <th>Trả sách</th>
-          <th>Tên sách</th>
-          <th>Ngày mượn</th>
+          <th class="required">Tên sách</th>
+          <th class="required">Ngày mượn</th>
           <th>Hạn trả</th>
           <th>Thao tác</th>
         </tr>
@@ -131,13 +131,15 @@
             {{item.controls['nameCode'].value}} 
           </td>
           <td *ngIf="!item.controls['id'].value">
-            <p-autoComplete [formControlName]="'nameCode'" [suggestions]="results" (onSelect)="selectBook(item, $event)"
+            <p-autoComplete [formControlName]="'nameCode'" [suggestions]="results" (onSelect)="selectBook(item, $event,index)"
               (completeMethod)="searchAutoComplete($event)" field="nameCode" [size]="30" [minLength]="1">
               <ng-template let-book pTemplate="item">
                 <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                   <img [src]="book.imageUrl"
                     style="width:32px;display:inline-block;margin:5px 0 2px 5px" />
-                  <div style="font-size:13px;float:right;margin:5px 5px 0 0">{{book.nameCode}}</div>
+                  <div style="font-size:13px;float:right;margin:5px 5px 0 0">{{book.nameCode}} 
+                    <span *ngIf="book.isValid != 1" class="invalid">(Đã hết) </span>
+                  </div>
                 </div>
               </ng-template>
             </p-autoComplete>

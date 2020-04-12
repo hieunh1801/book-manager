@@ -28,5 +28,18 @@ export class BookService extends BasicService {
     return this.httpClient.get(url);
   }
 
+  public searchReport(data?: any, event?: any): Observable<any> {
+    if (!event) {
+      this.credentials = Object.assign({}, data);
+    }
+
+    const searchData = CommonUtils.convertData(this.credentials);
+    if (event) {
+      searchData._search = event;
+    }
+    const buildParams = CommonUtils.buildParams(searchData);
+    const url = `${this.serviceUrl}/report?`;
+    return this.getRequest(url, { params: buildParams });
+  }
  
 }

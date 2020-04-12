@@ -3,7 +3,7 @@ import { BaseComponent } from 'src/app/shared/components/base-component/base-com
 import { Router, ActivatedRoute } from '@angular/router';
 import { RESOURCE, ACTION_FORM, APP_CONSTANTS } from 'src/app/core/app-config';
 import { BorrowService } from 'src/app/core/services/borrow.service';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormGroup, Validators } from '@angular/forms';
 import { BookService } from 'src/app/core/services/book.service';
 import { CommonUtils } from 'src/app/shared/service/common-utils.service';
 import { AppComponent } from 'src/app/app.component';
@@ -11,6 +11,7 @@ import { MenuItem } from 'primeng/api';
 import { SystemParamService } from 'src/app/core/services/system-param.service';
 import { MemberService } from 'src/app/core/services/member.service';
 import { environment } from "../../../../environments/environment";
+import { ValidationService } from 'src/app/shared/service/validation.service';
 
 @Component({
   selector: 'app-borrow-member-index',
@@ -18,7 +19,7 @@ import { environment } from "../../../../environments/environment";
 })
 export class BorrowMemberIndexComponent extends BaseComponent implements OnInit {
   formConfig = {
-    id: [''],
+    id: ['',[Validators.required]],
     memberCode: [''],
     memberName: [''],
     // fromDate: [''],
@@ -42,9 +43,9 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
   member : any;
   formSaveConfig = {
     id: [''],
-    bookId: [''],
+    bookId: ['',[Validators.required]],
     memberId: [''],
-    fromDate: [new Date().getTime()],
+    fromDate: [new Date().getTime(),[Validators.required]],
     toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24 * 14)],
     status: [1],
     pay :[''],
@@ -95,9 +96,9 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
       this.param = res.data;
       this.formSaveConfig = {
         id: [''],
-        bookId: [''],
+        bookId: ['',[Validators.required]],
         memberId: [''],
-        fromDate: [new Date().getTime()],
+        fromDate: [new Date().getTime(),[Validators.required]],
         toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))],
         status: [1],
         pay :[''],
@@ -137,6 +138,7 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
         const group = this.makeDefaultForm();
         group.patchValue(emp);
         controls.push(group);
+        controls.setValidators(ValidationService.duplicateArray(['bookId'],'bookId','Không được trùng nhau'))
       }
     } else {
       const group = this.makeDefaultForm();
@@ -150,7 +152,7 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     return formGroup;
   }
 
-  public addRow(index: number, item: FormGroup) {
+  public addRow(index: number, item?: FormGroup) {
     const max = parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_SACH_MUON]);
     if(this.formSave.value  && (this.formSave.value.length  >= max)){
       this.app.warningMessage('Số sách được mượn tối đa: '+ max);
@@ -160,7 +162,7 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     controls.insert(index + 1, this.makeDefaultForm());
   }
 
-  public removeRow(index: number, item: FormGroup) {
+  public removeRow(index: number, item?: FormGroup) {
     const controls = this.formSave as FormArray;
     if (controls.length === 1) {
       this.buildFormSave(null);
@@ -184,9 +186,16 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
       // this.results = res.data;
     });
   }
-  selectBook(item, event) {
+  selectBook(item, event,index) {
     console.log('item', item)
     console.log('event', event)
+    console.log('index', index)
+    if(event.isValid !=1 ){
+      this.app.warningMessage('Không còn đủ số lượng');
+      this.removeRow(index);
+      this.addRow(index);
+      return;
+    }
     item.controls.bookId.setValue(event.id)
   }
 
@@ -234,12 +243,15 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
 
     //   })
     // }
-    let isSave = true;
-    if (!CommonUtils.isValidForm(this.formSave) && !CommonUtils.isValidForm(this.formSearch)) {
-      isSave = false;
+    // let isSave = true;
+    // if (!CommonUtils.isValidForm(this.formSave) && !CommonUtils.isValidForm(this.formSearch)) {
+    //   isSave = false;
+    // }
+    if (!CommonUtils.isValidForm(this.formSave) || !CommonUtils.isValidForm(this.formSearch)) {
+      return;
     }
 
-    if (isSave) {
+    if (true) {
       const formInput = {};
       formInput['memberId'] = this.formSearch.controls.id.value;
       formInput['lstBorrow'] = this.formSave.value;

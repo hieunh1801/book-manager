@@ -7,7 +7,7 @@ import { BorrowSettingComponent } from './borrow-setting/borrow-setting.componen
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'member',
     component: BorrowMemberIndexComponent
   },
   {

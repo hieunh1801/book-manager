@@ -13,8 +13,21 @@ public class BookForm {
 	private Long amount;
 	private MultipartFile file;
 	private Long categoryId;
-
+	private Long amountBorrow;
 	
+	
+    
+    public Long getAmountBorrow() {
+        return amountBorrow;
+    }
+
+
+    
+    public void setAmountBorrow(Long amountBorrow) {
+        this.amountBorrow = amountBorrow;
+    }
+
+
     public MultipartFile getFile() {
         return file;
     }

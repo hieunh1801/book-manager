@@ -37,4 +37,8 @@ public class MemberService {
 	public void deleteById(Long id) {
 		memberDAO.deleteById(id);
 	}
+	
+	public DataTableResults<MemberBean> searchReport(MemberForm formData) {
+	    return memberDAO.searchReport(uttData, formData);
+	}
 }

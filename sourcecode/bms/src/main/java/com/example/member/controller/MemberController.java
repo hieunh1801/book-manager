@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.book.entity.BookBean;
+import com.example.book.entity.BookForm;
+import com.example.book.service.BookService;
 import com.example.common.CommonUtil;
 import com.example.common.Constants;
 import com.example.common.DataTableResults;
@@ -36,6 +39,9 @@ public class MemberController {
 	
 	@Autowired
     FileStorageService storageService;
+	
+	@Autowired
+	private BookService bookService;
 
 	@GetMapping(path = "")
 	public @ResponseBody List<MemberBO> apiGetAllBook(HttpServletRequest req, UserForm user) {
@@ -98,4 +104,10 @@ public class MemberController {
 		memberService.saveOrUpdate(bo);
 		return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(bo);
 	}
+	
+	@GetMapping(path = "/report")
+    public @ResponseBody DataTableResults<MemberBean> searchReport(HttpServletRequest req, MemberForm form) {
+        DataTableResults<MemberBean> listBooks = memberService.searchReport(form);
+        return listBooks;
+    }
 }

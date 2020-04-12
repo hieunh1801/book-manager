@@ -13,6 +13,8 @@ public class BookBean {
 	private Long categoryId;
 	private String categoryName;
 	private String nameCode;
+	private Long amountBorrow;
+	private Long isValid;
 	
 	public Long getId() {
 		return id;
@@ -81,6 +83,22 @@ public class BookBean {
     
     public void setNameCode(String nameCode) {
         this.nameCode = nameCode;
+    }
+    
+    public Long getAmountBorrow() {
+        return amountBorrow;
+    }
+    
+    public void setAmountBorrow(Long amountBorrow) {
+        this.amountBorrow = amountBorrow;
+    }
+    
+    public Long getIsValid() {
+        return isValid;
+    }
+    
+    public void setIsValid(Long isValid) {
+        this.isValid = isValid;
     }
 	
 }

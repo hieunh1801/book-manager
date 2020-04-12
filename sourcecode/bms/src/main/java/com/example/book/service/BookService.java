@@ -42,4 +42,8 @@ public class BookService {
 	public List<BookBean> searchAutoComplete(  String search) {
 	    return bookDAO.searchAutoComplete(uttData, search);
 	}
+	
+	public DataTableResults<BookBean> searchReport(BookForm formData) {
+	    return bookDAO.searchReport(uttData, formData);
+	}
 }

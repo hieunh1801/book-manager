@@ -285,7 +285,7 @@
                           class="vsm-link"><span class="vsm-title">Quản lý chung</span></a>
                       </div>
 
-                      <div class="vsm-item"><a routerLink="/borrow" routerLinkActive="active-item"
+                      <div class="vsm-item"><a routerLink="/borrow/member" routerLinkActive="active-item"
                           class="vsm-link"><span class="vsm-title">Mượn/Trả</span></a>
                       </div>
 
@@ -310,12 +310,37 @@
                 <span class="vsm-title">Quản lý thành viên</span>
               </a>
             </div>
-            <div class="vsm-item">
+            <!-- <div class="vsm-item">
               <a routerLink="#" routerLinkActive="active-item" class="vsm-link">
                 <i class="vsm-icon pe-7s-graph1"></i>
                 <span class="vsm-title">Thống kê</span>
               </a>
-            </div>
+            </div> -->
+            <ngb-accordion [destroyOnHide]="false" [closeOthers]="true" [activeIds]="extraParameter">
+              <ngb-panel id="dashboardsMenu5">
+                <ng-template ngbPanelHeader>
+                  <button ngbPanelToggle class="vsm-link">
+                    <i class="vsm-icon pe-7s-graph1"></i>
+                    <span class="vsm-title">Thống kê</span>
+                    <i class="vsm-arrow"></i>
+                  </button>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="vsm-dropdown">
+                    <div class="vsm-list">
+                      <div class="vsm-item"><a routerLink="/report/book" routerLinkActive="active-item" class="vsm-link"><span
+                            class="vsm-title">Thống kê số lượng sách</span></a>
+                      </div>
+            
+                      <div class="vsm-item"><a routerLink="/report/member" routerLinkActive="active-item" class="vsm-link"><span
+                            class="vsm-title">Thống kê số lượng mượn/Trả</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+
           </div>
         </div>
       </perfect-scrollbar>

@@ -50,4 +50,34 @@ public interface MemberDAO extends CrudRepository<MemberBO, Long> {
         
         return uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, MemberBean.class);
     }
+    
+    
+    public default DataTableResults<MemberBean> searchReport(UttData uttData, MemberForm formData) {
+        List<Object> paramList = new ArrayList<>();
+        String sql = " select m.code as code    " + 
+                ", m.full_name as fullName    " + 
+                ", m.date_of_birth as dateOfBirth    " + 
+                ", m.email as email    " + 
+                ", m.phone_number as phoneNumber    " + 
+                ", m.gender as gender    " + 
+                ", m.avatar_url as avatarUrl    " + 
+                ", b.total_borrow as totalBorrow    " + 
+                ", b.pay_borrow as payBorrow    " + 
+                ", b.not_pay_borrow as notPayBorrow    " + 
+                " from member m    " + 
+                " left join member_borrow b on m.id=b.member_id ";
+        StringBuilder strCondition = new StringBuilder(" WHERE 1 ");
+        CommonUtil.filter(formData.getId(), strCondition, paramList, "id");
+        CommonUtil.filter(formData.getCode(), strCondition, paramList, "code");
+        CommonUtil.filter(formData.getFullName(), strCondition, paramList, "full_name");
+        CommonUtil.filter(formData.getDateOfBirth(), strCondition, paramList, "date_of_birth");
+        CommonUtil.filter(formData.getAddress(), strCondition, paramList, "address");
+        CommonUtil.filter(formData.getPhoneNumber(), strCondition, paramList, "phone_number");
+        CommonUtil.filter(formData.getEmail(), strCondition, paramList, "email");
+        CommonUtil.filter(formData.getGender(), strCondition, paramList, "gender");
+        
+        String selectFields = " order by id ";
+        
+        return uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, MemberBean.class);
+    }
 }

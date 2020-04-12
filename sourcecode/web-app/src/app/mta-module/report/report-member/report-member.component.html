@@ -1,0 +1,110 @@
+<!-- Search Group -->
+<div class="panel panel-default">
+  <form id="formSearch" [formGroup]="formSearch">
+    <div class="panel-heading">
+      <strong class="text-u-c">
+        <i class="fa fa-th"></i>
+        <span> Thông tin tìm kiếm </span>
+      </strong>
+    </div>
+    <div class="panel-body padding-xl ui-g">
+      <!-- row -->
+      <div class="ui-g-12">
+        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Mã bạn đọc</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="50">
+        </div>
+
+        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tên bạn đọc</label>
+        <div class="ui-g-12 ui-md-4 ui-lg-3">
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="fullName" maxlength="200" autofocus>
+        </div>
+      </div> <!-- end row -->
+      
+    </div>
+    <div class="panel-footer vt-area-button">
+      <button type="submit" (click)="processSearchReport();" class="btn btn-sm btn-info">
+        <i class="fa fa-search"></i> Tìm kiếm
+      </button>
+    </div>
+  </form>
+</div>
+
+
+<!-- List Object -->
+<div class="panel panel-default">
+  <div class="panel-heading vt-relative">
+    <strong class="text-u-c">
+      <i class="fa fa-th"></i>
+      <span> Danh sách sách</span>
+    </strong>
+    <!-- <div class="vt-absolute vt-shotcut-button-in-heading">
+      <div>
+        <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i>
+          Thêm mới</button>
+      </div>
+    </div> -->
+  </div>
+  <div class="panel-body panel-table">
+    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
+      (onLazyLoad)="processSearchReport($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
+      [responsive]="true" [lazyLoadOnInit]="false"
+      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col class="size-1">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>STT</th>
+          <th pSortableColumn="code" >Mã bạn đọc<p-sortIcon [field]="code"></p-sortIcon></th>
+          <th pSortableColumn="fullName" >Tên bạn đọc<p-sortIcon [field]="fullName"></p-sortIcon></th>
+          <th>Ngày sinh</th>
+          <th>Giới tính</th>
+          <th>Email</th>
+          <th>Số điện thoại</th>
+          <th pSortableColumn="totalBorrow" >Đã mượn<p-sortIcon [field]="totalBorrow"></p-sortIcon></th>
+          <th pSortableColumn="payBorrow" >Đã trả<p-sortIcon [field]="payBorrow"></p-sortIcon></th>
+          <th pSortableColumn="notPayBorrow" >Chưa trả<p-sortIcon [field]="notPayBorrow"></p-sortIcon></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item let-index="rowIndex">
+        <tr>
+          <td class="vt-align-center">{{index+1}}</td>
+          <td class="vt-align-center">{{item.code}}</td>
+          <td>{{item.fullName}}</td>
+          <td>{{item.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
+          <td>
+            <span *ngIf="item.gender != 1">Nữ</span>
+            <span *ngIf="item.gender == 1">Nam</span>
+          </td>
+          <td>{{item.email}}</td>
+          <td>{{item.phoneNumber}}</td>
+          <td class="vt-align-right">{{item.totalBorrow  || 0}}</td>
+          <td class="vt-align-right">{{item.payBorrow  || 0}}</td>
+          <td class="vt-align-right">{{item.notPayBorrow || 0}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr class="emptymessage">
+          <td [attr.colspan]="6">
+            Không tồn tại bản ghi
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <table-footer [resultList]="resultList"></table-footer>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

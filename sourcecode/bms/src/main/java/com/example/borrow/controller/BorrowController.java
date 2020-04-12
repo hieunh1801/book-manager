@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.example.book.entity.BookBO;
+import com.example.book.service.BookService;
 import com.example.borrow.bean.BorrowBean;
 import com.example.borrow.bo.BorrowBO;
 import com.example.borrow.form.BorrowForm;
@@ -35,6 +37,8 @@ public class BorrowController {
     @Autowired
     private BorrowService borrowService;
     
+    @Autowired
+    private BookService bookService;
     
     @GetMapping(path = "/search-history")
     public @ResponseBody DataTableResults<BorrowBean> searchHistory(HttpServletRequest req, BorrowForm form) {
@@ -55,6 +59,8 @@ public class BorrowController {
             for (BorrowForm borrowForm : form.getLstBorrow()) {
                 Long id = CommonUtil.NVL(borrowForm.getId());
                 BorrowBO bo;
+              //cap nhat so luong sach cho muon
+                BookBO bookBO = bookService.getById(borrowForm.getBookId());
                 if (id > 0L) {
                     bo = borrowService.findById(id);
                     if (bo == null) {
@@ -62,6 +68,7 @@ public class BorrowController {
                     }
                 } else {
                     bo = new BorrowBO();
+                    bookBO.setAmountBorrow(CommonUtil.NVL(bookBO.getAmountBorrow())+1L);
                 }
                 bo.setMemberId(form.getMemberId());
                 bo.setBookId(borrowForm.getBookId());
@@ -70,10 +77,13 @@ public class BorrowController {
                 if(CommonUtil.NVL(borrowForm.getPay()) == 1L) {
                     bo.setStatus(3L);
                     bo.setToDate(new Date());
+                    bookBO.setAmountBorrow(CommonUtil.NVL(bookBO.getAmountBorrow())-1L);
                 } else {
                     bo.setStatus(borrowForm.getStatus());
                 }
                 bo.setAdjourn(borrowForm.getAdjourn());
+                
+                bookService.saveOrUpdate(bookBO);
                 borrowService.saveOrUpdate(bo);
                 lstId.add(bo.getId());
                 

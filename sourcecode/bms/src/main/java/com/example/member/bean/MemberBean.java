@@ -13,6 +13,9 @@ public class MemberBean {
 	private String avatarUrl;
 	private String nameCode;
 	private String address;
+	private Long totalBorrow;
+	private Long payBorrow;
+	private Long notPayBorrow;
 
 	public Long getId() {
 		return id;
@@ -93,5 +96,35 @@ public class MemberBean {
 	public void setNameCode(String nameCode) {
 		this.nameCode = nameCode;
 	}
+
+    
+    public Long getTotalBorrow() {
+        return totalBorrow;
+    }
+
+    
+    public void setTotalBorrow(Long totalBorrow) {
+        this.totalBorrow = totalBorrow;
+    }
+
+    
+    public Long getPayBorrow() {
+        return payBorrow;
+    }
+
+    
+    public void setPayBorrow(Long payBorrow) {
+        this.payBorrow = payBorrow;
+    }
+
+    
+    public Long getNotPayBorrow() {
+        return notPayBorrow;
+    }
+
+    
+    public void setNotPayBorrow(Long notPayBorrow) {
+        this.notPayBorrow = notPayBorrow;
+    }
 
 }
