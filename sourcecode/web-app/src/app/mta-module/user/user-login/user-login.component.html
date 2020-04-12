@@ -1,0 +1,61 @@
+<div class="h-100 bg-plum-plate bg-animation">
+  <div class="d-flex h-100 justify-content-center align-items-center">
+    <div class="mx-auto app-login-box col-md-8">
+      <div class="app-logo-inverse mx-auto mb-3 " style="margin-bottom: 0px !important;"></div>
+      <div class="modal-dialog w-100 mx-auto">
+        <div class="modal-content">
+          <form (ngSubmit)="login()" id="formLogin" [formGroup]="loginForm">
+          <div class="modal-body" style="padding: 10px;">
+           
+            <div class="h5 modal-title text-center">
+              <h4 class="mt-2">
+                <span>ĐĂNG NHẬP</span></h4>
+            </div>
+            <div [hidden]="!error" class="alert alert-danger">
+              {{ error }}
+            </div>
+            
+            <div id="exampleInputGroup1" role="group" aria-describedby="exampleInputGroup1__BV_description_" class="form-group">
+              <div>
+                <!-- <small class="form-text text-muted">Tên đăng nhập</small> -->
+                <input id="account" class="form-control" type="email" placeholder="Tên đăng nhập" required="required" formControlName="account">
+                <app-control-messages [control]="f['account']"></app-control-messages>
+              </div>
+            </div>
+            <div id="exampleInputGroup2" role="group" class="form-group">
+              <div>
+                <input id="password" type="password" placeholder="Mật khẩu" required="required" formControlName="password"
+                  aria-required="true" class="form-control">
+                <app-control-messages [control]="f['password']"></app-control-messages>
+              </div>
+            </div>
+            <!-- <div class="custom-control custom-checkbox">
+              <input id="exampleCheck" type="checkbox" name="check" autocomplete="off" class="custom-control-input" value="true">
+              <label for="exampleCheck" class="custom-control-label">
+                Ghi nhớ đăng nhập
+              </label>
+            </div> -->
+            <!-- <div class="divider"></div> -->
+
+            <!-- <h6 class="mb-0">
+              No account?
+              <a [routerLink]="" class="text-primary">Sign up now</a></h6> -->
+            
+          </div>
+              
+          <div class="modal-footer clearfix">
+            <!-- <div class="float-left"><a [routerLink]="" class="btn-lg btn btn-link">Recover
+              Password</a></div> -->
+            <div class="float-right">
+              <button  type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-login">Đăng nhập</button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+      <div class="text-center text-white opacity-8 mt-3">
+        CLB Sách & Hành Động Học Viện Kỹ Thuật Quân Sự
+      </div>
+    </div>
+  </div>
+</div>

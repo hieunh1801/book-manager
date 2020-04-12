@@ -59,40 +59,41 @@ public interface UserDAO extends CrudRepository<UserBO, Long> {
 //        }
 //    }
 
-    public default UserBean getUserWithRole(UttData uttData, String userName) {
+    public default UserBean getUserWithRole(UttData uttData, String account) {
         String hql = "SELECT " 
-                + "     usr.user_id AS userId " 
-                + "     , usr.user_name as userName " 
+                + "     usr.id AS userId " 
+                + "     , usr.account as account " 
                 + "     , usr.password as password "
-                + "     , rls.role as role"
-                + " FROM users usr "
-                + " INNER JOIN roles rls ON usr.role_id = rls.role_id "
-                + " WHERE 1 = 1 AND LOWER(usr.user_name) = :username";
+                + "     , rls.name as role"
+                + " FROM user usr "
+                + " INNER JOIN role rls ON usr.role_id = rls.id "
+                + " WHERE 1 = 1 AND LOWER(usr.account) = :account";
         SQLQuery query = uttData.createSQLQuery(hql);
-        query.setParameter("username", userName.toLowerCase());
+        query.setParameter("account", account.toLowerCase());
         uttData.setResultTransformer(query, UserBean.class);
         return (UserBean) query.uniqueResult();
     }
     
     public default UserBean getUserByName(UttData uttData, String userName) {
         String hql = "SELECT " 
-                + "     usr.user_id AS userId " 
-                + "     , usr.user_name as userName " 
+                + "     usr.id AS userId " 
+                + "     , usr.account as account " 
                 + "     , usr.password as password "
                 + "     ,usr.full_name as fullName "
                 + "     ,usr.gender as gender "
                 + "     ,usr.date_of_birth AS dateOfBirth "
                 + "     ,usr.email AS email "
-                + "     ,usr.mobile_number AS mobileNumber "
-                + "     ,usr.user_code AS userCode "
-                + "     , rls.role as role"
-                + "     , rls.role_id as roleId"
-                + "     , rls.role_name as roleName"
-                + " FROM users usr "
-                + " INNER JOIN roles rls ON usr.role_id = rls.role_id "
-                + " WHERE 1 = 1 AND LOWER(usr.user_name) = :username";
+                + "     ,usr.phone_number AS phoneNumber "
+                + "     ,usr.avatar_url AS avatarUrl "
+                + "     ,usr.code AS userCode "
+                + "     , rls.code as role"
+                + "     , rls.id as roleId"
+                + "     , rls.name as roleName"
+                + " FROM user usr "
+                + " INNER JOIN role rls ON usr.role_id = rls.id "
+                + " WHERE 1 = 1 AND LOWER(usr.account) = :account";
         SQLQuery query = uttData.createSQLQuery(hql);
-        query.setParameter("username", userName.toLowerCase());
+        query.setParameter("account", userName.toLowerCase());
         uttData.setResultTransformer(query, UserBean.class);
         return (UserBean) query.uniqueResult();
     }

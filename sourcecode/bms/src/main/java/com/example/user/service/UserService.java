@@ -25,7 +25,7 @@ public interface UserService {
     List<UserBO> findAll();
     UserBO findById(Long id);
     void delete(UserBO bo);
-    UserBean loadUserByUsername(String username);
+    UserBean loadUserByUsername(String account);
     UserBean getUserByUsername(String username);
     UserBean getUserInfoById(Long userId);
     DataTableResults<UserBean> getStudentList(UserForm userForm, HttpServletRequest req);

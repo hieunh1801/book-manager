@@ -3,6 +3,7 @@ export const CONFIG: any = {
   API_PATH: {
     /********************OAUTH SERVICE*****************/
     restUtt: "/rest",
+    auth : "/user",
     /********************File SYSTEM****************/
     fileStorage: "/file",
     /********************MTA ESS SYSTEM*****************/

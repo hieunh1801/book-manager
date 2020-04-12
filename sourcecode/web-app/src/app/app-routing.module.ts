@@ -51,6 +51,7 @@ import {LayoutComponent} from './DemoPages/Forms/Elements/layout/layout.componen
 // Charts
 
 import {ChartjsComponent} from './DemoPages/Charts/chartjs/chartjs.component';
+import { UserLoginComponent } from './mta-module/user/user-login/user-login.component';
 
 const routes: Routes = [
   {
@@ -114,7 +115,7 @@ const routes: Routes = [
     children: [
 
       // User Pages
-
+      {path: 'users/login', component: UserLoginComponent, data: {extraParameter: ''}},
       {path: 'pages/login-boxed', component: LoginBoxedComponent, data: {extraParameter: ''}},
       {path: 'pages/register-boxed', component: RegisterBoxedComponent, data: {extraParameter: ''}},
       {path: 'pages/forgot-password-boxed', component: ForgotPasswordBoxedComponent, data: {extraParameter: ''}},

@@ -7,17 +7,21 @@
             <button type="button" class="btn btn-link p-0 mr-2" ngbDropdownToggle>
               <span>
                 <div class="icon-wrapper icon-wrapper-alt rounded-circle">
-                  <img width="42" src="https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg" alt="" class="rounded-circle">
+                  <img width="42" [src]="this.userInfo.avatarUrl" alt="" class="rounded-circle">
                 </div>
               </span>
             </button>
-            <div ngbDropdownMenu>
-              <button class="dropdown-item">Menus</button>
-              <button class="dropdown-item">Settings</button>
-              <h6 class="dropdown-header">Header</h6>
-              <button class="dropdown-item">Actions</button>
+            <div *ngIf="this.userInfo && this.userInfo.userId" ngbDropdownMenu>
+              <h6 class="dropdown-header"><i>{{this.userInfo.userCode}} - {{ this.userInfo.fullName}}</i></h6>
+              <button class="dropdown-item">Cập nhật thông tin</button>
+              <button class="dropdown-item">Đổi mật khẩu</button>
               <div class="dropdown-divider"></div>
-              <button class="dropdown-item">Dividers</button>
+              <button (click)="logOut();" class="dropdown-item">
+                Đăng xuất
+              </button>
+            </div>
+            <div  *ngIf="!this.userInfo ||  !this.userInfo.userId" ngbDropdownMenu>
+              <button (click)="login();" class="dropdown-item">Đăng nhập</button>
             </div>
           </div>
         </div>

@@ -23,7 +23,7 @@ export class AuthService extends BasicService {
 
   constructor(public httpClient: HttpClient,
               public helperService: HelperService) {
-    super('ess', 'restUtt', httpClient, helperService);
+    super('bms', 'auth', httpClient, helperService);
   }
 
   // actionRequestToken(formValue) {
@@ -51,6 +51,8 @@ export class AuthService extends BasicService {
       fullName: token.fullName,
       userName: token.userName,
       mobileNumber: token.mobileNumber,
+      phoneNumber: token.phoneNumber,
+      avatarUrl: token.avatarUrl,
       className: token.className,
       majorName: token.majorName,
       departmentName: token.departmentName,
@@ -100,7 +102,7 @@ export class AuthService extends BasicService {
       "content-type": "application/x-www-form-urlencoded"
     };
     const payload = new HttpParams()
-      .set('userName', formValue.userName)
+      .set('account', formValue.account)
       .set('password', formValue.password);
     return this.httpClient.post(this.serviceUrl + '/login', payload, {responseType: 'text', headers: headers});
   }

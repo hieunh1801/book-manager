@@ -32,6 +32,7 @@ import {ChartModule} from 'primeng/chart';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { ImportErrorComponent } from './components/import-error/import-error.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
+import { UserLoginComponent } from '../mta-module/user/user-login/user-login.component';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
     FileChoserComponent,
     ImportErrorComponent,
     DatePickerComponent,
-
+    UserLoginComponent
   ],
   imports: [
     SlideMenuModule,
@@ -107,7 +108,7 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
     FileChoserComponent,
     ImportErrorComponent,
     DatePickerComponent,
-
+    UserLoginComponent,
     /**
      * prime
      */

@@ -16,7 +16,7 @@ import com.nimbusds.jwt.SignedJWT;
 @Service
 public class JwtService {
 
-	public static final String USERNAME = "userName";
+	public static final String USERNAME = "account";
 	public static final String SECRET_KEY = "11111111111111111111111111111111";
 	public static final int EXPIRE_TIME = 86400000;
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserIndexComponent } from './user-index/user-index.component';
+import { UserLoginComponent } from './user-login/user-login.component';
 
 const routes: Routes = [
   {
@@ -8,6 +9,10 @@ const routes: Routes = [
     component: UserIndexComponent,
     pathMatch: 'prefix',
   }
+  // , {
+  //   path: 'login',
+  //   component: UserLoginComponent,
+  // }
 ];
 
 @NgModule({

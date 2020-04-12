@@ -83,8 +83,8 @@
           <td class="vt-align-center">{{index+1}}</td>
           <td class="vt-align-center">{{item.code}}</td>
           <td>{{item.fullName}}</td>
-          <td>{{item.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
-          <td>
+          <td  class="vt-align-center">{{item.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
+          <td  class="vt-align-center">
             <span *ngIf="item.gender != 1">Nữ</span>
             <span *ngIf="item.gender == 1">Nam</span>
           </td>

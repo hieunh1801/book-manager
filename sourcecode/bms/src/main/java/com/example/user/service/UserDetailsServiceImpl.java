@@ -64,7 +64,7 @@ class UserDetailsServiceImpl implements  UserService {
     public boolean checkLogin(UserForm user) {
         List<UserBO> listUser = (List<UserBO>) userDAO.findAll();
         for (UserBO userExist : listUser) {
-            if (StringUtils.equals(user.getUserName(), userExist.getAccount())
+            if (StringUtils.equals(user.getAccount(), userExist.getAccount())
                     && StringUtils.equals(user.getPassword(), userExist.getPassword())) {
                 return true;
             }
@@ -75,7 +75,7 @@ class UserDetailsServiceImpl implements  UserService {
     
     public UserBean loadUserByUsername(String username) {
         UserBean user = userDAO.getUserWithRole(uttData, username);
-            if (user.getUserName().equals(username)) {
+            if (user.getAccount().equals(username)) {
                 return user;
             }
         return null;
@@ -83,7 +83,7 @@ class UserDetailsServiceImpl implements  UserService {
     
     public UserBean getUserByUsername(String username) {
         UserBean user = userDAO.getUserByName(uttData, username);
-            if (user.getUserName().equals(username)) {
+            if (user.getAccount().equals(username)) {
                 return user;
             }
         return null;

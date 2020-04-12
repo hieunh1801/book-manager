@@ -7,9 +7,12 @@
 }
 
 .app-logo-inverse {
-  height: $logo-height;
+  height: 100px;
   width: $logo-width;
-  background: url('./assets/images/logo.png');
+  background: url('./assets/images/logo_bam_2.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .app-login-box {

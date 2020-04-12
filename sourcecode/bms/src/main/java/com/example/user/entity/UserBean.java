@@ -37,9 +37,23 @@ public class UserBean implements UserDetails{
     private String code;
     private String account;
     private String phoneNumber;
+    private String avatarUrl;
     
     
     
+    
+    
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+
+    
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+
     public String getCode() {
         return code;
     }
