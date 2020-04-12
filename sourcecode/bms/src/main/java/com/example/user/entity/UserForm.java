@@ -1,6 +1,7 @@
 package com.example.user.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,8 +38,8 @@ public class UserForm {
     private String avatarUrl;
     private MultipartFile file;
     private String dateOfBirthStr;
-    
-    
+    private List<RoleForm> lstRole;
+    private List<Long> lstRoleId;
     
 //    /**
 //     * @return the userId
@@ -562,6 +563,22 @@ public class UserForm {
      */
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public List<RoleForm> getLstRole() {
+        return lstRole;
+    }
+    
+    public void setLstRole(List<RoleForm> lstRole) {
+        this.lstRole = lstRole;
+    }
+
+    public List<Long> getLstRoleId() {
+        return lstRoleId;
+    }
+    
+    public void setLstRoleId(List<Long> lstRoleId) {
+        this.lstRoleId = lstRoleId;
     }
 
 

@@ -8,13 +8,16 @@ import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.common.CommonUtil;
 import com.example.common.DataTableResults;
 import com.example.common.UttData;
 import com.example.user.dao.RoleDAO;
 import com.example.user.dao.UserDAO;
 import com.example.user.entity.RoleBO;
+import com.example.user.entity.RoleForm;
 import com.example.user.entity.UserBO;
 import com.example.user.entity.UserBean;
 import com.example.user.entity.UserBean2;
@@ -36,6 +39,12 @@ class UserDetailsServiceImpl implements  UserService {
     
     @Autowired
     private UttData uttData;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private RoleService roleService;
     
     public DataTableResults<UserBean> getStudentList(UserForm userForm, HttpServletRequest req) {
         return userDAO.getStudentList(uttData, userForm, req);
@@ -65,7 +74,7 @@ class UserDetailsServiceImpl implements  UserService {
         List<UserBO> listUser = (List<UserBO>) userDAO.findAll();
         for (UserBO userExist : listUser) {
             if (StringUtils.equals(user.getAccount(), userExist.getAccount())
-                    && StringUtils.equals(user.getPassword(), userExist.getPassword())) {
+                    && passwordEncoder.matches(user.getPassword(), userExist.getPassword())) {
                 return true;
             }
         }
@@ -74,16 +83,24 @@ class UserDetailsServiceImpl implements  UserService {
     
     
     public UserBean loadUserByUsername(String username) {
-        UserBean user = userDAO.getUserWithRole(uttData, username);
-            if (user.getAccount().equals(username)) {
-                return user;
-            }
-        return null;
+//        UserBean user = userDAO.getUserWithRole(uttData, username);
+//            if (user.getAccount().equals(username)) {
+//                return user;
+//            }
+        return getUserByUsername(username);
     }
     
     public UserBean getUserByUsername(String username) {
         UserBean user = userDAO.getUserByName(uttData, username);
             if (user.getAccount().equals(username)) {
+                List<Long> ids = CommonUtil.string2ListLong(user.getRoles(), ",");
+                List<RoleForm> lst = new ArrayList<RoleForm>();
+                StringBuilder roles = new StringBuilder(",");
+                for (Long roleId : ids) {
+                    RoleBO roleBO = roleService.findById(roleId);
+                    roles.append(roleBO.getCode()+",");
+                }
+                user.setRoles(roles.toString());
                 return user;
             }
         return null;

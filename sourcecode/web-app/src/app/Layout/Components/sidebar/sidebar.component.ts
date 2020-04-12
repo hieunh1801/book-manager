@@ -6,17 +6,18 @@ import {ActivatedRoute} from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MediaMatcher } from "@angular/cdk/layout";
 import { MenuItems } from "../../../shared/menu-items/menu-items";
+import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent extends BaseComponent implements OnInit {
   public extraParameter: any;
   items: MenuItem[];
 
   constructor(public globals: ThemeOptions, private activatedRoute: ActivatedRoute) {
-
+    super(null);
   }
 
   @select('config') public config$: Observable<any>;

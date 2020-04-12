@@ -1,3 +1,4 @@
+<div *ngIf="hasRole('admin') || hasRole('editor')"> 
 <div class="modal-body">
   <form id="frmSaveUser" [formGroup]="formSave">
     <div class="panel panel-default">
@@ -99,4 +100,8 @@
       </div>
     </div>
   </form>
+</div>
+</div>
+<div *ngIf="!hasRole('admin') && !hasRole('editor')">
+  <span style="color: red;">Bạn không có quyền</span>
 </div>

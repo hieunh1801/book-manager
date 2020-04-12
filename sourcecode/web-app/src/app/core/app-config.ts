@@ -12,7 +12,8 @@ export const CONFIG: any = {
     categories: "/categories",
     members: "/members",
     borrow: "/borrow",
-    sysParam : "/system-param"
+    sysParam : "/system-param",
+    role : "/role"
   }
 };
 

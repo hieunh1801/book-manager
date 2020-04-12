@@ -67,7 +67,7 @@
       <i class="fa fa-th"></i>
       <span> Danh sách bạn đọc</span>
     </strong>
-    <div class="vt-absolute vt-shotcut-button-in-heading">
+    <div *ngIf="hasRole('admin') || hasRole('editor')" class="vt-absolute vt-shotcut-button-in-heading">
       <div>
         <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i>
           Thêm mới</button>
@@ -82,8 +82,13 @@
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
           <col class="size-1">
-          <col class="size-1">
-          <col class="size-1">
+          <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
+          <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
+          <col class="size-3">
           <col class="size-3">
           <col class="size-3">
           <col class="size-3">
@@ -92,8 +97,8 @@
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th>STT</th>
-          <th>Sửa</th>
-          <th>Xóa</th>
+          <th *ngIf="hasRole('admin') || hasRole('editor')">Sửa</th>
+          <th *ngIf="hasRole('admin') || hasRole('editor')">Xóa</th>
           <th>Mã bạn đọc</th>
           <th>Tên bạn đọc</th>
           <th>Ảnh đại diện</th>
@@ -107,11 +112,11 @@
       <ng-template pTemplate="body" let-item let-index="rowIndex">
         <tr>
           <td class="vt-align-center">{{index+1}}</td>
-          <td class="vt-align-center">
+          <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
             <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'">
               <i class="fa fa-edit"></i></a>
           </td>
-          <td class="vt-align-center">
+          <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
             <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'">
               <i class="fa fa-trash-alt"></i></a>
           </td>

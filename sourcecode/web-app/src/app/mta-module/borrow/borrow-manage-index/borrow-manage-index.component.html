@@ -1,4 +1,4 @@
-<div >
+<div  *ngIf="hasRole()"> 
   <!-- *ngIf="havePermission('ROLE_ADMIN')" -->
   <div class="panel panel-default">
     <form id="formSearch" [formGroup]="formSearch">
@@ -106,7 +106,8 @@
       <ng-template pTemplate="body" let-item let-index="rowIndex">
         <tr>
           <td class="vt-align-center">{{index+1}}</td>
-          <td class="vt-align-center"> <span class="label-link" (click)="prepareBorrow(item)">{{item.memberCode}}</span></td>
+          <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center"> <span class="label-link" (click)="prepareBorrow(item)">{{item.memberCode}}</span></td>
+          <td *ngIf="!hasRole('admin') && !hasRole('editor')" class="vt-align-center">{{item.memberCode}}</td>
           <td>{{item.memberName}}</td>
           <td>{{item.categoryName}}</td>
           <td>{{item.bookName}}</td>
@@ -139,4 +140,7 @@
   </div>
   </div>
   
+  <div *ngIf="!hasRole()">
+    <span style="color: red;">Bạn không có quyền</span>
+  </div>
   

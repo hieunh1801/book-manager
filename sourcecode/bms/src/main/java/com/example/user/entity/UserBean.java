@@ -38,11 +38,22 @@ public class UserBean implements UserDetails{
     private String account;
     private String phoneNumber;
     private String avatarUrl;
+    private String     roles;
     
     
+    public String getRoles() {
+        return roles;
+    }
+
+
+
     
-    
-    
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+
+
     public String getAvatarUrl() {
         return avatarUrl;
     }
@@ -86,7 +97,7 @@ public class UserBean implements UserDetails{
     @Override
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-          authorities.add(new SimpleGrantedAuthority(role));
+          authorities.add(new SimpleGrantedAuthority(roles));
         return authorities;
       }
     

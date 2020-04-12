@@ -1,3 +1,5 @@
+
+<div *ngIf="hasRole('admin') || hasRole('editor')"> 
 <div class="panel panel-default">
   <form id="formSearch" [formGroup]="formSearch">
     <div class="panel-heading">
@@ -235,4 +237,9 @@
     </p-table>
   </div>
   <!-- </form> -->
+</div>
+
+</div>
+<div *ngIf="!hasRole('admin') && !hasRole('editor')">
+  <span style="color: red;">Bạn không có quyền</span>
 </div>

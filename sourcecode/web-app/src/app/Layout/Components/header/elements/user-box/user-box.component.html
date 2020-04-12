@@ -13,7 +13,7 @@
             </button>
             <div *ngIf="this.userInfo && this.userInfo.userId" ngbDropdownMenu>
               <h6 class="dropdown-header"><i>{{this.userInfo.userCode}} - {{ this.userInfo.fullName}}</i></h6>
-              <button class="dropdown-item">Cập nhật thông tin</button>
+              <button class="dropdown-item" (click)="prepareChangeInfo()">Cập nhật thông tin</button>
               <button class="dropdown-item">Đổi mật khẩu</button>
               <div class="dropdown-divider"></div>
               <button (click)="logOut();" class="dropdown-item">

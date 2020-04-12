@@ -86,11 +86,8 @@ public interface UserDAO extends CrudRepository<UserBO, Long> {
                 + "     ,usr.phone_number AS phoneNumber "
                 + "     ,usr.avatar_url AS avatarUrl "
                 + "     ,usr.code AS userCode "
-                + "     , rls.code as role"
-                + "     , rls.id as roleId"
-                + "     , rls.name as roleName"
+                + "     ,usr.roles AS roles "
                 + " FROM user usr "
-                + " INNER JOIN role rls ON usr.role_id = rls.id "
                 + " WHERE 1 = 1 AND LOWER(usr.account) = :account";
         SQLQuery query = uttData.createSQLQuery(hql);
         query.setParameter("account", userName.toLowerCase());

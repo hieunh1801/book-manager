@@ -1,9 +1,9 @@
-<div *ngIf="hasRole('admin') || hasRole('editor')"> 
+<div *ngIf="hasRole('admin')"> 
 <div class="panel panel-default">
   <div class="panel-heading">
     <strong class="text-u-c">
       <i class="fa fa-th"></i>
-      <span> Cấu hình tham số</span>
+      <span> Danh sách vai trò</span>
     </strong>
   </div>
   <div class="panel-body padding-xl ui-g">
@@ -14,16 +14,14 @@
           <col class="size-1">
           <col>
           <col>
-          <col>
-          <col *ngIf="!isProduction()" class="size-4">
+          <col *ngIf="!isProduction()"  class="size-4">
         </colgroup>
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
           <th>STT</th>
-          <th class="required">Mã tham số</th>
-          <th class="required">Tên tham số</th>
-          <th class="required">Giá trị</th>
+          <th class="required">Mã vai trò</th>
+          <th class="required">Tên vai trò</th>
           <th *ngIf="!isProduction()" >Thao tác</th>
         </tr>
       </ng-template>
@@ -44,13 +42,8 @@
             <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="200">
             <app-control-messages [control]="item.controls.name"></app-control-messages>
           </td>
-          <td class="vt-align-center">
-           <!-- value -->
-           <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="svalue" maxlength="200">
-           <app-control-messages [control]="item.controls.svalue"></app-control-messages>
-          </td>
-          
-          <td *ngIf="!isProduction()"  class="vt-align-center table-action">
+        
+          <td  *ngIf="!isProduction()"  class="vt-align-center table-action">
             <button class="btn btn-icon plus" type="button" title="thêm" (click)="addRow(index, item)">
               <i class="pi pi-plus"></i>
             </button>
@@ -68,6 +61,6 @@
   </div>
 </div>
 </div>
-<div *ngIf="!hasRole('admin') && !hasRole('editor')">
+<div *ngIf="!hasRole('admin')">
   <span style="color: red;">Bạn không có quyền</span>
 </div>

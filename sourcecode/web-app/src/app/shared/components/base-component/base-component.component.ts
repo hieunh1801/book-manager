@@ -6,6 +6,7 @@ import { DEFAULT_MODAL_OPTIONS, ACTION_FORM } from "../../../core/app-config";
 import { SysPropertyDetailBean } from "../../../core/models/sys-property-details.model";
 import { debug } from "util";
 import { Storage } from '../../service/storage.service';
+import { environment } from 'src/environments/environment';
 @Injectable()
 export class BaseComponent {
   public propertyConfigs = new Array<SysPropertyDetailBean>();
@@ -167,5 +168,39 @@ export class BaseComponent {
       return true;
     }
     return false;
+  }
+
+  public hasRole(roleCode?) {
+    const userToken = Storage.getUserToken();
+    if(userToken!=null){
+      const roles = Storage.getUserToken().roles;
+      if (!roles) {
+        return false;
+      }
+      if(roleCode){
+        if (roles.indexOf(','+roleCode+',') >= 0 ) {
+          return true;
+        }
+        return false;
+      } else {
+        return true;
+      }
+      
+    }
+    
+    return false;
+  }
+
+  public isAnonymous() {
+    const userToken = Storage.getUserToken();
+    
+    if (userToken == null || userToken.roles==null || userToken.roles=='' ) {
+      return true;
+    }
+    return false;
+  }
+
+  public isProduction(){
+    return environment.production;
   }
 }

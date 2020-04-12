@@ -1,15 +1,18 @@
 package com.example.user.controller;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +30,13 @@ import com.example.common.Response;
 import com.example.exception.SysException;
 import com.example.fileStorage.FileStorageService;
 import com.example.user.entity.RoleBO;
+import com.example.user.entity.RoleForm;
 import com.example.user.entity.UserBO;
 import com.example.user.entity.UserBean;
 import com.example.user.entity.UserBean2;
 import com.example.user.entity.UserForm;
 import com.example.user.service.JwtService;
+import com.example.user.service.RoleService;
 import com.example.user.service.UserService;
 
 
@@ -48,6 +53,12 @@ public class UserMainController {
     
     @Autowired
     FileStorageService storageService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public List<UserBO> listUser(){
@@ -80,10 +91,21 @@ public class UserMainController {
 //    }
     
     @GetMapping(path = "/{id}")
-    public @ResponseBody Response findById(HttpServletRequest req, @PathVariable Long id) {
+    public @ResponseBody Response findById(HttpServletRequest req, @PathVariable Long id) throws Exception {
         UserBO bo = userService.findById(id);
         if (bo == null) {
             return Response.warning(Constants.RESPONSE_CODE.RECORD_DELETED);
+        }
+        if(!CommonUtil.isNullOrEmpty(bo.getRoles())) {
+            List<Long> ids = CommonUtil.string2ListLong(bo.getRoles(), ",");
+            List<RoleForm> lst = new ArrayList<RoleForm>();
+            for (Long roleId : ids) {
+                RoleBO roleBO = roleService.findById(roleId);
+                RoleForm form = new RoleForm();
+                CommonUtil.copyProperties(form, roleBO);
+                lst.add(form);
+            }
+            bo.setLstRole(lst);
         }
         return Response.success().withData(bo);
     }
@@ -104,6 +126,7 @@ public class UserMainController {
 //            }
         } else {
             bo = new UserBO();
+            bo.setPassword(passwordEncoder.encode(form.getPassword()));
 //            if (!permissionChecker.hasPermission("action.insert", adResouceKey, req)) {
 //                return Response.invalidPermission();
 //            }
@@ -111,14 +134,19 @@ public class UserMainController {
 //            bo.setCreatedBy(CommonUtil.getUserLoginName(req));
         }
         bo.setAccount(form.getAccount());
-        bo.setPassword(form.getPassword());
         bo.setFullName(form.getFullName());
         bo.setDateOfBirth(new Date(Long.valueOf(form.getDateOfBirthStr())));
         bo.setGender(form.getGender());
         bo.setEmail(form.getEmail());
         bo.setPhoneNumber(form.getPhoneNumber());
         bo.setCode(form.getCode());
-        bo.setRoleId(0L);
+        if(!CommonUtil.isNullOrEmpty(form.getLstRole())) {
+            List<Long> ids = new ArrayList<Long>();
+            for (RoleForm roleForm : form.getLstRole()) {
+                ids.add(roleForm.getId());
+            }
+            bo.setRoles(StringUtils.join(ids,","));
+        }
         
         // lưu file avatar
         if( form.getFile() !=null && form.getFile().getOriginalFilename() != null) {

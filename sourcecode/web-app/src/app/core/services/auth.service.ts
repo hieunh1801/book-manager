@@ -60,6 +60,7 @@ export class AuthService extends BasicService {
       roleName: token.roleName,
       roleId: token.roleId,
       role: token.role,
+      roles: token.roles,
       lstRoleCode: token.lstRoleCode,
       loginTime: new Date().getTime(),
       tokenExpiresIn: expireDate

@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import { HelperService } from './shared/service/helper.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { BaseComponent } from './shared/components/base-component/base-component.component';
+import { Storage } from '../../src/app/shared/service/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +13,26 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 
 
 
-export class AppComponent {
+export class AppComponent extends BaseComponent {
   title = 'ut-web-app';
   public blocked = false;
   constructor(public helperService: HelperService
             , private messageService: MessageService
             , private confirmationService: ConfirmationService
+            , private router: Router
             ) {
+    super(null); 
+    router.events.subscribe((event) => {
+      if(event instanceof NavigationEnd) {
+        const userToken = Storage.getUserToken();
+        if(userToken == null){
+          if(event.url != "/book-manager/books"){
+            this.router.navigate(["/users/login"]);
+          }
+        }
+      }
+      
+    })
     this.helperService.APP_TOAST_MESSAGE.subscribe(data => {
       this.processReturnMessage(data);
     });

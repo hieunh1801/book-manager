@@ -2,6 +2,7 @@ package com.example.user.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.example.common.CommonUtil;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user")
@@ -51,8 +51,21 @@ public class UserBO implements Serializable {
     @Column(name = "avatar_url")
     private String avatarUrl;
 
-    @Column(name = "role_id")
-    private Long roleId;
+    @Column(name = "roles")
+    private String roles;
+
+    @Transient
+    private List<RoleForm> lstRole;
+    
+
+    public List<RoleForm> getLstRole() {
+        return lstRole;
+    }
+
+    
+    public void setLstRole(List<RoleForm> lstRole) {
+        this.lstRole = lstRole;
+    }
 
     public Long getId() {
         return id;
@@ -134,12 +147,14 @@ public class UserBO implements Serializable {
         this.avatarUrl = avatarUrl;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public String getPassword() {

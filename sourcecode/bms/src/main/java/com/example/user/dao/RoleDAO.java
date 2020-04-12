@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.springframework.data.jpa.repository.Query;
+import org.hibernate.SQLQuery;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.common.UttData;
 import com.example.user.entity.RoleBO;
 
 
@@ -34,4 +34,11 @@ public interface RoleDAO extends CrudRepository<RoleBO, Long> {
 
     public List<RoleBO> findAll();
 
+    public default int deleteAfterSave(UttData uttData, List<Long> ids) {
+        String sql = "delete from role where id not in :ids ";
+        SQLQuery query = uttData.createSQLQuery(sql);
+        query.setParameter("ids", ids);
+        return query.executeUpdate();
+    }
+    
 }

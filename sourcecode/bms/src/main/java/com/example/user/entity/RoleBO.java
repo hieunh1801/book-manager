@@ -13,76 +13,49 @@ import javax.persistence.Table;
 import com.example.common.CommonUtil;
 
 
-/**
- * @author TanPTN
- * @since 09/05/2019
- * @version 1.0
- */
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class RoleBO  implements Serializable{
 
     @Id
-    @Column(name = "role_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private Long id;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "code")
+    private String code;
 
-    @Column(name = "role_name")
-    private String roleName;
+    @Column(name = "name")
+    private String name;
 
-    public RoleBO() {
-    }
-    public RoleBO(RoleBO bo, String name) throws Exception {
-        if(bo != null) {
-            CommonUtil.copyProperties(this, bo);
-        }
-        this.roleName = name;
-    }
     
-    /**
-     * @return the roleId
-     */
-    public Long getRoleId() {
-        return roleId;
+    public Long getId() {
+        return id;
     }
+
     
-    /**
-     * @return the role
-     */
-    public String getRole() {
-        return role;
+    public void setId(Long id) {
+        this.id = id;
     }
+
     
-    /**
-     * @return the roleName
-     */
-    public String getRoleName() {
-        return roleName;
+    public String getCode() {
+        return code;
     }
+
     
-    /**
-     * @param roleId the roleId to set
-     */
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setCode(String code) {
+        this.code = code;
     }
+
     
-    /**
-     * @param role the role to set
-     */
-    public void setRole(String role) {
-        this.role = role;
+    public String getName() {
+        return name;
     }
+
     
-    /**
-     * @param roleName the roleName to set
-     */
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
-    
 
 }

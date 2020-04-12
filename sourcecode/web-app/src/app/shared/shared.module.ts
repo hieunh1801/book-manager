@@ -33,6 +33,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import { ImportErrorComponent } from './components/import-error/import-error.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { UserLoginComponent } from '../mta-module/user/user-login/user-login.component';
+import { UserFormComponent } from '../mta-module/user/user-form/user-form.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { UserLoginComponent } from '../mta-module/user/user-login/user-login.com
     FileChoserComponent,
     ImportErrorComponent,
     DatePickerComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    UserFormComponent
   ],
   imports: [
     SlideMenuModule,
@@ -139,7 +141,9 @@ import { UserLoginComponent } from '../mta-module/user/user-login/user-login.com
     DragDropModule,
     EditorModule,
     ChartModule,
-    FileUploadModule
+    FileUploadModule,
+    UserFormComponent
    ]
+   ,entryComponents:[UserFormComponent]
 })
 export class SharedModule { }

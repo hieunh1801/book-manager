@@ -12,6 +12,7 @@ import { UserToken } from '../../../core/models/user-token.model';
 import { Storage } from '../../../shared/service/storage.service';
 import { environment } from 'src/environments/environment';
 import { FileControl } from 'src/app/core/models/file.control';
+import { UserRoleService } from 'src/app/core/services/user-role.service';
 
 @Component({
   selector: 'app-user-form',
@@ -36,14 +37,16 @@ export class UserFormComponent extends BaseComponent implements OnInit {
     phoneNumber: ['', [Validators.maxLength(50)]],
     code: ['', [Validators.required]],
     roleId: [0],
-    lstRoleId: [''],
+    lstRole: ['', [Validators.required]],
     dateOfBirthStr:[''],
     avatarUrl :['https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg']
   };
+  lstRole : [];
   constructor(public actr: ActivatedRoute,
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     public userService: UserService,
+    private userRoleService: UserRoleService,
     private app: AppComponent) {
       super(actr, RESOURCE.USER, ACTION_FORM.SEARCH);
       this.userInfo = Storage.getUserToken();
@@ -52,6 +55,9 @@ export class UserFormComponent extends BaseComponent implements OnInit {
       // });
       this.formSave = this.buildForm({}, this.formConfig);
       this.formSave.addControl("file", new FileControl(null));
+      this.userRoleService.findAll().subscribe(res => {
+        this.lstRole = res.data;
+      });
      }
   ngOnInit() {
   }
@@ -87,6 +93,7 @@ export class UserFormComponent extends BaseComponent implements OnInit {
     }
     this.formSave.controls.dateOfBirthStr.setValue(this.formSave.controls.dateOfBirth.value);
     this.formSave.controls.dateOfBirth.setValue(null);
+    this.formSave.controls.avatarUrl.setValue(null);
     this.userService.saveOrUpdateFormFile(this.formSave.value)
       .subscribe(res => {
         if (this.userService.requestIsSuccess(res)) {

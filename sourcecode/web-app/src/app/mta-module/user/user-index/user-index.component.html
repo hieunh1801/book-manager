@@ -1,7 +1,11 @@
-<div class="content" >
+<div  *ngIf="hasRole('admin')">
 
+
+<div class="content">
   <app-user-search></app-user-search>
 </div>
-<!-- <div class="content" *ngIf="userInfo.role !== 'ROLE_ADMIN'">
-  Bạn không có quyền với chức năng này
-</div> -->
+</div>
+<div *ngIf="!hasRole('admin')">
+  <span style="color: red;">Bạn không có quyền</span>
+</div>
+
