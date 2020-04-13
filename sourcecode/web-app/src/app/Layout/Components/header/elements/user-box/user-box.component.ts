@@ -10,6 +10,7 @@ import { UserFormComponent } from 'src/app/mta-module/user/user-form/user-form.c
 import { BaseComponent } from 'src/app/shared/components/base-component/base-component.component';
 import { DEFAULT_MODAL_OPTIONS } from 'src/app/core/app-config';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ChangePasswordComponent } from 'src/app/mta-module/user/change-password/change-password.component';
 @Component({
   selector: 'app-user-box',
   templateUrl: './user-box.component.html',
@@ -67,5 +68,21 @@ export class UserBoxComponent extends BaseComponent implements OnInit {
           // }
         });
     } 
+  }
+
+
+  prepareChangePassword(): void {
+    const user = Storage.getUserToken();
+    console.log('user', user);
+    const modalRef = this.modalService.open(ChangePasswordComponent, DEFAULT_MODAL_OPTIONS);
+    modalRef.componentInstance.setFormValue(this.propertyConfigs, {id:user.userId, account:user.userName});
+    modalRef.result.then(result => {
+      // this.authService.getCurrentUserInfo().subscribe(res => {
+      //   const user = this.authService.extractTokenData(res);
+      //   Storage.clear();
+      //   Storage.setUserToken(user);
+      //   window.location.reload();
+      // });
+    });
   }
 }

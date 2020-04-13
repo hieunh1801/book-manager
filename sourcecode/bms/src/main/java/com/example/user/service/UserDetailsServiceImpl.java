@@ -129,7 +129,7 @@ class UserDetailsServiceImpl implements  UserService {
 
     @Override
     public UserBO findById(Long id) {
-        return userDAO.findById(id).get();
+        return userDAO.findById(id).orElse(null);
     }
 
     public void delete(UserBO entity) {

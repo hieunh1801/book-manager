@@ -78,6 +78,7 @@ public interface UserDAO extends CrudRepository<UserBO, Long> {
         String hql = "SELECT " 
                 + "     usr.id AS userId " 
                 + "     , usr.account as account " 
+                + "     , usr.account as userName " 
                 + "     , usr.password as password "
                 + "     ,usr.full_name as fullName "
                 + "     ,usr.gender as gender "

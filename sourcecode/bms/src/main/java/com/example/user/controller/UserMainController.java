@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -209,4 +210,19 @@ public class UserMainController {
         return userService.getUserInfoById(userId);
     }
 
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
+    public @ResponseBody Response changePassword(HttpServletRequest req, @RequestBody UserForm form) throws SysException, InstantiationException, IllegalAccessException {
+        Long userId = CommonUtil.NVL(form.getId());
+        UserBO bo;
+        bo = userService.findById(userId);
+        if(bo == null) {
+            return Response.warning(Constants.RESPONSE_CODE.RECORD_DELETED);
+        }
+        if(!passwordEncoder.matches(form.getOldPassword(), bo.getPassword())) {
+            return Response.warning("Mật khẩu hiện tại không chính xác");
+        }
+        bo.setPassword(passwordEncoder.encode(form.getNewPassword()));
+        userService.saveOrUpdate(bo);
+        return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(bo);
+    }
 }

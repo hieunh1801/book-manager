@@ -40,6 +40,8 @@ public class UserForm {
     private String dateOfBirthStr;
     private List<RoleForm> lstRole;
     private List<Long> lstRoleId;
+    private String oldPassword;
+    private String newPassword;
     
 //    /**
 //     * @return the userId
@@ -579,6 +581,46 @@ public class UserForm {
     
     public void setLstRoleId(List<Long> lstRoleId) {
         this.lstRoleId = lstRoleId;
+    }
+
+
+
+
+
+
+    
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+
+
+
+
+
+    
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+
+
+
+
+
+    
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+
+
+
+
+
+    
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
 

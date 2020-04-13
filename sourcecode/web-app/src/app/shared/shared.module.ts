@@ -34,6 +34,7 @@ import { ImportErrorComponent } from './components/import-error/import-error.com
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { UserLoginComponent } from '../mta-module/user/user-login/user-login.component';
 import { UserFormComponent } from '../mta-module/user/user-form/user-form.component';
+import { ChangePasswordComponent } from '../mta-module/user/change-password/change-password.component';
 
 
 @NgModule({
@@ -48,7 +49,9 @@ import { UserFormComponent } from '../mta-module/user/user-form/user-form.compon
     ImportErrorComponent,
     DatePickerComponent,
     UserLoginComponent,
-    UserFormComponent
+    UserFormComponent,
+    ChangePasswordComponent
+
   ],
   imports: [
     SlideMenuModule,
@@ -142,8 +145,12 @@ import { UserFormComponent } from '../mta-module/user/user-form/user-form.compon
     EditorModule,
     ChartModule,
     FileUploadModule,
-    UserFormComponent
+    UserFormComponent,
+    ChangePasswordComponent
    ]
-   ,entryComponents:[UserFormComponent]
+   ,entryComponents:[
+     UserFormComponent,
+    ChangePasswordComponent
+  ]
 })
 export class SharedModule { }
