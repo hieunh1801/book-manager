@@ -1,4 +1,4 @@
-<div *ngIf="hasRole()">
+<div >
 <!-- Search Group -->
 <div class="panel panel-default">
   <form id="formSearch" [formGroup]="formSearch">
@@ -143,9 +143,4 @@
       </ng-template>
     </p-table>
   </div>
-</div>
-</div>
-
-<div *ngIf="!hasRole()">
-  <span style="color: red;">Bạn không có quyền</span>
 </div>

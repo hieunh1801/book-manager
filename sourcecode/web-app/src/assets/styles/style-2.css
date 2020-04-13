@@ -3330,15 +3330,16 @@ label {
     height: 100vh !important;
 }
 
-/* .bg-plum-plate {
-  background: url('../../assets/images/background.jpg') !important;
+.bg-plum-plate {
+  background: url('../../assets/images/background_2.jpg') !important;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
 }
 .bg-animation {
   -webkit-animation: bg-pan-left 8s both;
   animation: bg-pan-left 8s both; 
-} */
+}
 .btn-login{
   color: white;
 }
@@ -3357,4 +3358,11 @@ label {
 
 .form-control:focus {
   border: #2e8ccd 1px solid;
+}
+.visit-member{
+  font-style: italic;
+}
+.visit-member:hover{
+  cursor: pointer;
+  text-decoration: underline;
 }

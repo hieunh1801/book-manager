@@ -68,4 +68,8 @@ export class UserLoginComponent implements OnInit {
   private buildForm(): void {
     this.loginForm = this.formBuilder.group(this.formConfig);
   }
+
+  memberVisit(){
+    this.router.navigate(["/book-manager/books"]);
+  }
 }
