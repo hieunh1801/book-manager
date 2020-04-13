@@ -16,13 +16,13 @@
           <div class="ui-g-12">
             <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Tên đăng nhập <font size="2" color="red">*</font></label>
             <div class="ui-g-12 ui-md-6 ui-lg-3">
-                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="account" maxlength="100">
+                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="account" maxlength="200">
                 <app-control-messages [control]="f['account']"></app-control-messages>
               </div>
             <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Mật khẩu <font size="2" color="red">*</font></label>
             <div class="ui-g-12 ui-md-6 ui-lg-3">
-                <input *ngIf="!formSave.get('id').value" class="form-control ng-pristine ng-invalid ng-touched" formControlName="password" maxlength="100">
-                <input *ngIf="formSave.get('id').value" type="password" disabled class="form-control ng-pristine ng-invalid ng-touched" formControlName="password" maxlength="100">
+                <input *ngIf="!formSave.get('id').value" class="form-control ng-pristine ng-invalid ng-touched" formControlName="password" maxlength="30">
+                <input *ngIf="formSave.get('id').value" type="password" disabled class="form-control ng-pristine ng-invalid ng-touched" formControlName="password" maxlength="30">
                 <app-control-messages [control]="f['password']"></app-control-messages>
             </div>
           </div>
@@ -31,7 +31,7 @@
             <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Họ và tên <font size="2" color="red">*</font>
             </label>
             <div class="ui-g-12 ui-md-6 ui-lg-3">
-              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="fullName" maxlength="100">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="fullName" maxlength="200">
               <app-control-messages [control]="f['fullName']"></app-control-messages>
             </div>
           
@@ -47,8 +47,8 @@
           <div class="ui-g-12">
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã người dùng <font size="2" color="red">*</font></label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
-                  <input *ngIf="!formSave.get('id').value"  class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100">
-                  <input *ngIf="formSave.get('id').value" disabled="disabled"  class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100">
+                  <input *ngIf="!formSave.get('id').value"  class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10">
+                  <input *ngIf="formSave.get('id').value" disabled="disabled"  class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10">
                   <app-control-messages [control]="f['code']"></app-control-messages>
                 </div>
               
@@ -76,12 +76,12 @@
           <div class="ui-g-12">
             <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Email </label>
             <div class="ui-g-12 ui-md-6 ui-lg-3">
-              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="email" maxlength="50">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="email" maxlength="2000">
               <app-control-messages [control]="f['email']"></app-control-messages>
             </div>
             <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Số điện thoại </label>
             <div class="ui-g-12 ui-md-6 ui-lg-3">
-              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="phoneNumber" maxlength="50">
+              <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="phoneNumber" maxlength="20">
               <app-control-messages [control]="f['phoneNumber']"></app-control-messages>
             </div>
           </div>

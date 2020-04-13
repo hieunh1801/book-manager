@@ -15,12 +15,12 @@ import { DataTableModule } from 'primeng/primeng';
 })
 export class BookSearchComponent extends BaseComponent implements OnInit {
   formConfig = {
-    code: ["", [Validators.maxLength(50)]],
-    name: ["", [Validators.maxLength(50)]],
-    description: ["", [Validators.maxLength(50)]],
-    author: ["", [Validators.maxLength(50)]],
-    publisher: ["", [Validators.maxLength(50)]],
-    amount: ["", [Validators.maxLength(50)]],
+    code: ["", [Validators.maxLength(10)]],
+    name: ["", [Validators.maxLength(200)]],
+    description: ["", [Validators.maxLength(500)]],
+    author: ["", [Validators.maxLength(200)]],
+    publisher: ["", [Validators.maxLength(200)]],
+    amount: ["", [Validators.maxLength(10)]],
   };
   constructor(
     public actr: ActivatedRoute,

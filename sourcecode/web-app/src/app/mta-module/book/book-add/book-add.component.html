@@ -15,7 +15,7 @@
           <!-- field -->
           <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right  required">Mã sách</label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
-            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100"
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10"
               disabled>
             <app-control-messages [control]="f['code']"></app-control-messages>
 
@@ -25,7 +25,7 @@
           </label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
             <input type="tel" class="form-control ng-pristine ng-invalid ng-touched" formControlName="name"
-              maxlength="100">
+              maxlength="200">
             <app-control-messages [control]="f['name']"></app-control-messages>
           </div>
         </div> <!-- end row -->
@@ -35,7 +35,7 @@
           <!-- field -->
           <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right  required">Mô tả</label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
-            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="description" maxlength="100">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="description">
             <app-control-messages [control]="f['description']"></app-control-messages>
           </div>
           <!-- field -->
@@ -43,7 +43,7 @@
           </label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
             <input type="tel" class="form-control ng-pristine ng-invalid ng-touched" formControlName="author"
-              maxlength="100">
+              maxlength="200">
             <app-control-messages [control]="f['author']"></app-control-messages>
           </div>
         </div> <!-- end row -->
@@ -53,7 +53,7 @@
           <!-- field -->
           <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right required">Nhà xuất bản</label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
-            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="publisher" maxlength="100">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="publisher" maxlength="200">
             <app-control-messages [control]="f['publisher']"></app-control-messages>
 
           </div>
@@ -62,7 +62,7 @@
           </label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
             <input type="tel" class="form-control ng-pristine ng-invalid ng-touched" formControlName="amount"
-              maxlength="100">
+              maxlength="10">
             <app-control-messages [control]="f['amount']"></app-control-messages>
           </div>
         </div> <!-- end row -->

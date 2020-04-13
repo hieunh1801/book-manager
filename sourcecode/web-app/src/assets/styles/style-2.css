@@ -3342,3 +3342,19 @@ label {
 .btn-login{
   color: white;
 }
+
+.modal-body .panel.panel-default{
+  margin-bottom: 0px;
+}
+
+.modal-body .panel .btn i{
+  left: 0px !important;
+}
+
+.form-control, .form-control:focus {
+  box-shadow: none!important;
+}
+
+.form-control:focus {
+  border: #2e8ccd 1px solid;
+}

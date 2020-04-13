@@ -16,7 +16,7 @@
           <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã thể loại<font size="2" color="red">*
             </font></label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
-            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100"
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10"
               disabled>
           </div>
           <!-- field -->
@@ -25,7 +25,7 @@
           </label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
             <input type="tel" class="form-control ng-pristine ng-invalid ng-touched" formControlName="name"
-              maxlength="100">
+              maxlength="200">
             <app-control-messages [control]="f['name']"></app-control-messages>
           </div>
         </div> <!-- end row -->
@@ -36,7 +36,7 @@
           <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Ghi chú<font size="2" color="red">*
             </font></label>
           <div class="ui-g-12 ui-md-6 ui-lg-3">
-            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="note" maxlength="100">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="note" >
             <app-control-messages [control]="f['note']"></app-control-messages>
           </div>
         </div> <!-- end row -->

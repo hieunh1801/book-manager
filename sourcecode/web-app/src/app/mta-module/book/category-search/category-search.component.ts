@@ -17,9 +17,9 @@ import { CategoryService } from 'src/app/core/services/category.service';
 })
 export class CategorySearchComponent extends BaseComponent implements OnInit {
   formConfig = {
-    code: ["", [Validators.maxLength(50)]],
-    name: ["", [Validators.maxLength(50)]],
-    note: ["", [Validators.maxLength(50)]],
+    code: ["", [Validators.maxLength(10)]],
+    name: ["", [Validators.maxLength(200)]],
+    note: [""],
   };
   constructor(
     public actr: ActivatedRoute,

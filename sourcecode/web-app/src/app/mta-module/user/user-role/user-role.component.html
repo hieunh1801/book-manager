@@ -33,8 +33,8 @@
           
           <td >
            <!-- code -->
-            <input *ngIf="item.controls['id'].value" class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100" disabled="disabled">
-            <input *ngIf="!item.controls['id'].value" class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="100" >
+            <input *ngIf="item.controls['id'].value" class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10" disabled="disabled">
+            <input *ngIf="!item.controls['id'].value" class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10" >
             <app-control-messages [control]="item.controls.code"></app-control-messages>
           </td>
           <td >

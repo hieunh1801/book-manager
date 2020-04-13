@@ -12,7 +12,15 @@ export class ControlMessagesComponent {
   private replaceKeys = ['max', 'min', 'maxlength', 'minlength', 'dateNotAffter', 'duplicateArray', 'beforeCurrentDate'];
   private actualKeys =  ['max', 'min', 'requiredLength', 'requiredLength', 'dateNotAffter', 'duplicateArray', 'beforeCurrentDate'];
   private translateKeys = ['dateNotAffter', 'duplicateArray', 'beforeCurrentDate'];
-
+  private translate = {
+    max: '* Giá trị lớn nhất ',
+    min: '* Giá trị nhỏ nhất ',
+    maxlength: '* Độ dài tối đa ',
+    minlength: '* Độ dài tối thiểu ',
+    dateNotAffter: '* Không được sau ngày ',
+    duplicateArray: '* Không được nhập trùng ',
+    required : '* Trường bắt buộc '
+  }
   constructor() {}
 
   get errorMessage(): string {
@@ -34,15 +42,21 @@ export class ControlMessagesComponent {
    * @param errors: ValidationErrors
    */
   buildMessage(messageText: string, errors: ValidationErrors): string {
-    for (const i in this.replaceKeys) {
-      if (errors && errors.hasOwnProperty(this.actualKeys[i])) {
-        const text = errors[this.actualKeys[i]];
-        // if (this.translateKeys.indexOf(this.actualKeys[i]) !== -1) {
-        //   text = this.translation.translate(text);
-        // }
-        messageText = messageText.replace(new RegExp('\\$\\{' + this.replaceKeys[i] + '\\}', 'g'), text);
-      }
-    }
-    return messageText;
+    // for (const i in this.replaceKeys) {
+    //   if (errors && errors.hasOwnProperty(this.actualKeys[i])) {
+    //     const text = errors[this.actualKeys[i]];
+    //     // if (this.translateKeys.indexOf(this.actualKeys[i]) !== -1) {
+    //     //   text = this.translation.translate(text);
+    //     // }
+    //     messageText = messageText.replace(new RegExp('\\$\\{' + this.replaceKeys[i] + '\\}', 'g'), text);
+    //   }
+    // }
+    // return messageText;
+    console.log('messageText',messageText)
+    const text = this.translate[messageText];
+    if(text)
+      return text;
+    else 
+      return messageText;
   }
 }
