@@ -1,6 +1,8 @@
 package com.example.book.controller;
 
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +28,7 @@ import com.example.book.service.CategoryService;
 import com.example.common.CommonUtil;
 import com.example.common.Constants;
 import com.example.common.DataTableResults;
+import com.example.common.RandomString;
 import com.example.common.Response;
 import com.example.user.entity.UserForm;
 
@@ -75,10 +78,13 @@ public class CategoryController {
 			}
 		} else {
 			categoryBO = new CategoryBO();
+			RandomString random = new RandomString();
+			String randomString = random.random();
+			categoryBO.setCode(randomString);
 		}
+		
 		categoryBO.setNote(form.getNote());
 		categoryBO.setName(form.getName());
-		categoryBO.setCode(form.getCode());
 		
 		categoryService.saveOrUpdate(categoryBO);
 		return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(categoryBO);

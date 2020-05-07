@@ -35,6 +35,7 @@ public interface BookDAO extends CrudRepository<BookBO, Long> {
         sql += " ,b.code as code ";
         sql += " ,b.name as name";
         sql += " ,b.publisher as publisher ";
+        sql += " ,b.image_url as imageUrl ";
         sql += " ,b.description as description ";
         sql += " ,b.author as author ";
         sql += " ,b.amount as amount ";

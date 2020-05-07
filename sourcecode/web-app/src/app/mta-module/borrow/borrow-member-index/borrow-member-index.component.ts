@@ -69,7 +69,7 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     
     this.processSearchBorrow();
     this.processSearchHistory(null);
-
+    
     const state = this.router.getCurrentNavigation().extras.state;
     if(state && state.data){
       const memberId = state.data;

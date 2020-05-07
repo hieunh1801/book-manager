@@ -24,6 +24,7 @@ import com.example.book.service.BookService;
 import com.example.common.CommonUtil;
 import com.example.common.Constants;
 import com.example.common.DataTableResults;
+import com.example.common.RandomString;
 import com.example.common.Response;
 import com.example.fileStorage.FileStorageService;
 import com.example.user.entity.UserForm;
@@ -57,13 +58,16 @@ public class BookController {
 			}
 		} else {
 			bookBO = new BookBO();
+			RandomString random = new RandomString();
+			String randomString = random.random();
+			bookBO.setCode(randomString);
 		}
 		bookBO.setAmount(form.getAmount());
 		bookBO.setAuthor(form.getAuthor());
 		bookBO.setCategoryId(form.getCategoryId());
-		bookBO.setCode(form.getCode());
+
 		bookBO.setDescription(form.getDescription());
-//		bookBO.setImageUrl(form.getImageUrl());
+
 		bookBO.setName(form.getName());
 		bookBO.setPublisher(form.getPublisher());
 		// lưu file avatar

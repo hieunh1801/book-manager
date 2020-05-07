@@ -1,146 +1,148 @@
-<div >
-<!-- Search Group -->
-<div class="panel panel-default">
-  <form id="formSearch" [formGroup]="formSearch">
-    <div class="panel-heading">
+<div>
+  <!-- Search Group -->
+  <div class="panel panel-default">
+    <form id="formSearch" [formGroup]="formSearch">
+      <div class="panel-heading">
+        <strong class="text-u-c">
+          <i class="fa fa-th"></i>
+          <span> Thông tin sách cần tìm kiếm </span>
+        </strong>
+      </div>
+      <div class="panel-body padding-xl ui-g">
+        <!-- row -->
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Mã sách</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10">
+            <app-control-messages [control]="f['code']"></app-control-messages>
+          </div>
+
+          <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tên sách</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="200"
+              autofocus>
+          </div>
+        </div> <!-- end row -->
+        <!-- row -->
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Mô tả</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="description" maxlength="500"
+              autofocus>
+          </div>
+          <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tác giả</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="author" maxlength="200"
+              autofocus>
+          </div>
+        </div> <!-- end row -->
+
+        <!-- row -->
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Nhà xuất bản</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="publisher" maxlength="200"
+              autofocus>
+          </div>
+          <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Số lượng</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="amount"
+              maxlength="10" autofocus>
+          </div>
+        </div> <!-- end row -->
+      </div>
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
+          <i class="fa fa-search"></i> Tìm kiếm sách
+        </button>
+      </div>
+    </form>
+  </div>
+
+
+  <!-- List Object -->
+  <div class="panel panel-default">
+    <div class="panel-heading vt-relative">
       <strong class="text-u-c">
         <i class="fa fa-th"></i>
-        <span> Thông tin sách cần tìm kiếm </span>
+        <span> Danh sách nhân viên</span>
       </strong>
-    </div>
-    <div class="panel-body padding-xl ui-g">
-      <!-- row -->
-      <div class="ui-g-12">
-        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Mã sách</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10">
-          <app-control-messages [control]="f['code']"></app-control-messages>
+      <div *ngIf="hasRole('admin') || hasRole('editor')" class="vt-absolute vt-shotcut-button-in-heading">
+        <div>
+          <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i>
+            Thêm mới</button>
         </div>
-
-        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tên sách</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="name" maxlength="200" autofocus>
-        </div>
-      </div> <!-- end row -->
-      <!-- row -->
-      <div class="ui-g-12">
-        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Mô tả</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="description" maxlength="500"
-            autofocus>
-        </div>
-        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tác giả</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="author" maxlength="200"
-            autofocus>
-        </div>
-      </div> <!-- end row -->
-
-      <!-- row -->
-      <div class="ui-g-12">
-        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Nhà xuất bản</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="publisher" maxlength="200"
-            autofocus>
-        </div>
-        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Số lượng</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input type="number" class="form-control ng-pristine ng-invalid ng-touched" formControlName="amount" maxlength="10"
-            autofocus>
-        </div>
-      </div> <!-- end row -->
-    </div>
-    <div class="panel-footer vt-area-button">
-      <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
-        <i class="fa fa-search"></i> Tìm kiếm sách
-      </button>
-    </div>
-  </form>
-</div>
-
-
-<!-- List Object -->
-<div class="panel panel-default">
-  <div class="panel-heading vt-relative">
-    <strong class="text-u-c">
-      <i class="fa fa-th"></i>
-      <span> Danh sách nhân viên</span>
-    </strong>
-    <div  *ngIf="hasRole('admin') || hasRole('editor')" class="vt-absolute vt-shotcut-button-in-heading">
-      <div>
-        <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i>
-          Thêm mới</button>
       </div>
     </div>
+    <div class="panel-body panel-table">
+      <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
+        (onLazyLoad)="processSearch($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
+        [responsive]="true" [lazyLoadOnInit]="false"
+        tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col class="size-1">
+            <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
+            <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+          </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th>STT</th>
+            <th *ngIf="hasRole('admin') || hasRole('editor')">Sửa</th>
+            <th *ngIf="hasRole('admin') || hasRole('editor')">Xóa</th>
+            <th>Mã sách</th>
+            <th>Tên sách</th>
+            <th>Mô tả</th>
+            <th>Bìa sách</th>
+            <th>Tác giả</th>
+            <th>Nhà xuất bản</th>
+            <th>Số lượng còn lại</th>
+            <th>Tên loại sách</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-index="rowIndex">
+          <tr>
+            <td class="vt-align-center">{{index+1}}</td>
+            <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
+              <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'">
+                <i class="fa fa-edit"></i></a>
+            </td>
+            <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
+              <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'">
+                <i class="fa fa-trash-alt"></i></a>
+            </td>
+            <td class="vt-align-center">{{item.code}}</td>
+            <td>{{item.name}}</td>
+            <td>{{ (item.description.length>25)? (item.description | slice:0:12)+'..':(item.description) }}</td>
+            <td class="vt-align-center" *ngIf="item.imageUrl != null"><img [src]="fileServer + item.imageUrl"
+                height="20"></td>
+            <td class="vt-align-center" *ngIf="item.imageUrl == null"><img src="/assets/images/default_book.png"
+                height="40px" /></td>
+            <td>{{item.author}}</td>
+            <td>{{item.publisher}} $</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.categoryName}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr class="emptymessage">
+            <td [attr.colspan]="6">
+              Không tồn tại bản ghi
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+          <table-footer [resultList]="resultList"></table-footer>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
-  <div class="panel-body panel-table">
-    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
-      (onLazyLoad)="processSearch($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
-      [responsive]="true" [lazyLoadOnInit]="false"
-      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
-      <ng-template pTemplate="colgroup" let-columns>
-        <colgroup>
-          <col class="size-1">
-          <col  *ngIf="hasRole('admin') || hasRole('editor')"  class="size-1">
-          <col  *ngIf="hasRole('admin') || hasRole('editor')"  class="size-1">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-        </colgroup>
-      </ng-template>
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th>STT</th>
-          <th  *ngIf="hasRole('admin') || hasRole('editor')" >Sửa</th>
-          <th  *ngIf="hasRole('admin') || hasRole('editor')" >Xóa</th>
-          <th>Mã sách</th>
-          <th>Tên sách</th>
-          <th>Mô tả</th>
-          <th>Bìa sách</th>
-          <th>Tác giả</th>
-          <th>Nhà xuất bản</th>
-          <th>Số lượng còn lại</th>
-          <th>Tên loại sách</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-item let-index="rowIndex">
-        <tr>
-          <td class="vt-align-center">{{index+1}}</td>
-          <td  *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
-            <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'">
-              <i class="fa fa-edit"></i></a>
-          </td>
-          <td  *ngIf="hasRole('admin') || hasRole('editor')"  class="vt-align-center">
-            <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'">
-              <i class="fa fa-trash-alt"></i></a>
-          </td>
-          <td class="vt-align-center">{{item.code}}</td>
-          <td>{{item.name}}</td>
-          <td>{{item.description}}</td>
-          <td class="vt-align-center" *ngIf="item.imageUrl != null"><img src="item.imageUrl" /></td>
-          <td class="vt-align-center" *ngIf="item.imageUrl == null"><img src="/assets/images/default_book.png"
-              height="40px" /></td>
-          <td>{{item.author}}</td>
-          <td>{{item.publisher}} $</td>
-          <td>{{item.amount}}</td>
-          <td>{{item.categoryName}}</td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
-        <tr class="emptymessage">
-          <td [attr.colspan]="6">
-            Không tồn tại bản ghi
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="paginatorleft">
-        <table-footer [resultList]="resultList"></table-footer>
-      </ng-template>
-    </p-table>
-  </div>
-</div>

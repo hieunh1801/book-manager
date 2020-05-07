@@ -7,3 +7,4 @@ create view member_borrow as (
 	left join borrow b on m.id=b.member_id
 	group by m.id 
 )
+
