@@ -38,7 +38,7 @@ public class FileInfoBean {
 
     /**
      * @param fileName
-     *            the fileName to set
+     * the fileName to set
      */
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -53,7 +53,7 @@ public class FileInfoBean {
 
     /**
      * @param length
-     *            the length to set
+     * the length to set
      */
     public void setLength(long length) {
         this.length = length;
@@ -68,7 +68,7 @@ public class FileInfoBean {
 
     /**
      * @param chunkSize
-     *            the chunkSize to set
+     * the chunkSize to set
      */
     public void setChunkSize(int chunkSize) {
         this.chunkSize = chunkSize;
@@ -83,7 +83,7 @@ public class FileInfoBean {
 
     /**
      * @param uploadDate
-     *            the uploadDate to set
+     * the uploadDate to set
      */
     public void setUploadDate(Date uploadDate) {
         if(uploadDate != null) {
@@ -102,7 +102,7 @@ public class FileInfoBean {
 
     /**
      * @param md5
-     *            the md5 to set
+     * the md5 to set
      */
     public void setMd5(String md5) {
         this.md5 = md5;
@@ -117,7 +117,7 @@ public class FileInfoBean {
 
     /**
      * @param fileType
-     *            the fileType to set
+     * the fileType to set
      */
     public void setFileType(Long fileType) {
         this.fileType = fileType;
@@ -132,7 +132,7 @@ public class FileInfoBean {
 
     /**
      * @param objectId
-     *            the objectId to set
+     * the objectId to set
      */
     public void setObjectId(Long objectId) {
         this.objectId = objectId;

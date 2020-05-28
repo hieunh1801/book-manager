@@ -1,4 +1,7 @@
 {
     "editor.formatOnSave": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "editor.fontFamily": "Roboto Mono",
+    "editor.fontSize": 12,
+    "editor.fontLigatures": true
 }

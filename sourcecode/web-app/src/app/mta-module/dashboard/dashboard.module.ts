@@ -6,6 +6,10 @@ import { DashboardShellComponent } from './dashboard-shell/dashboard-shell.compo
 import { DialogModule } from "primeng/dialog";
 import { SharedModule } from "../../shared/shared.module";
 import { CardModule } from 'primeng/card';
+import { CalendarModule } from 'primeng/calendar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   declarations: [DashboardShellComponent],
   imports: [
@@ -13,6 +17,10 @@ import { CardModule } from 'primeng/card';
     SharedModule,
     DialogModule,
     CardModule,
+    CalendarModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    DropdownModule,
     DashboardRoutingModule,
 
   ]

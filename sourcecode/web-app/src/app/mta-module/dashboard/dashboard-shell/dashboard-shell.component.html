@@ -1,18 +1,26 @@
 <div class="ui-g" id="statisticalContainer">
   <div class="ui-g-4">
     <div class="card">
-      Content
+      <div class="cardTitle">Tổng số bạn đọc</div>
+      <div class="cardContent">{{totalMember}}</div>
     </div>
   </div>
   <div class="ui-g-4">
     <div class="card">
-      <div class="cardTitle">Title</div>
-      <div class="cardContent">Content</div>
+      <div class="cardTitle">
+        <div>Số lượt mượn/Số lượt trả</div>
+        <div>({{ getCurrentMonthString() }})</div>
+      </div>
+      <div class="cardContent">
+        {{totalBorrowBookCurrentMonth}}/{{totalGiveBackBookCurrentMonth}}
+      </div>
     </div>
   </div>
   <div class="ui-g-4">
     <div class="card">
-      Content
+      <div class="cardContent">
+        <p-chart type="pie" [data]="statisicalData"></p-chart>
+      </div>
     </div>
   </div>
 </div>
@@ -20,14 +28,37 @@
 <div class="ui-g" id="charContainer">
   <div class="ui-g-8">
     <div id="lineChartContainer">
-      <p-chart type="line" [data]="data"></p-chart>
-
+      <p-chart type="line" [data]="charData"></p-chart>
+      <div id="txtCharName">Thống kê số lượt mượn trả </div>
     </div>
 
   </div>
   <div class="ui-g-4">
     <div id="lineChartFilterContainer">
-      Filter container
+      <div [formGroup]="formSearch">
+        <div id="formTitle">Thiết lập tham số biểu đồ</div>
+        <div class="formItem">
+          <label class="formItemLabel">Từ ngày</label>
+          <p-calendar formControlName="fromDate" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+        </div>
+
+        <div class="formItem">
+          <label class="formItemLabel">Tới ngày</label>
+          <p-calendar formControlName="toDate" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+        </div>
+
+        <div class="formItem">
+          <label class="formItemLabel">Định kì</label>
+          <p-dropdown formControlName="frequency" [options]="frequenciesData" optionLabel="name">
+          </p-dropdown>
+        </div>
+
+        <div class="formItemSumitButton">
+          <p-button label="Vẽ biểu đồ" (onClick)="loadCharData()"></p-button>
+        </div>
+
+
+      </div>
     </div>
   </div>
 </div>

@@ -33,60 +33,64 @@ import com.example.user.entity.UserForm;
 @RequestMapping("/books")
 public class BookController {
 
-	@Autowired
-	private BookService bookService;
+    @Autowired
+    private BookService bookService;
 
-	@Autowired
+    @Autowired
     FileStorageService storageService;
 
-	
-	@GetMapping(path = "")
-	public @ResponseBody List<BookBO> apiGetAllBook(HttpServletRequest req, UserForm user) {
-		List<BookBO> listBooks = bookService.getAll();
-		return listBooks;
-	}
 
-	@PostMapping(path = "", produces=MediaType.APPLICATION_JSON)
-	@ResponseStatus(HttpStatus.CREATED)
-	public @ResponseBody Response saveOrUpdate(HttpServletRequest req, BookForm form) throws Exception {
-		Long id = CommonUtil.NVL(form.getId());
-		BookBO bookBO;
-		if (id > 0L) {
-			bookBO = bookService.getById(id);
-			if (bookBO == null) {
-				return Response.warning(Constants.RESPONSE_CODE.RECORD_DELETED);
-			}
-		} else {
-			bookBO = new BookBO();
-			RandomString random = new RandomString();
-			String randomString = random.random();
-			bookBO.setCode(randomString);
-		}
-		bookBO.setAmount(form.getAmount());
-		bookBO.setAuthor(form.getAuthor());
-		bookBO.setCategoryId(form.getCategoryId());
+    @GetMapping(path = "")
+    public @ResponseBody
+    List<BookBO> apiGetAllBook(HttpServletRequest req, UserForm user) {
+        List<BookBO> listBooks = bookService.getAll();
+        return listBooks;
+    }
 
-		bookBO.setDescription(form.getDescription());
+    @PostMapping(path = "", produces = MediaType.APPLICATION_JSON)
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody
+    Response saveOrUpdate(HttpServletRequest req, BookForm form) throws Exception {
+        Long id = CommonUtil.NVL(form.getId());
+        BookBO bookBO;
+        if (id > 0L) {
+            bookBO = bookService.getById(id);
+            if (bookBO == null) {
+                return Response.warning(Constants.RESPONSE_CODE.RECORD_DELETED);
+            }
+        } else {
+            bookBO = new BookBO();
+            RandomString random = new RandomString();
+            String randomString = random.random();
+            bookBO.setCode(randomString);
+        }
+        bookBO.setAmount(form.getAmount());
+        bookBO.setAuthor(form.getAuthor());
+        bookBO.setCategoryId(form.getCategoryId());
 
-		bookBO.setName(form.getName());
-		bookBO.setPublisher(form.getPublisher());
-		// lưu file avatar
-        if( form.getFile() !=null && form.getFile().getOriginalFilename() != null) {
+        bookBO.setDescription(form.getDescription());
+
+        bookBO.setName(form.getName());
+        bookBO.setPublisher(form.getPublisher());
+        // lưu file avatar
+        if (form.getFile() != null && form.getFile().getOriginalFilename() != null) {
             String url = storageService.store(form.getFile());
             bookBO.setImageUrl(url);
         }
-		bookService.saveOrUpdate(bookBO);
-		return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(bookBO);
-	}
+        bookService.saveOrUpdate(bookBO);
+        return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(bookBO);
+    }
 
-	@GetMapping(path = "/{id}")
-	public @ResponseBody Response apiGetById(HttpServletRequest req, @PathVariable Long id) {
-		BookBO bookBO = bookService.getById(id);
-		return Response.success().withData(bookBO);
-	}
+    @GetMapping(path = "/{id}")
+    public @ResponseBody
+    Response apiGetById(HttpServletRequest req, @PathVariable Long id) {
+        BookBO bookBO = bookService.getById(id);
+        return Response.success().withData(bookBO);
+    }
 
     @DeleteMapping(path = "/{id}")
-    public @ResponseBody Response delete(HttpServletRequest req, @PathVariable Long id){
+    public @ResponseBody
+    Response delete(HttpServletRequest req, @PathVariable Long id) {
         BookBO bookBO = bookService.getById(id);
         if (bookBO == null) {
             return Response.warning(Constants.RESPONSE_CODE.RECORD_NOT_EXISTED);
@@ -96,19 +100,22 @@ public class BookController {
     }
 
 
-	@GetMapping(path = "/search")
-	public @ResponseBody DataTableResults<BookBean> apiSearch(HttpServletRequest req, BookForm form) {
-		DataTableResults<BookBean> listBooks = bookService.search(form);
-		return listBooks;
-	}
-	
-	@GetMapping(path = "/auto-complete/{search}")
-	public @ResponseBody Response searchAutoComplete(HttpServletRequest req,   @PathVariable String search){
+    @GetMapping(path = "/search")
+    public @ResponseBody
+    DataTableResults<BookBean> apiSearch(HttpServletRequest req, BookForm form) {
+        DataTableResults<BookBean> listBooks = bookService.search(form);
+        return listBooks;
+    }
+
+    @GetMapping(path = "/auto-complete/{search}")
+    public @ResponseBody
+    Response searchAutoComplete(HttpServletRequest req, @PathVariable String search) {
         return Response.success().withData(bookService.searchAutoComplete(search));
     }
-	
-	@GetMapping(path = "/report")
-    public @ResponseBody DataTableResults<BookBean> searchReport(HttpServletRequest req, BookForm form) {
+
+    @GetMapping(path = "/report")
+    public @ResponseBody
+    DataTableResults<BookBean> searchReport(HttpServletRequest req, BookForm form) {
         DataTableResults<BookBean> listBooks = bookService.searchReport(form);
         return listBooks;
     }
