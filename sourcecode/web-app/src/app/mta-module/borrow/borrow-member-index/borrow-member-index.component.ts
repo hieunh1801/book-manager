@@ -19,7 +19,7 @@ import { ValidationService } from 'src/app/shared/service/validation.service';
 })
 export class BorrowMemberIndexComponent extends BaseComponent implements OnInit {
   formConfig = {
-    id: ['',[Validators.required]],
+    id: ['', [Validators.required]],
     memberCode: [''],
     memberName: [''],
     // fromDate: [''],
@@ -32,56 +32,56 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     phoneNumber: [''],
     email: [''],
     address: [''],
-    avatarUrl : [''],
+    avatarUrl: [''],
   };
-  selectedPay : [];
+  selectedPay: [];
   items: MenuItem[];
   results: any;
   listMember: any;
-  adjournTime : any =3;
-  adjournDay : any =7;
-  member : any;
+  adjournTime: any = 3;
+  adjournDay: any = 7;
+  member: any;
   formSaveConfig = {
     id: [''],
-    bookId: ['',[Validators.required]],
+    bookId: ['', [Validators.required]],
     memberId: [''],
-    fromDate: [new Date().getTime(),[Validators.required]],
-    toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24 * 14)],
+    fromDate: [new Date().getTime(), [Validators.required]],
+    toDate: [new Date().getTime() + (1000 * 60 * 60 * 24 * 14)],
     status: [1],
-    pay :[''],
-    nameCode : [''],
-    adjourn : [0]
+    pay: [''],
+    nameCode: [''],
+    adjourn: [0]
   }
   listHistory: {};
-  param : any;
-  fileServer =  environment.serverUrl['file'];
+  param: any;
+  fileServer = environment.serverUrl['file'];
   private formSave: FormArray;
   constructor(public actr: ActivatedRoute,
     public router: Router,
     private app: AppComponent,
-    private memberService : MemberService,
+    private memberService: MemberService,
     private bookService: BookService,
     private borrowService: BorrowService,
     private systemParamService: SystemParamService) {
     super(actr, RESOURCE.USER, ACTION_FORM.SEARCH);
     this.setMainService(borrowService);
     this.formSearch = this.buildForm({}, this.formConfig);
-    
+
     this.processSearchBorrow();
     this.processSearchHistory(null);
-    
+
     const state = this.router.getCurrentNavigation().extras.state;
-    if(state && state.data){
+    if (state && state.data) {
       const memberId = state.data;
       this.memberService.findOne(memberId).subscribe(res => {
         this.member = res.data;
-        if(res.data.avatarUrl ){
+        if (res.data.avatarUrl) {
           res.data.avatarUrl = res.data.avatarUrl;
         } else {
           res.data.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
         }
-       
-        this.member['nameCode']=res.data.code+'-'+res.data.fullName;
+
+        this.member['nameCode'] = res.data.code + '-' + res.data.fullName;
         this.formSearch = this.buildForm(res.data, this.formConfig);
         this.processSearchBorrow();
         this.processSearchHistory(null);
@@ -91,25 +91,25 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     }
     console.log(new Date().getTime())
   }
-  public initFormSaveConfig(){
+  public initFormSaveConfig() {
     this.systemParamService.getParam().subscribe(res => {
       this.param = res.data;
       this.formSaveConfig = {
         id: [''],
-        bookId: ['',[Validators.required]],
+        bookId: ['', [Validators.required]],
         memberId: [''],
-        fromDate: [new Date().getTime(),[Validators.required]],
-        toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))],
+        fromDate: [new Date().getTime(), [Validators.required]],
+        toDate: [new Date().getTime() + (1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))],
         status: [1],
-        pay :[''],
-        nameCode : [''],
-        adjourn : [0]
+        pay: [''],
+        nameCode: [''],
+        adjourn: [0]
       }
       this.buildFormSave();
     });
-    
+
   }
-  public initFormSaveConfigWithoutBuild(){
+  public initFormSaveConfigWithoutBuild() {
     this.systemParamService.getParam().subscribe(res => {
       this.param = res.data;
       this.formSaveConfig = {
@@ -117,14 +117,14 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
         bookId: [''],
         memberId: [''],
         fromDate: [new Date().getTime()],
-        toDate: [new Date().getTime()+ (1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))],
+        toDate: [new Date().getTime() + (1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))],
         status: [1],
-        pay :[''],
-        nameCode : [''],
-        adjourn : [0]
+        pay: [''],
+        nameCode: [''],
+        adjourn: [0]
       }
     });
-    
+
   }
   ngOnInit() {
     this.initFormSaveConfigWithoutBuild();
@@ -138,7 +138,7 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
         const group = this.makeDefaultForm();
         group.patchValue(emp);
         controls.push(group);
-        controls.setValidators(ValidationService.duplicateArray(['bookId'],'bookId','Không được trùng nhau'))
+        controls.setValidators(ValidationService.duplicateArray(['bookId'], 'bookId', 'Không được trùng nhau'))
       }
     } else {
       const group = this.makeDefaultForm();
@@ -154,8 +154,8 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
 
   public addRow(index: number, item?: FormGroup) {
     const max = parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_SACH_MUON]);
-    if(this.formSave.value  && (this.formSave.value.length  >= max)){
-      this.app.warningMessage('Số sách được mượn tối đa: '+ max);
+    if (this.formSave.value && (this.formSave.value.length >= max)) {
+      this.app.warningMessage('Số sách được mượn tối đa: ' + max);
       return;
     }
     const controls = this.formSave as FormArray;
@@ -175,27 +175,27 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     data['name'] = event.query;
     this.bookService.seacrhAutoComplete(event.query).subscribe(res => {
       this.results = [];
-        res.data.forEach(element => {
-          if(element.imageUrl){
-            element.imageUrl = this.fileServer + element.imageUrl;
-          } else {
-            element.imageUrl = 'https://xemnha247.com/images/noimage.png'
-          }
-          this.results.push(element);
-        });
+      res.data.forEach(element => {
+        if (element.imageUrl) {
+          element.imageUrl = this.fileServer + element.imageUrl;
+        } else {
+          element.imageUrl = 'https://xemnha247.com/images/noimage.png'
+        }
+        this.results.push(element);
+      });
       // this.results = res.data;
     });
   }
-  selectBook(item, event,index) {
+  selectBook(item, event, index) {
     console.log('item', item)
     console.log('event', event)
     console.log('index', index)
-    if(event.isValid !=1 ){
+    if (event.isValid != 1) {
       this.app.warningMessage('Không còn đủ số lượng');
-      this.removeRow(index);
-      this.addRow(index);
+      // this.removeRow(index);
       return;
     }
+    // this.addRow(index);
     item.controls.bookId.setValue(event.id)
   }
 
@@ -272,10 +272,10 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
 
   private searchMemberAutoComplete(event) {
     this.borrowService.searchMemberAutoComplete(event.query).subscribe(res => {
-      if(res && res.data && res.data.length >0){
+      if (res && res.data && res.data.length > 0) {
         this.listMember = [];
         res.data.forEach(element => {
-          if(element.avatarUrl){
+          if (element.avatarUrl) {
             element.avatarUrl = this.fileServer + element.avatarUrl;
           } else {
             element.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
@@ -293,33 +293,33 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
     // } else {
     //   event.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
     // }
-    
+
     this.formSearch = this.buildForm(event, this.formConfig);
     this.processSearchHistory();
     this.processSearchBorrow();
   }
 
-  handleData(event, item){
+  handleData(event, item) {
     console.log(event)
-    if(event){
+    if (event) {
       item.controls['pay'].setValue(1);
     } else {
       item.controls['pay'].setValue(0);
     }
   }
 
-  processAdjourn(item){
-    if(item.controls['adjourn'].value >= parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_LAN_GIA_HAN])){
+  processAdjourn(item) {
+    if (item.controls['adjourn'].value >= parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_LAN_GIA_HAN])) {
       this.app.warningMessage('Quá số lần gia hạn')
     } else {
-      console.log('todate',new Date(item.controls['toDate'].value).getTime())
-      item.controls['adjourn'].setValue(item.controls['adjourn'].value +1);
+      console.log('todate', new Date(item.controls['toDate'].value).getTime())
+      item.controls['adjourn'].setValue(item.controls['adjourn'].value + 1);
       item.controls['status'].setValue(2);
       item.controls['toDate'].setValue(new Date(item.controls['toDate'].value).getTime() + 1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_GIA_HAN]))
       this.buildFormSave(this.formSave.value);
     }
   }
-  changeFromDate(event,item){
+  changeFromDate(event, item) {
     item.controls['toDate'].setValue(new Date(item.controls['fromDate'].value).getTime() + 1000 * 60 * 60 * 24 * parseInt(this.param[APP_CONSTANTS.SYSTEM_PARAM.SO_NGAY_MUON]))
     this.buildFormSave(this.formSave.value);
   }

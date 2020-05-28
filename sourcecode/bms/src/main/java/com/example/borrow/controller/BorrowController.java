@@ -1,11 +1,14 @@
 package com.example.borrow.controller;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -28,8 +31,7 @@ import com.example.common.CommonUtil;
 import com.example.common.Constants;
 import com.example.common.DataTableResults;
 import com.example.common.Response;
-import com.example.user.entity.UserBean;
-import com.example.user.entity.UserForm;
+import com.example.common.UttData;
 
 @Controller
 @RequestMapping("/borrow")
@@ -40,6 +42,10 @@ public class BorrowController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private UttData uttData;
+    
+    
     @GetMapping(path = "/search-history")
     public @ResponseBody
     DataTableResults<BorrowBean> searchHistory(HttpServletRequest req, BorrowForm form) {
@@ -59,18 +65,30 @@ public class BorrowController {
     Response saveOrUpdate(HttpServletRequest req, @RequestBody BorrowInfoForm form) throws Exception {
         if (!CommonUtil.isNullOrEmpty(form.getLstBorrow())) {
             List<Long> lstId = new ArrayList<>();
+            Session session = uttData.getSession();
+            Transaction transaction = session.beginTransaction();
+//            transaction.begin();
             for (BorrowForm borrowForm : form.getLstBorrow()) {
                 Long id = CommonUtil.NVL(borrowForm.getId());
                 BorrowBO bo;
                 //cap nhat so luong sach cho muon
-                BookBO bookBO = bookService.getById(borrowForm.getBookId());
+                if(CommonUtil.NVL( borrowForm.getBookId()) == 0L) {
+                    continue;
+                }
+                BookBO bookBO = uttData.get(BookBO.class, borrowForm.getBookId());  //bookService.getById(borrowForm.getBookId());
                 if (id > 0L) {
-                    bo = borrowService.findById(id);
+                    bo = uttData.get(BorrowBO.class, id); // borrowService.findById(id);
+                    
                     if (bo == null) {
                         return Response.warning(Constants.RESPONSE_CODE.RECORD_DELETED);
                     }
                 } else {
                     bo = new BorrowBO();
+
+                    if(bookBO.getAmount() < bookBO.getAmountBorrow()+1L) {
+                        transaction.rollback();
+                        return Response.warning(String.format("Số lượng sách %s không đủ", bookBO.getName()));
+                    }
                     bookBO.setAmountBorrow(CommonUtil.NVL(bookBO.getAmountBorrow()) + 1L);
                 }
                 bo.setMemberId(form.getMemberId());
@@ -86,13 +104,17 @@ public class BorrowController {
                 }
                 bo.setAdjourn(borrowForm.getAdjourn());
 
-                bookService.saveOrUpdate(bookBO);
-                borrowService.saveOrUpdate(bo);
+//                bookService.saveOrUpdate(bookBO);
+//                borrowService.saveOrUpdate(bo);
+                uttData.saveOrUpdate(bookBO);
+                uttData.saveOrUpdate(bo);
+                uttData.flushSession();
                 lstId.add(bo.getId());
 
                 //xóa bản ghi
 //                borrowService.deleteAfterSave(bo.getMemberId(), lstId);
             }
+            transaction.commit();
         }
 
         return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(null);
