@@ -126,4 +126,22 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
     
     @Query("DELETE BorrowBO b WHERE b.memberId = :memberId AND b.id NOT IN (:ids) ")
     public void deleteAfterSave(@Param("memberId") Long memberId, @Param("ids") List<Long> ids);
+    
+    
+    public default boolean checkBorrow(UttData uttData,Long memberId, Long bookId) {
+        String sql = "select  count_borrow_book(?,?) as amountBorrow ";
+        List<Object> params = new ArrayList<Object>();
+        params.add(memberId);
+        params.add(bookId);
+        
+        List<BorrowBean> lst = uttData.list(sql, params, BorrowBean.class);
+        if(!CommonUtil.isNullOrEmpty(lst)) {
+            if(CommonUtil.NVL(lst.get(0).getAmountBorrow()) > 0L) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return true;
+    }
 }

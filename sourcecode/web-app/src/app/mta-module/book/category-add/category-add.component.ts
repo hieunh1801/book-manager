@@ -6,6 +6,7 @@ import { BookService } from 'src/app/core/services/book.service';
 import { FormGroup, Validators } from "@angular/forms";
 import { AppComponent } from 'src/app/app.component';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { CommonUtils } from 'src/app/shared/service/common-utils.service';
 
 @Component({
   selector: 'app-category-add',
@@ -47,6 +48,9 @@ export class CategoryAddComponent extends BaseComponent implements OnInit {
     });
   }
   public processSaveOrUpdate() {
+    if (!CommonUtils.isValidForm(this.formSave)) {
+      return;
+    }
     this.app.confirmMessage(
       null,
       () => {

@@ -21,13 +21,13 @@ import com.example.common.UttData;
 @Repository
 public interface BookDAO extends CrudRepository<BookBO, Long> {
 
-	@Query(value = "select * from book b", nativeQuery = true)
+    @Query(value = "select * from book b", nativeQuery = true)
     public List<BookBO> getALl();
-	
-	@Query(value = "select * from book b where b.id = :id", nativeQuery = true)
-	public BookBO getById(@Param("id") Long id);
 
-	// For search
+    @Query(value = "select * from book b where b.id = :id", nativeQuery = true)
+    public BookBO getById(@Param("id") Long id);
+
+    // For search
     public default DataTableResults<BookBean> search(UttData uttData, BookForm formData) {
         List<Object> paramList = new ArrayList<>();
         String sql = " SELECT ";
@@ -41,7 +41,8 @@ public interface BookDAO extends CrudRepository<BookBO, Long> {
         sql += " ,b.amount as amount ";
         sql += " ,b.category_id as categoryId ";
         sql += " ,c.name as categoryName ";
-        sql += " from book b inner join category c on b.category_id = c.id  ";
+        sql += " from book b "
+                + " inner join category c on b.category_id = c.id  ";
 
         StringBuilder strCondition = new StringBuilder(" WHERE 1 ");
         CommonUtil.filter(formData.getId(), strCondition, paramList, "b.id");
@@ -52,12 +53,12 @@ public interface BookDAO extends CrudRepository<BookBO, Long> {
         CommonUtil.filter(formData.getAuthor(), strCondition, paramList, "b.author");
         CommonUtil.filter(formData.getAmount(), strCondition, paramList, "b.amount");
         CommonUtil.filter(formData.getCategoryId(), strCondition, paramList, "b.category_id");
-        
-        String selectFields = " order by id ";
-        
+
+        String selectFields = " order by id desc";
+
         return uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, BookBean.class);
     }
-    
+
     public default List<BookBean> searchAutoComplete(UttData uttData, String search) {
         List<Object> paramList = new ArrayList<>();
         String sql = " SELECT ";
@@ -74,12 +75,12 @@ public interface BookDAO extends CrudRepository<BookBO, Long> {
         sql += " ,b.image_url as imageUrl ";
         sql += " ,case when IFNULL(b.amount,0) > IFNULL(b.amount_borrow,0) then 1 else 0 end as isValid ";
         sql += " from book b inner join category c on b.category_id = c.id  "
-        + "  where 1=1 and (1=0 OR LOWER(b.code) LIKE " +"'%" +search.toLowerCase() + "%'"
-        + "     OR LOWER(b.name) LIKE " +"'%" +search.toLowerCase() + "%')";
-        
+                + "  where 1=1 and (1=0 OR LOWER(b.code) LIKE " + "'%" + search.toLowerCase() + "%'"
+                + "     OR LOWER(b.name) LIKE " + "'%" + search.toLowerCase() + "%')";
+
         String selectFields = " order by id ";
-        
-        return uttData.list(sql , paramList, BookBean.class);
+
+        return uttData.list(sql, paramList, BookBean.class);
     }
 
     public default DataTableResults<BookBean> searchReport(UttData uttData, BookForm formData) {
@@ -106,9 +107,9 @@ public interface BookDAO extends CrudRepository<BookBO, Long> {
         CommonUtil.filter(formData.getAuthor(), strCondition, paramList, "b.author");
         CommonUtil.filter(formData.getAmount(), strCondition, paramList, "b.amount");
         CommonUtil.filter(formData.getCategoryId(), strCondition, paramList, "b.category_id");
-        
+
         String selectFields = " order by id ";
-        
+
         return uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, BookBean.class);
     }
 }

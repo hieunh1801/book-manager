@@ -80,6 +80,7 @@ public class BorrowController {
                     bo = uttData.get(BorrowBO.class, id); // borrowService.findById(id);
                     
                     if (bo == null) {
+                        transaction.rollback();
                         return Response.warning(Constants.RESPONSE_CODE.RECORD_DELETED);
                     }
                 } else {

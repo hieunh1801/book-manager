@@ -2,6 +2,7 @@ package com.example.borrow.service;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -64,4 +65,10 @@ public class BorrowService {
     public DataTableResults<BorrowBean> search(BorrowForm formData) {
         return borrowDAO.search(uttData, formData);
     }
+    
+    public boolean checkBorrow(Long memberId, Long bookId) {
+        return borrowDAO.checkBorrow(uttData, memberId, bookId);
+    }
 }
+
+

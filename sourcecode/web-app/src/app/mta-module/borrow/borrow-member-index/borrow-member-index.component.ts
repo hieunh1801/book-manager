@@ -138,11 +138,12 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
         const group = this.makeDefaultForm();
         group.patchValue(emp);
         controls.push(group);
-        controls.setValidators(ValidationService.duplicateArray(['bookId'], 'bookId', 'Không được trùng nhau'))
+        controls.setValidators(ValidationService.duplicateArray(['bookId'], 'bookId', 'Không được trùng nhau'));
       }
     } else {
       const group = this.makeDefaultForm();
       controls.push(group);
+      controls.setValidators(ValidationService.duplicateArray(['bookId'], 'bookId', 'Không được trùng nhau'));
     }
     this.formSave = controls;
   }

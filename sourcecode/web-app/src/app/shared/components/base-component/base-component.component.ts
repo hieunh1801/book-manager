@@ -172,35 +172,35 @@ export class BaseComponent {
 
   public hasRole(roleCode?) {
     const userToken = Storage.getUserToken();
-    if(userToken!=null){
+    if (userToken != null) {
       const roles = Storage.getUserToken().roles;
       if (!roles) {
         return false;
       }
-      if(roleCode){
-        if (roles.indexOf(','+roleCode+',') >= 0 ) {
+      if (roleCode) {
+        if (roles.indexOf(',' + roleCode + ',') >= 0) {
           return true;
         }
         return false;
       } else {
         return true;
       }
-      
+
     }
-    
+
     return false;
   }
 
   public isAnonymous() {
     const userToken = Storage.getUserToken();
-    
-    if (userToken == null || userToken.roles==null || userToken.roles=='' ) {
+
+    if (userToken == null || userToken.roles == null || userToken.roles == '') {
       return true;
     }
     return false;
   }
 
-  public isProduction(){
+  public isProduction() {
     return environment.production;
   }
 }

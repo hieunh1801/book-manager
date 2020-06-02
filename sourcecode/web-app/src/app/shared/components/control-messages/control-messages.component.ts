@@ -10,7 +10,7 @@ export class ControlMessagesComponent {
   @Input()
   public labelName?: string;
   private replaceKeys = ['max', 'min', 'maxlength', 'minlength', 'dateNotAffter', 'duplicateArray', 'beforeCurrentDate'];
-  private actualKeys =  ['max', 'min', 'requiredLength', 'requiredLength', 'dateNotAffter', 'duplicateArray', 'beforeCurrentDate'];
+  private actualKeys = ['max', 'min', 'requiredLength', 'requiredLength', 'dateNotAffter', 'duplicateArray', 'beforeCurrentDate'];
   private translateKeys = ['dateNotAffter', 'duplicateArray', 'beforeCurrentDate'];
   private translate = {
     max: '* Giá trị lớn nhất ',
@@ -19,9 +19,9 @@ export class ControlMessagesComponent {
     minlength: '* Độ dài tối thiểu ',
     dateNotAffter: '* Không được sau ngày ',
     duplicateArray: '* Không được nhập trùng ',
-    required : '* Trường bắt buộc '
+    required: '* Trường bắt buộc '
   }
-  constructor() {}
+  constructor() { }
 
   get errorMessage(): string {
     for (const propertyName in this.control.errors) {
@@ -52,11 +52,10 @@ export class ControlMessagesComponent {
     //   }
     // }
     // return messageText;
-    console.log('messageText',messageText)
     const text = this.translate[messageText];
-    if(text)
+    if (text)
       return text;
-    else 
+    else
       return messageText;
   }
 }

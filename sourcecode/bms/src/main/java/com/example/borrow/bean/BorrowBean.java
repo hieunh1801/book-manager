@@ -16,6 +16,7 @@ public class BorrowBean {
     private String memberCode;
     private String memberName;
     private String categoryName;
+    private Long amountBorrow;
     
     public Long getId() {
         return id;
@@ -134,6 +135,16 @@ public class BorrowBean {
     
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    
+    public Long getAmountBorrow() {
+        return amountBorrow;
+    }
+
+    
+    public void setAmountBorrow(Long amountBorrow) {
+        this.amountBorrow = amountBorrow;
     }
     
     

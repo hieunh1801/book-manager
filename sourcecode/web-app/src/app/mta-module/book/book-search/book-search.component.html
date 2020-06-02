@@ -99,8 +99,14 @@
             <th>STT</th>
             <th *ngIf="hasRole('admin') || hasRole('editor')">Sửa</th>
             <th *ngIf="hasRole('admin') || hasRole('editor')">Xóa</th>
-            <th>Mã sách</th>
-            <th>Tên sách</th>
+            <th pSortableColumn="code">
+              Mã sách
+              <p-sortIcon field="code"></p-sortIcon>
+            </th>
+            <th pSortableColumn="name">
+              Tên sách
+              <p-sortIcon field="name"></p-sortIcon>
+            </th>
             <th>Mô tả</th>
             <th>Bìa sách</th>
             <th>Tác giả</th>
@@ -122,13 +128,14 @@
             </td>
             <td class="vt-align-center">{{item.code}}</td>
             <td>{{item.name}}</td>
-            <td>{{ (item.description.length>25)? (item.description | slice:0:12)+'..':(item.description) }}</td>
+            <!-- <td>{{ (item.description.length>25)? (item.description | slice:0:12)+'..':(item.description) }}</td> -->
+            <td>{{item.description}}</td>
             <td class="vt-align-center" *ngIf="item.imageUrl != null"><img [src]="fileServer + item.imageUrl"
                 height="20"></td>
             <td class="vt-align-center" *ngIf="item.imageUrl == null"><img src="/assets/images/default_book.png"
                 height="40px" /></td>
             <td>{{item.author}}</td>
-            <td>{{item.publisher}} $</td>
+            <td>{{item.publisher}}</td>
             <td>{{item.amount}}</td>
             <td>{{item.categoryName}}</td>
           </tr>
