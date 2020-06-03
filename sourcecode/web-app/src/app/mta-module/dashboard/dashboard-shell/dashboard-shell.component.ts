@@ -67,7 +67,7 @@ export class DashboardShellComponent implements OnInit {
     this.formSearch = this.formBuilder.group({
       fromDate: [firstDayOfMonth],
       toDate: [currentDay],
-      frequency: ["day"]
+      frequency: ["Ngày"]
     })
   }
   get f() {
@@ -140,7 +140,7 @@ export class DashboardShellComponent implements OnInit {
     const searchForm = {
       fromDate: this.dateToString(formSearchValue.fromDate),
       toDate: this.dateToString(formSearchValue.toDate),
-      frequency: formSearchValue.frequency.value ? formSearchValue.frequency.value : "day"
+      frequency: formSearchValue.frequency.value ? formSearchValue.frequency.value : "Ngày"
     }
     console.log("vẽ biểu đồ", this.formSearch.value);
     this.getCharData(searchForm).subscribe(data => {

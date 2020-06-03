@@ -32,7 +32,7 @@ export class DashboardService extends BasicService {
 
     const fromDate = formData.fromDate ? formData.fromDate : firstDayOfMonth;
     const toDate = formData.toDate ? formData.toDate : currentDay;
-    const frequency = formData.frequency ? formData.frequency : "day";
+    const frequency = formData.frequency ? formData.frequency : "Ngày";
     const url = `${this.serviceUrl}/char-data?fromDate=${fromDate}&toDate=${toDate}&frequency=${frequency}`;
     return this.httpClient.get(url)
   }
