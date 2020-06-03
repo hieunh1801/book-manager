@@ -2,7 +2,14 @@
   <div class="ui-g-4">
     <div class="card">
       <div class="cardTitle">Tổng số bạn đọc</div>
-      <div class="cardContent">{{totalMember}}</div>
+      <div class="cardContent">
+        <div style="margin-top: 8px;">
+          <span class="pi pi-users" style="color: orange;"></span>
+        </div>
+        <div style="width: 100%; text-align: right;">
+          {{totalMember}}
+        </div>
+      </div>
     </div>
   </div>
   <div class="ui-g-4">
@@ -12,7 +19,12 @@
         <div>({{ getCurrentMonthString() }})</div>
       </div>
       <div class="cardContent">
-        {{totalBorrowBookCurrentMonth}}/{{totalGiveBackBookCurrentMonth}}
+        <div style="margin-top: 8px;">
+          <span class="pi pi-replay" style="color: green;"></span>
+        </div>
+        <div style="width: 100%; text-align: right;">
+          {{totalBorrowBookCurrentMonth}}/{{totalGiveBackBookCurrentMonth}}
+        </div>
       </div>
     </div>
   </div>
