@@ -1,159 +1,165 @@
-<!-- Search Group -->
-<div class="panel panel-default">
-  <form id="formSearch" [formGroup]="formSearch">
-    <div class="panel-heading">
+<div *ngIf="hasRole('admin')">
+  <!-- Search Group -->
+  <div class="panel panel-default">
+    <form id="formSearch" [formGroup]="formSearch">
+      <div class="panel-heading">
+        <strong class="text-u-c">
+          <i class="fa fa-th"></i>
+          <span> Thông tin bạn đọc cần tìm kiếm </span>
+        </strong>
+      </div>
+      <div class="panel-body padding-xl ui-g">
+        <!-- row -->
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Mã bạn đọc</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10">
+          </div>
+
+          <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tên bạn đọc</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="fullName" maxlength="200"
+              autofocus>
+          </div>
+        </div> <!-- end row -->
+        <!-- row -->
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Giới tính</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <p-dropdown [options]="listGender" [virtualScroll]="true" itemSize="10" formControlName="gender">
+            </p-dropdown>
+          </div>
+
+
+          <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Email</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="email" maxlength="200"
+              autofocus>
+          </div>
+        </div> <!-- end row -->
+
+        <!-- row -->
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Số điện thoại</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="phoneNumber" maxlength="15"
+              autofocus>
+          </div>
+          <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Địa chỉ</label>
+          <div class="ui-g-12 ui-md-4 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="address" maxlength="2000"
+              autofocus>
+          </div>
+        </div> <!-- end row -->
+      </div>
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
+          <i class="fa fa-search"></i> Tìm kiếm
+        </button>
+      </div>
+    </form>
+  </div>
+
+
+  <!-- List Object -->
+  <div class="panel panel-default">
+    <div class="panel-heading vt-relative">
       <strong class="text-u-c">
         <i class="fa fa-th"></i>
-        <span> Thông tin bạn đọc cần tìm kiếm </span>
+        <span> Danh sách bạn đọc</span>
       </strong>
-    </div>
-    <div class="panel-body padding-xl ui-g">
-      <!-- row -->
-      <div class="ui-g-12">
-        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Mã bạn đọc</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="code" maxlength="10">
+      <div *ngIf="hasRole('admin') || hasRole('editor')" class="vt-absolute vt-shotcut-button-in-heading">
+        <div>
+          <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i>
+            Thêm mới</button>
         </div>
-
-        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tên bạn đọc</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="fullName" maxlength="200"
-            autofocus>
-        </div>
-      </div> <!-- end row -->
-      <!-- row -->
-      <div class="ui-g-12">
-        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Giới tính</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <p-dropdown [options]="listGender" [virtualScroll]="true" itemSize="10" formControlName="gender">
-          </p-dropdown>
-        </div>
-
-
-        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Email</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="email" maxlength="200"
-            autofocus>
-        </div>
-      </div> <!-- end row -->
-
-      <!-- row -->
-      <div class="ui-g-12">
-        <label class="ui-g-12 ui-md-4 ui-lg-2 control-label vt-align-right">Số điện thoại</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="phoneNumber" maxlength="15"
-            autofocus>
-        </div>
-        <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Địa chỉ</label>
-        <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="address" maxlength="2000"
-            autofocus>
-        </div>
-      </div> <!-- end row -->
-    </div>
-    <div class="panel-footer vt-area-button">
-      <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info">
-        <i class="fa fa-search"></i> Tìm kiếm
-      </button>
-    </div>
-  </form>
-</div>
-
-
-<!-- List Object -->
-<div class="panel panel-default">
-  <div class="panel-heading vt-relative">
-    <strong class="text-u-c">
-      <i class="fa fa-th"></i>
-      <span> Danh sách bạn đọc</span>
-    </strong>
-    <div *ngIf="hasRole('admin') || hasRole('editor')" class="vt-absolute vt-shotcut-button-in-heading">
-      <div>
-        <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i>
-          Thêm mới</button>
       </div>
     </div>
-  </div>
-  <div class="panel-body panel-table">
-    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
-      (onLazyLoad)="processSearch($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
-      [responsive]="true" [lazyLoadOnInit]="false"
-      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
-      <ng-template pTemplate="colgroup" let-columns>
-        <colgroup>
-          <col class="size-1">
-          <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
-          <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
-          <col class="size-3">
-          <!-- <col class="size-3"> -->
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-        </colgroup>
-      </ng-template>
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th>STT</th>
-          <th *ngIf="hasRole('admin') || hasRole('editor')">Sửa</th>
-          <th *ngIf="hasRole('admin') || hasRole('editor')">Xóa</th>
-          <th pSortableColumn="code">Mã bạn đọc <p-sortIcon [field]="code"></p-sortIcon>
-          </th>
-          <th pSortableColumn="fullName">Tên bạn đọc <p-sortIcon [field]="fullName"></p-sortIcon>
-          </th>
-          <!-- <th>Ảnh đại diện</th> -->
-          <th pSortableColumn="gender">Giới tính <p-sortIcon [field]="gender"></p-sortIcon>
-          </th>
-          <th pSortableColumn="dateOfBirth">Ngày sinh <p-sortIcon [field]="dateOfBirth"></p-sortIcon>
-          </th>
-          <th>Email</th>
-          <th>Số điện thoại</th>
-          <th>Địa chỉ </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-item let-index="rowIndex">
-        <tr>
-          <td class="vt-align-center">{{index+1}}</td>
-          <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
-            <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'">
-              <i class="fa fa-edit"></i></a>
-          </td>
-          <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
-            <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'">
-              <i class="fa fa-trash-alt"></i></a>
-          </td>
-          <td class="vt-align-center">{{item.code}}</td>
-          <td>{{item.fullName}}</td>
+    <div class="panel-body panel-table">
+      <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
+        (onLazyLoad)="processSearch($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
+        [responsive]="true" [lazyLoadOnInit]="false"
+        tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col class="size-1">
+            <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
+            <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
+            <col class="size-3">
+            <!-- <col class="size-3"> -->
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+          </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th>STT</th>
+            <th *ngIf="hasRole('admin') || hasRole('editor')">Sửa</th>
+            <th *ngIf="hasRole('admin') || hasRole('editor')">Xóa</th>
+            <th pSortableColumn="code">Mã bạn đọc <p-sortIcon [field]="code"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fullName">Tên bạn đọc <p-sortIcon [field]="fullName"></p-sortIcon>
+            </th>
+            <!-- <th>Ảnh đại diện</th> -->
+            <th pSortableColumn="gender">Giới tính <p-sortIcon [field]="gender"></p-sortIcon>
+            </th>
+            <th pSortableColumn="dateOfBirth">Ngày sinh <p-sortIcon [field]="dateOfBirth"></p-sortIcon>
+            </th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-index="rowIndex">
+          <tr>
+            <td class="vt-align-center">{{index+1}}</td>
+            <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
+              <a class="btn-table edit" (click)="prepareSaveOrUpdate(item.id)" [title]="'Sửa'">
+                <i class="fa fa-edit"></i></a>
+            </td>
+            <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center">
+              <a class="btn-table delete" (click)="processDelete(item.id)" [title]="'Xóa'">
+                <i class="fa fa-trash-alt"></i></a>
+            </td>
+            <td class="vt-align-center">{{item.code}}</td>
+            <td>{{item.fullName}}</td>
 
-          <!-- <td class="vt-align-center">
+            <!-- <td class="vt-align-center">
             <img *ngIf="!item.avatarUrl" [src]="item.avatarUrl" style="height: 20px;">
             <img *ngIf="item.avatarUrl" src="/assets/images/default_avartar.png" style="height: 20px;">
           </td> -->
-          <td class="vt-align-center" *ngIf="item.gender == 0">Nữ</td>
-          <td class="vt-align-center" *ngIf="item.gender == 1">Nam</td>
-          <td class="vt-align-center" *ngIf="item.gender == null"></td>
+            <td class="vt-align-center" *ngIf="item.gender == 0">Nữ</td>
+            <td class="vt-align-center" *ngIf="item.gender == 1">Nam</td>
+            <td class="vt-align-center" *ngIf="item.gender == null"></td>
 
-          <td class="vt-align-center">{{item.dateOfBirth | date:'dd/MM/yyyy'}}</td>
-          <td>{{item.email }}</td>
+            <td class="vt-align-center">{{item.dateOfBirth | date:'dd/MM/yyyy'}}</td>
+            <td>{{item.email }}</td>
 
-          <td>{{item.phoneNumber }}</td>
-          <td>{{item.address }}</td>
+            <td>{{item.phoneNumber }}</td>
+            <td>{{item.address }}</td>
 
 
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
-        <tr class="emptymessage">
-          <td [attr.colspan]="6">
-            Không tồn tại bản ghi
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="paginatorleft">
-        <table-footer [resultList]="resultList"></table-footer>
-      </ng-template>
-    </p-table>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr class="emptymessage">
+            <td [attr.colspan]="6">
+              Không tồn tại bản ghi
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+          <table-footer [resultList]="resultList"></table-footer>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
+
+</div>
+<div *ngIf="!hasRole('admin')">
+  <span style="color: red;">Bạn không có quyền</span>
 </div>

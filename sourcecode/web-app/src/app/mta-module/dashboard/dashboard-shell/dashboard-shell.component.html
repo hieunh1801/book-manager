@@ -51,12 +51,14 @@
         <div id="formTitle">Thiết lập tham số biểu đồ</div>
         <div class="formItem">
           <label class="formItemLabel">Từ ngày</label>
-          <p-calendar formControlName="fromDate" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+          <!-- <p-calendar formControlName="fromDate" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar> -->
+          <date-picker [property]="f['fromDate']" dateFormat='dd/mm/yy'></date-picker>
         </div>
 
         <div class="formItem">
           <label class="formItemLabel">Tới ngày</label>
-          <p-calendar formControlName="toDate" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+          <date-picker [property]="f['toDate']" dateFormat='dd/mm/yy' (onChanged)="changeDate($event)"></date-picker>
+          <!-- <p-calendar formControlName="toDate" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar> -->
         </div>
 
         <div class="formItem">

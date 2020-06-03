@@ -104,7 +104,7 @@ public class DashboardDAO {
                 "       where date < '" + toDateString + "'), " +
                 "   tmp1 as (select count(id) as totalGiveback, to_date from borrow where to_date and status = 3 group by to_date), " +
                 "   tmp2 as (select from_date, count(id) as totalBorror from borrow group by from_date) " +
-                "   select DATE_FORMAT(d.date, \"%Y-%m-%d\") as label,  " +
+                "   select DATE_FORMAT(d.date, \"%d/%m/%Y\") as label,  " +
                 "       if(tmp1.totalGiveback, tmp1.totalGiveback, 0 ) as giveback,       " +
                 "       if(tmp2.totalBorror, totalBorror, 0 ) as borrow " +
                 "    from d left join tmp1 on d.date = tmp1.to_date " +
@@ -124,7 +124,7 @@ public class DashboardDAO {
                 "   where date < '" + toDateString + "'), " +
                 "tmp1 as (select count(id) as totalGiveback, to_date from borrow where to_date and status = 3 group by to_date), " +
                 "tmp2 as (select from_date, count(id) as totalBorror from borrow group by from_date) " +
-                "select DATE_FORMAT(d.date, \"%Y-%m\") as label, " +
+                "select DATE_FORMAT(d.date, \"%m/%Y\") as label, " +
                 " if(tmp1.totalGiveback, tmp1.totalGiveback, 0 ) as giveback, " +
                 " if(tmp2.totalBorror, totalBorror, 0 ) as borrow " +
                 "from d left join tmp1 on d.date = tmp1.to_date " +

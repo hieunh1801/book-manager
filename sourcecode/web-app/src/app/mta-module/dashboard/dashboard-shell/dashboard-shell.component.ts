@@ -70,6 +70,10 @@ export class DashboardShellComponent implements OnInit {
       frequency: ["day"]
     })
   }
+  get f() {
+    return this.formSearch.controls;
+  }
+
   public init() {
     this.initFormSearch();
     this.initStatisticalData();
@@ -124,8 +128,12 @@ export class DashboardShellComponent implements OnInit {
   }
   public dateToString(date: any) {
     const d = new Date(date);
-    const result = d.toJSON().slice(0, 10);;
-    return result; // 2020-11-29
+    // console.log("dateToString", d);
+    // console.log(" d.toJSON().slice(0, 10)", d.toJSON().slice(0, 10));
+    // const result = d.toJSON().slice(0, 10);
+    const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: '2-digit', day: '2-digit' })
+    const [{ value: month }, , { value: day }, , { value: year }] = dateTimeFormat.formatToParts(d)
+    return `${year}-${month}-${day}`; // 2020-11-29
   }
   public loadCharData() {
     const formSearchValue = this.formSearch.value;
@@ -140,11 +148,15 @@ export class DashboardShellComponent implements OnInit {
       let labels = [];
       let borrows = [];
       let givebacks = [];
-      values.forEach(element => {
-        labels.push(element.label);
-        borrows.push(element.borrow);
-        givebacks.push(element.giveback);
-      });
+      if (values && values.length > 0) {
+        values.forEach(element => {
+          labels.push(element.label);
+          borrows.push(element.borrow);
+          givebacks.push(element.giveback);
+        });
+      }
+
+
       this.charData = {
         labels: labels,
         datasets: [
@@ -167,9 +179,12 @@ export class DashboardShellComponent implements OnInit {
   public loadFrequencyData() {
     this.getFrequencyData().subscribe(data => {
       let dropDownData = [];
-      data.data.forEach(element => {
-        dropDownData.push({ name: element, value: element })
-      });
+      if (data.data && data.data.length > 0) {
+        data.data.forEach(element => {
+          dropDownData.push({ name: element, value: element })
+        });
+
+      }
       console.log("loadFrequencyData", dropDownData);
       this.frequenciesData = dropDownData;
     })
@@ -191,5 +206,11 @@ export class DashboardShellComponent implements OnInit {
     month[11] = "Tháng 12";
     const n = month[d.getMonth()];
     return n
+  }
+
+  changeDate(value) {
+    console.log('value', value)
+    console.log('toDate', this.f['toDate'].value)
+
   }
 }

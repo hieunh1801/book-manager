@@ -47,11 +47,11 @@ public class DashboardController {
         LocalDate fromDate = searchForm.getFromDate();
         LocalDate toDate = searchForm.getToDate();
         String frequency = searchForm.getFrequency();
-        if (frequency.equals("day")) {
+        if (frequency.equals("Ngày")) {
             return Response.success("get by day success").withData(dashboardServices.getCharDataByDay(fromDate, toDate));
-        } else if (frequency.equals("month")) {
+        } else if (frequency.equals("Tháng")) {
             return Response.success("get by month success").withData(dashboardServices.getCharDataByMonth(fromDate, toDate));
-        } else if (frequency.equals("year")) {
+        } else if (frequency.equals("Năm")) {
             return Response.success("get by year success").withData(dashboardServices.getCharDataByYear(fromDate, toDate));
         }
         return Response.success("apiGetCharData running");
@@ -61,9 +61,9 @@ public class DashboardController {
     public @ResponseBody
     Response apiGetCharFrequency() {
         List<String> frequencies = new ArrayList<String>();
-        frequencies.add("day");
-        frequencies.add("month");
-        frequencies.add("year");
+        frequencies.add("Ngày");
+        frequencies.add("Tháng");
+        frequencies.add("Năm");
         return Response.success("apiGetCharData running").withData(frequencies);
     }
 }
