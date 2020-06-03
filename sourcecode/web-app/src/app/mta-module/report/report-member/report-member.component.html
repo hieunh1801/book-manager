@@ -17,10 +17,11 @@
 
         <label class="ui-g-12 ui-md-4 ui-lg-3 control-label vt-align-right">Tên bạn đọc</label>
         <div class="ui-g-12 ui-md-4 ui-lg-3">
-          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="fullName" maxlength="200" autofocus>
+          <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="fullName" maxlength="200"
+            autofocus>
         </div>
       </div> <!-- end row -->
-      
+
     </div>
     <div class="panel-footer vt-area-button">
       <button type="submit" (click)="processSearchReport();" class="btn btn-sm btn-info">
@@ -67,15 +68,22 @@
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th>STT</th>
-          <th pSortableColumn="code" >Mã bạn đọc<p-sortIcon [field]="code"></p-sortIcon></th>
-          <th pSortableColumn="fullName" >Tên bạn đọc<p-sortIcon [field]="fullName"></p-sortIcon></th>
+          <th pSortableColumn="code">Mã bạn đọc<p-sortIcon field="code"></p-sortIcon>
+          </th>
+          <th pSortableColumn="fullName">
+            Tên bạn đọc
+            <p-sortIcon field="fullName"></p-sortIcon>
+          </th>
           <th>Ngày sinh</th>
           <th>Giới tính</th>
           <th>Email</th>
           <th>Số điện thoại</th>
-          <th pSortableColumn="totalBorrow" >Đã mượn<p-sortIcon [field]="totalBorrow"></p-sortIcon></th>
-          <th pSortableColumn="payBorrow" >Đã trả<p-sortIcon [field]="payBorrow"></p-sortIcon></th>
-          <th pSortableColumn="notPayBorrow" >Chưa trả<p-sortIcon [field]="notPayBorrow"></p-sortIcon></th>
+          <th pSortableColumn="totalBorrow">Đã mượn<p-sortIcon field="totalBorrow"></p-sortIcon>
+          </th>
+          <th pSortableColumn="payBorrow">Đã trả<p-sortIcon field="payBorrow"></p-sortIcon>
+          </th>
+          <th pSortableColumn="notPayBorrow">Chưa trả<p-sortIcon field="notPayBorrow"></p-sortIcon>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-item let-index="rowIndex">
@@ -83,8 +91,8 @@
           <td class="vt-align-center">{{index+1}}</td>
           <td class="vt-align-center">{{item.code}}</td>
           <td>{{item.fullName}}</td>
-          <td  class="vt-align-center">{{item.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
-          <td  class="vt-align-center">
+          <td class="vt-align-center">{{item.dateOfBirth | date: 'dd/MM/yyyy'}}</td>
+          <td class="vt-align-center">
             <span *ngIf="item.gender != 1">Nữ</span>
             <span *ngIf="item.gender == 1">Nam</span>
           </td>

@@ -54,6 +54,7 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
                 + " ,m.code as memberCode   "
                 + " ,m.full_name as memberName  "
                 + " ,c.name as categoryName  "
+                + " ,case when b.to_date < curdate() and b.status != 3 then 1 else 0 end as isExpired "
                 + " from borrow b   "
                 + "  inner join book bk on b.book_id = bk.id   "
                 + "  inner join member m on m.id = b.member_id  "
@@ -61,7 +62,12 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
 
         StringBuilder strCondition = new StringBuilder(" WHERE 1 ");
         CommonUtil.filter(formData.getMemberId(), strCondition, paramList, "b.member_id");
-        CommonUtil.filter(formData.getStatus(), strCondition, paramList, "b.status");
+        if(formData.getStatus() != null && formData.getStatus().equals(4L)) {
+            strCondition.append(" and b.to_date < curdate() and b.status != 3     ");
+        } else {
+            CommonUtil.filter(formData.getStatus(), strCondition, paramList, "b.status");
+        }
+        
         CommonUtil.filter(formData.getMemberCode(), strCondition, paramList, "m.code");
         CommonUtil.filter(formData.getMemberName(), strCondition, paramList, "m.full_name");
         CommonUtil.filter(formData.getCategoryId(), strCondition, paramList, "bk.category_id");
@@ -69,8 +75,8 @@ public interface BorrowDAO extends JpaRepository<BorrowBO, Long> {
         
         
         String selectFields = " order by id ";
-        
-        return uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, BorrowBean.class);
+        DataTableResults<BorrowBean> res = uttData.findPaginationQuery(sql + strCondition.toString(), selectFields, paramList, BorrowBean.class);
+        return res;
     }
     
     

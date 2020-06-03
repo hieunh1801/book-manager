@@ -18,7 +18,8 @@ public class BorrowForm {
     private String memberName;
     private Long categoryId;
     private String bookName;
-
+    private Long isExpired;
+    
     public String getMemberCode() {
         return memberCode;
     }
@@ -129,6 +130,16 @@ public class BorrowForm {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    
+    public Long getIsExpired() {
+        return isExpired;
+    }
+
+    
+    public void setIsExpired(Long isExpired) {
+        this.isExpired = isExpired;
     }
 
 }

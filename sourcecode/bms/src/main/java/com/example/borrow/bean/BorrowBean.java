@@ -17,6 +17,7 @@ public class BorrowBean {
     private String memberName;
     private String categoryName;
     private Long amountBorrow;
+    private Long isExpired;
     
     public Long getId() {
         return id;
@@ -145,6 +146,16 @@ public class BorrowBean {
     
     public void setAmountBorrow(Long amountBorrow) {
         this.amountBorrow = amountBorrow;
+    }
+
+    
+    public Long getIsExpired() {
+        return isExpired;
+    }
+
+    
+    public void setIsExpired(Long isExpired) {
+        this.isExpired = isExpired;
     }
     
     

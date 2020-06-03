@@ -20,14 +20,14 @@ import { DatePipe } from '@angular/common';
 export class MemberAddComponent extends BaseComponent implements OnInit {
   formConfig = {
     id: [""],
-    code: [""],
-    fullName: [""],
-    gender: [""],
-    email: [""],
-    phoneNumber: [""],
-    address: [""],
+    code: ["", [Validators.required]],
+    fullName: ["", [Validators.required]],
+    gender: ["", [Validators.required]],
+    email: ["", [Validators.required]],
+    phoneNumber: ["", [Validators.required]],
+    address: ["", [Validators.required]],
     avatarUrl: ['https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'],
-    dateOfBirth: [""],
+    dateOfBirth: ["", [Validators.required]],
     dateOfBirthStr: [""]
   };
   listGender = [
@@ -41,7 +41,7 @@ export class MemberAddComponent extends BaseComponent implements OnInit {
       value: 0, label: "Nữ"
     },
   ]
-  fileServer =  environment.serverUrl['file'];
+  fileServer = environment.serverUrl['file'];
   public idMember: any;
   public formSave: FormGroup;
   constructor(
@@ -55,7 +55,7 @@ export class MemberAddComponent extends BaseComponent implements OnInit {
     this.setMainService(memberService);
     this.formSave = this.buildForm({}, this.formConfig);
     this.formSave.addControl("file", new FileControl(null));
-    
+
   }
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class MemberAddComponent extends BaseComponent implements OnInit {
   }
   private setFormValue(id: number) {
     this.memberService.findOne(id).subscribe(response => {
-      if(response.data.avatarUrl ){
+      if (response.data.avatarUrl) {
         response.data.avatarUrl = this.fileServer + response.data.avatarUrl;
       } else {
         response.data.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
@@ -78,10 +78,13 @@ export class MemberAddComponent extends BaseComponent implements OnInit {
       console.log("member ", response.data);
       console.log("member ", this.formSave.controls);
       this.formSave.addControl("file", new FileControl(null));
-     
+
     });
   }
   public processSaveOrUpdate() {
+    if (!CommonUtils.isValidForm(this.formSave)) {
+      return;
+    }
     this.app.confirmMessage(
       null,
       () => {
@@ -111,7 +114,7 @@ export class MemberAddComponent extends BaseComponent implements OnInit {
   get f() {
     return this.formSave.controls;
   }
-  
+
 
   selectFile(event) {
     // this.selectedFiles = event.target.files;
@@ -119,10 +122,10 @@ export class MemberAddComponent extends BaseComponent implements OnInit {
       return;
 
     var reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]); 
-    reader.onload = (_event) => { 
-      this.formSave.controls['avatarUrl'].setValue(reader.result); 
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (_event) => {
+      this.formSave.controls['avatarUrl'].setValue(reader.result);
     }
     this.formSave.controls['file'].setValue(event.target.files[0]);
-    }
+  }
 }

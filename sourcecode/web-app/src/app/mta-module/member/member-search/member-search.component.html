@@ -85,7 +85,7 @@
           <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
           <col *ngIf="hasRole('admin') || hasRole('editor')" class="size-1">
           <col class="size-3">
-          <col class="size-3">
+          <!-- <col class="size-3"> -->
           <col class="size-3">
           <col class="size-3">
           <col class="size-3">
@@ -99,11 +99,15 @@
           <th>STT</th>
           <th *ngIf="hasRole('admin') || hasRole('editor')">Sửa</th>
           <th *ngIf="hasRole('admin') || hasRole('editor')">Xóa</th>
-          <th>Mã bạn đọc</th>
-          <th>Tên bạn đọc</th>
-          <th>Ảnh đại diện</th>
-          <th>Giới tính</th>
-          <th>Ngày sinh</th>
+          <th pSortableColumn="code">Mã bạn đọc <p-sortIcon [field]="code"></p-sortIcon>
+          </th>
+          <th pSortableColumn="fullName">Tên bạn đọc <p-sortIcon [field]="fullName"></p-sortIcon>
+          </th>
+          <!-- <th>Ảnh đại diện</th> -->
+          <th pSortableColumn="gender">Giới tính <p-sortIcon [field]="gender"></p-sortIcon>
+          </th>
+          <th pSortableColumn="dateOfBirth">Ngày sinh <p-sortIcon [field]="dateOfBirth"></p-sortIcon>
+          </th>
           <th>Email</th>
           <th>Số điện thoại</th>
           <th>Địa chỉ </th>
@@ -123,15 +127,15 @@
           <td class="vt-align-center">{{item.code}}</td>
           <td>{{item.fullName}}</td>
 
-          <td class="vt-align-center">
+          <!-- <td class="vt-align-center">
             <img *ngIf="!item.avatarUrl" [src]="item.avatarUrl" style="height: 20px;">
             <img *ngIf="item.avatarUrl" src="/assets/images/default_avartar.png" style="height: 20px;">
-          </td>
-          <td *ngIf="item.gender == 0">Nữ</td>
-          <td *ngIf="item.gender == 1">Nam</td>
-          <td *ngIf="item.gender == null">Null</td>
+          </td> -->
+          <td class="vt-align-center" *ngIf="item.gender == 0">Nữ</td>
+          <td class="vt-align-center" *ngIf="item.gender == 1">Nam</td>
+          <td class="vt-align-center" *ngIf="item.gender == null"></td>
 
-          <td>{{item.dateOfBirth | date}}</td>
+          <td class="vt-align-center">{{item.dateOfBirth | date:'dd/MM/yyyy'}}</td>
           <td>{{item.email }}</td>
 
           <td>{{item.phoneNumber }}</td>

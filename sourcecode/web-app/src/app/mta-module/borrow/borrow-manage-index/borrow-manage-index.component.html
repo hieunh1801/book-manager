@@ -1,26 +1,28 @@
-<div  *ngIf="hasRole()"> 
+<div *ngIf="hasRole()">
   <!-- *ngIf="havePermission('ROLE_ADMIN')" -->
   <div class="panel panel-default">
     <form id="formSearch" [formGroup]="formSearch">
-        <div class="panel-heading">
-            <strong class="text-u-c">
-                <i class="fa fa-th"></i>
-                <span> Thông tin tìm kiếm</span>
-            </strong>
+      <div class="panel-heading">
+        <strong class="text-u-c">
+          <i class="fa fa-th"></i>
+          <span> Thông tin tìm kiếm</span>
+        </strong>
+      </div>
+      <div class="panel-body padding-xl ui-g">
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã bạn đọc </label>
+          <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="memberCode" maxlength="10"
+              autofocus>
+          </div>
+
+          <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên bạn đọc </label>
+          <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="memberName" maxlength="200"
+              autofocus>
+          </div>
         </div>
-        <div class="panel-body padding-xl ui-g">
-            <div class="ui-g-12">
-              <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Mã bạn đọc </label>
-              <div class="ui-g-12 ui-md-6 ui-lg-3">
-                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="memberCode" maxlength="10" autofocus>
-              </div>
-    
-              <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên bạn đọc </label>
-              <div class="ui-g-12 ui-md-6 ui-lg-3">
-                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="memberName" maxlength="200" autofocus>
-              </div>
-            </div>
-            <!-- <div class="ui-g-12">
+        <!-- <div class="ui-g-12">
               <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Từ ngày </label>
               <div class="ui-g-12 ui-md-6 ui-lg-3">
                 <date-picker [property]="f['fromDate']" dateFormat='dd/mm/yy'></date-picker>
@@ -33,114 +35,123 @@
                  <app-control-messages [control]="f['toDate']"></app-control-messages>
               </div>
             </div> -->
-            <div class="ui-g-12">
-              <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Thể loại sách </label>
-              <div class="ui-g-12 ui-md-6 ui-lg-3">
-                <app-select-filter [property]="f['categoryId']" [options]="lstCategory" 
-                optionLabel="name" optionValue="id"
-                placeHolder="--Chọn tất cả--"></app-select-filter>
-                 <app-control-messages [control]="f['categoryId']"></app-control-messages>
-              </div>
-              <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên sách</label>
-              <div class="ui-g-12 ui-md-6 ui-lg-3">
-                <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="bookName" maxlength="200" autofocus>
-              </div>
-            </div>
-            <div class="ui-g-12">
-              <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Trạng thái </label>
-              <div class="ui-g-12 ui-md-6 ui-lg-3">
-                <app-select-filter [property]="f['status']" [options]="lstStatus" 
-                optionLabel="name" optionValue="id"
-                placeHolder="--Chọn tất cả--"></app-select-filter>
-                 <app-control-messages [control]="f['status']"></app-control-messages>
-              </div>
-              
-            </div>
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Thể loại sách </label>
+          <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <app-select-filter [property]="f['categoryId']" [options]="lstCategory" optionLabel="name" optionValue="id"
+              placeHolder="--Chọn tất cả--"></app-select-filter>
+            <app-control-messages [control]="f['categoryId']"></app-control-messages>
+          </div>
+          <label class="ui-g-12 ui-md-6 ui-lg-3 control-label vt-align-right">Tên sách</label>
+          <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <input class="form-control ng-pristine ng-invalid ng-touched" formControlName="bookName" maxlength="200"
+              autofocus>
+          </div>
         </div>
-        <div class="panel-footer vt-area-button">
-          <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info" ><i class="fa fa-search"></i> Tìm kiếm</button>
+        <div class="ui-g-12">
+          <label class="ui-g-12 ui-md-6 ui-lg-2 control-label vt-align-right">Trạng thái </label>
+          <div class="ui-g-12 ui-md-6 ui-lg-3">
+            <app-select-filter [property]="f['status']" [options]="lstStatus" optionLabel="name" optionValue="id"
+              placeHolder="--Chọn tất cả--"></app-select-filter>
+            <app-control-messages [control]="f['status']"></app-control-messages>
+          </div>
+
         </div>
+      </div>
+      <div class="panel-footer vt-area-button">
+        <button type="submit" (click)="processSearch();" class="btn btn-sm btn-info"><i class="fa fa-search"></i> Tìm
+          kiếm</button>
+      </div>
     </form>
   </div>
-  
+
   <div class="panel panel-default">
-  <div class="panel-heading vt-relative">
-    <strong class="text-u-c">
-      <i class="fa fa-th"></i>
-      <span> Danh sách mượn/trả</span>
-    </strong>
-    <!-- <div class="vt-absolute vt-shotcut-button-in-heading">
+    <div class="panel-heading vt-relative">
+      <strong class="text-u-c">
+        <i class="fa fa-th"></i>
+        <span> Danh sách mượn/trả</span>
+      </strong>
+      <!-- <div class="vt-absolute vt-shotcut-button-in-heading">
       <div>
       <button type="button" (click)="prepareSaveOrUpdate()" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Thêm mới</button>
       </div>
     </div> -->
-  </div>
-  <div class="panel-body panel-table">
-    <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length" (onLazyLoad)="processSearch($event)"
-      [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal" [responsive]="true" [lazyLoadOnInit]="false"
-      tableStyleClass="table table-wrapper table-hover table-striped b-t b-b" >
-      <ng-template pTemplate="colgroup" let-columns>
-        <colgroup>
-          <col class="size-1">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-6">
-          <col class="size-3">
-          <col class="size-3">
-          <col class="size-3">
-        </colgroup>
-      </ng-template>
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th >STT</th>
-          <th pSortableColumn="memberCode" >Mã bạn đọc <p-sortIcon [field]="memberCode"></p-sortIcon></th>
-          <th pSortableColumn="memberName" >Tên bạn đọc <p-sortIcon [field]="'memberName'"></p-sortIcon></th>
-          <th pSortableColumn="categoryName" >Thể loại sách <p-sortIcon [field]="categoryName"></p-sortIcon></th>
-          <th pSortableColumn="bookName" >Tên sách <p-sortIcon [field]="'bookName'"></p-sortIcon></th>
-          <th pSortableColumn="fromDate" >Ngày mượn <p-sortIcon [field]="'fromDate'"></p-sortIcon></th>
-          <th pSortableColumn="toDate" >Ngày trả<p-sortIcon [field]="toDate"></p-sortIcon></th>
-          <th pSortableColumn="status" >Trạng thái <p-sortIcon [field]="'status'"></p-sortIcon></th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-item let-index="rowIndex">
-        <tr>
-          <td class="vt-align-center">{{index+1}}</td>
-          <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center"> <span class="label-link" (click)="prepareBorrow(item)">{{item.memberCode}}</span></td>
-          <td *ngIf="!hasRole('admin') && !hasRole('editor')" class="vt-align-center">{{item.memberCode}}</td>
-          <td>{{item.memberName}}</td>
-          <td>{{item.categoryName}}</td>
-          <td>{{item.bookName}}</td>
-          <td class="vt-align-center">
-            {{item.fromDate | date: 'dd/MM/yyyy'}}
-          </td>
-          <td class="vt-align-center">
-            <div  *ngIf="item.status==3">{{item.toDate | date: 'dd/MM/yyyy'}}</div>
-          </td>
-          <td  >
-            <div class="label-status danger" *ngIf="item.status==1">Chưa trả</div>
-            <div class="label-status yellow" *ngIf="item.status==2">Gia hạn lần {{item.adjourn}}</div>
-            <div class="label-status info" *ngIf="item.status==3">Đã trả</div>
-          </td>
-         
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
-        <tr class="emptymessage">
-          <td [attr.colspan]="6">
+    </div>
+    <div class="panel-body panel-table">
+      <p-table #ptable [value]="resultList.data" [paginator]="resultList.data && resultList.data.length"
+        (onLazyLoad)="processSearch($event)" [lazy]="true" [rows]="10" [totalRecords]="resultList.recordsTotal"
+        [responsive]="true" [lazyLoadOnInit]="false"
+        tableStyleClass="table table-wrapper table-hover table-striped b-t b-b">
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col class="size-1">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-6">
+            <col class="size-3">
+            <col class="size-3">
+            <col class="size-3">
+          </colgroup>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th>STT</th>
+            <th pSortableColumn="memberCode">Mã bạn đọc <p-sortIcon [field]="memberCode"></p-sortIcon>
+            </th>
+            <th pSortableColumn="memberName">Tên bạn đọc <p-sortIcon [field]="'memberName'"></p-sortIcon>
+            </th>
+            <th pSortableColumn="categoryName">Thể loại sách <p-sortIcon [field]="categoryName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="bookName">Tên sách <p-sortIcon [field]="'bookName'"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fromDate">Ngày mượn <p-sortIcon [field]="'fromDate'"></p-sortIcon>
+            </th>
+            <th pSortableColumn="toDate">Ngày trả<p-sortIcon [field]="toDate"></p-sortIcon>
+            </th>
+            <th pSortableColumn="status">Trạng thái <p-sortIcon [field]="'status'"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item let-index="rowIndex">
+          <tr>
+            <td class="vt-align-center">{{index+1}}</td>
+            <td *ngIf="hasRole('admin') || hasRole('editor')" class="vt-align-center"> <span class="label-link"
+                (click)="prepareBorrow(item)">{{item.memberCode}}</span></td>
+            <td *ngIf="!hasRole('admin') && !hasRole('editor')" class="vt-align-center">{{item.memberCode}}</td>
+            <td>{{item.memberName}}</td>
+            <td>{{item.categoryName}}</td>
+            <td>{{item.bookName}}</td>
+            <td class="vt-align-center">
+              {{item.fromDate | date: 'dd/MM/yyyy'}}
+            </td>
+            <td class="vt-align-center">
+              <div *ngIf="item.status==3">{{item.toDate | date: 'dd/MM/yyyy'}}</div>
+            </td>
+            <td>
+              <div class="label-status danger" *ngIf="item.status==1">Chưa trả</div>
+              <div class="label-status yellow" *ngIf="item.status==2">Gia hạn lần {{item.adjourn}}</div>
+              <div class="label-status info" *ngIf="item.status==3">Đã trả</div>
+              <span style="color: red; font-style: italic;" *ngIf="item.isExpired==1">(Quá hạn)</span>
+            </td>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr class="emptymessage">
+            <td [attr.colspan]="6">
               Không tồn tại bản ghi
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="paginatorleft">
-        <table-footer [resultList]="resultList"></table-footer>
-      </ng-template>
-    </p-table>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorleft">
+          <table-footer [resultList]="resultList"></table-footer>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
-  </div>
-  </div>
-  
-  <div *ngIf="!hasRole()">
-    <span style="color: red;">Bạn không có quyền</span>
-  </div>
-  
+</div>
+
+<div *ngIf="!hasRole()">
+  <span style="color: red;">Bạn không có quyền</span>
+</div>

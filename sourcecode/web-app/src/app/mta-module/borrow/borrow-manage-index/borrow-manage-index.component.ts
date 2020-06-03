@@ -12,21 +12,22 @@ import { CategoryService } from 'src/app/core/services/category.service';
   selector: 'app-borrow-manage-index',
   templateUrl: './borrow-manage-index.component.html'
 })
-export class BorrowManageIndexComponent  extends BaseComponent implements OnInit {
-  formConfig ={
+export class BorrowManageIndexComponent extends BaseComponent implements OnInit {
+  formConfig = {
     memberCode: ['', [Validators.maxLength(50)]],
     memberName: ['', [Validators.maxLength(200)]],
     // fromDate :[''],
     // toDate :[''],
-    categoryId :[''],
-    bookName :[''],
-    status :[''],
+    categoryId: [''],
+    bookName: [''],
+    status: [''],
   };
-  lstCategory : [];
+  lstCategory: [];
   lstStatus = [
-    {id:1,name:'Chưa trả'}
-    ,{id:2,name:'Gia hạn'}
-    ,{id:3,name:'Đã trả'}
+    { id: 1, name: 'Chưa trả' }
+    , { id: 2, name: 'Gia hạn' }
+    , { id: 3, name: 'Đã trả' }
+    , { id: 4, name: 'Quá hạn' }
   ]
   constructor(
     public actr: ActivatedRoute,
@@ -42,19 +43,19 @@ export class BorrowManageIndexComponent  extends BaseComponent implements OnInit
     this.categoryService.findAll().subscribe(res => {
       this.lstCategory = res;
     });
-   }
+  }
 
   ngOnInit() {
     this.processSearch(null);
   }
 
-  
-  get f () { 
+
+  get f() {
     return this.formSearch.controls;
   }
-  prepareBorrow(item){
-    console.log('item',item)
-    this.router.navigate(['/borrow'], {state: {data: item.memberId}});
+  prepareBorrow(item) {
+    console.log('item', item)
+    this.router.navigate(['/borrow'], { state: { data: item.memberId } });
   }
 
 }
