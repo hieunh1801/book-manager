@@ -86,7 +86,7 @@ public class BorrowController {
                 } else {
                     bo = new BorrowBO();
 
-                    if(bookBO.getAmount() < bookBO.getAmountBorrow()+1L) {
+                    if(CommonUtil.NVL(bookBO.getAmount()) < CommonUtil.NVL(bookBO.getAmountBorrow())+1L) {
                         transaction.rollback();
                         return Response.warning(String.format("Số lượng sách %s không đủ", bookBO.getName()));
                     }

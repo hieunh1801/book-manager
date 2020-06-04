@@ -76,7 +76,7 @@ export class BorrowMemberIndexComponent extends BaseComponent implements OnInit 
       this.memberService.findOne(memberId).subscribe(res => {
         this.member = res.data;
         if (res.data.avatarUrl) {
-          res.data.avatarUrl = res.data.avatarUrl;
+          res.data.avatarUrl = this.fileServer + res.data.avatarUrl;
         } else {
           res.data.avatarUrl = 'https://nld.mediacdn.vn/zoom/700_438/2015/anonymous-1447907195159.jpg'
         }

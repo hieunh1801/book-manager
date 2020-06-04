@@ -55,7 +55,7 @@ export class BorrowManageIndexComponent extends BaseComponent implements OnInit 
   }
   prepareBorrow(item) {
     console.log('item', item)
-    this.router.navigate(['/borrow'], { state: { data: item.memberId } });
+    this.router.navigate(['/borrow/member'], { state: { data: item.memberId } });
   }
 
 }
